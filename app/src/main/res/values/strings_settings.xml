@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--各設定のマッピング用-->
+    <string name="key_message_template" translatable="false">key_message_template</string>
+    <string name="key_slack_token" translatable="false">key_slack_token</string>
+    <string name="key_slack_channel_id" translatable="false">key_slack_channel_id</string>
+
+    <!--設定画面のメッセージテンプレートを変更する項目の文言-->
+    <string name="title_message_template">Edit Message Templates</string>
+
+    <!--設定画面のSlackトークンを変更する項目の文言-->
+    <string name="title_slack_token">Slack Token</string>
+
+    <!--Slackトークンを生成できるサイトのURL-->
+    <string name="slack_token_generator_url" translatable="false">https://api.slack.com/custom-integrations/legacy-tokens</string>
+
+    <!--設定画面のSlackトークンを設定するボタンの文言-->
+    <string name="settings_slack_token_confirm">Set</string>
+
+    <!--設定画面のSlackチャンネルIDを変更する項目の文言-->
+    <string name="title_slack_channel_id">Slack Channel ID</string>
+
+    <!--Slack Channel ID が設定されていない場合、設定画面に出る文言-->
+    <string name="settings_slack_channel_id_not_set">Not set</string>
+
+    <!--Slack Token が設定されていない場合、設定画面に出る文言-->
+    <string name="settings_slack_token_not_set">Not set</string>
+
+    <!--Slack Token が設定されている場合、設定画面に出る文言-->
+    <string name="settings_slack_token_set">Set</string>
+    
+    <!--保存しようとしたSlackトークンが無効の場合-->
+    <string name="settings_error_invalid_slack_token">Invalid Slack token</string>
+
+    <!--保存しようとしたSlack Channel IDが存在しない場合-->
+    <string name="settings_error_invalid_slack_channel_id">Slack channel with that ID does not exist</string>
+
+    <!--保存しようとした際の一般的なエラー-->
+    <string name="settings_error_general">Something went wrong</string>
+
+    <!--テンプレート一覧を表示しようとしたけど取ってこれなかったときのエラー-->
+    <string name="settings_error_load_message_templates">Could not read message template</string>
+
+    <!--保存しようとしたときに遅刻する時間が設定されてなかったときの忠告-->
+    <string name="settings_warning_no_late_time">You have not set the time. Continue with sending??</string>
+    <!--保存しようとしたときに遅刻する時間が設定されてなかったときの忠告を無視して投稿するボタンの文言-->
+    <string name="settings_warning_no_late_time_confirm">Send</string>
+    <!--保存しようとしたときに遅刻する時間が設定されてなかったときの忠告を閉じて投稿しないボタンの文言-->
+    <string name="settings_warning_no_late_time_dismiss">Fix</string>
+    <!--メッセージテンプレート編集画面で時間を追加するボタンの文言-->
+    <string name="add_edit_message_template_latetime">time</string>
+    <!--メッセージテンプレート編集画面の保存ボタンの文言-->
+    <string name="add_edit_message_template_save">save</string>
+    <!--メッセージテンプレート編集画面のキャンセルボタンの文言-->
+    <string name="add_edit_message_template_cancel">@android:string/cancel</string>
+    <!--テンプレートを保存しようとしたけど保存できなかったときのエラー-->
+    <string name="add_edit_message_template_save_error">保存できませんでした</string>
+</resources>

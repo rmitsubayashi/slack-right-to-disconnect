@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Slackにポストしようとして、インプットに不備があった時に出てくるメッセージ-->
+    <string name="home_error_message_invalid_input">Invalid input, try again</string>
+    <!--Slackにポストする用のボタンの文言-->
+    <string name="home_post">Send</string>
+    <!--設定ボタンの隠れた文言-->
+    <string name="home_menu_settings">Settings</string>
+    <!--メッセージテンプレートのラベル-->
+    <string name="home_message_template_label">Please select a message template</string>
+    <!--時間選択のラベル-->
+    <string name="home_late_time_label">How long will you be late?</string>
+    <!--現在のメッセージのプレビュー表示のラベル-->
+    <string name="home_preview_label">Preview</string>
+    <!--遅刻時間を記入するボタンのデフォルトのメッセージ-->
+    <string name="home_late_time_default">Select Late Time</string>
+    <!--遅刻時間を記入するポップアップのタイトル-->
+    <string name="home_late_time_title">How long will you be late?</string>
+    <!--遅刻時間を記入するポップアップの「何時間」の横に出る単位-->
+    <string name="home_late_time_hour">hrs</string>
+    <!--遅刻時間を記入するポップアップの「何分」の横に出る単位-->
+    <string name="home_late_time_minutes">min</string>
+    <!--遅刻時間を記入するポップアップの決定ボタン-->
+    <string name="home_late_time_set">set</string>
+    <!--遅刻時間を記入するポップアップのキャンセルボタン-->
+    <string name="home_late_time_cancel">@android:string/cancel</string>
+    <!--Slackにポストできた時に出てくるメッセージ-->
+    <string name="home_success_message_posted">Success!</string>
+    <!--Slackにポストできなかったときに出てくるメッセージ-->
+    <string name="home_failure_message_posted">Failed to post: %s</string>
+    <!--Slackにポストしようとしたがメッセージテンプレートが選択されていない場合のエラーメッセージ-->
+    <string name="home_failure_no_message_template_selected">No message template selected</string>
+    <!--Slackにポストしようとしたときに出てくる確認ポップアップのタイトル-->
+    <string name="home_confirm_message_title">Are you sure you want to send this message?</string>
+    <!--ポストしようとしたときに手てくる確認ポップアップのOKボタン-->
+    <string name="home_confirm_message_confirm">Send</string>
+    <!--ポストしようとしたときに手てくる確認ポップアップのキャンセルボタン-->
+    <string name="home_confirm_message_cancel">Go back</string>
+</resources>
