@@ -19,7 +19,7 @@ class MessageTemplatePresenter(
     private var newMessageTemplate: MessageTemplate? = null
 
     override fun start() {
-        resetTemplates()
+        deselectCurrentMessageTemplate()
         loadMessageTemplates()
     }
 
@@ -45,7 +45,7 @@ class MessageTemplatePresenter(
     }
 
     override fun setCurrentMessageTemplate(messageTemplate: MessageTemplate?) {
-        resetTemplates()
+        deselectCurrentMessageTemplate()
         this.oldMessageTemplate = messageTemplate
     }
 
@@ -60,7 +60,7 @@ class MessageTemplatePresenter(
                 withContext(Dispatchers.Main) {
                     when (resultResource.error) {
                         null -> {
-                            resetTemplates()
+                            deselectCurrentMessageTemplate()
                             loadMessageTemplates()
                         }
                         ValidationError.EMPTY_LATE_TIME -> messageTemplateDialogView.showNoLateTimeWarning()
@@ -88,7 +88,7 @@ class MessageTemplatePresenter(
                     withContext(Dispatchers.Main) {
                         when (resultResource.error) {
                             null -> {
-                                resetTemplates()
+                                deselectCurrentMessageTemplate()
                                 loadMessageTemplates()
                             }
                             ValidationError.EMPTY_LATE_TIME -> messageTemplateDialogView.showNoLateTimeWarning()
@@ -118,7 +118,7 @@ class MessageTemplatePresenter(
         }
     }
 
-    private fun resetTemplates() {
+    override fun deselectCurrentMessageTemplate() {
         oldMessageTemplate = null
         newMessageTemplate = null
         settingsInteractor.dismissMessageTemplateWarning()

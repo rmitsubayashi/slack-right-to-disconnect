@@ -111,6 +111,9 @@ class MessageTemplateActivity : AppCompatActivity(), MessageTemplateContract.Vie
                 messageTemplatePresenter.save()
             }
             .setNegativeButton(R.string.add_edit_message_template_cancel) { _, _ ->
+                messageTemplatePresenter.deselectCurrentMessageTemplate()
+            }
+            .setNeutralButton(R.string.add_edit_message_template_remove) {_,_ ->
                 messageTemplatePresenter.removeCurrentMessageTemplate()
             }
             .show()

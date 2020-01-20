@@ -21,6 +21,7 @@ interface MessageTemplateContract {
         fun removeCurrentMessageTemplate()
         fun editCurrentMessageTemplate()
         fun dismissNoLateTimeWarning()
+        fun deselectCurrentMessageTemplate()
         fun save()
     }
 }

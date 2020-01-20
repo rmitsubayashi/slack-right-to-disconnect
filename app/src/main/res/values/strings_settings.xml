@@ -53,6 +53,8 @@
     <string name="add_edit_message_template_save">save</string>
     <!--メッセージテンプレート編集画面のキャンセルボタンの文言-->
     <string name="add_edit_message_template_cancel">@android:string/cancel</string>
+    <!--メッセージテンプレート編集画面の削除ボタンの文言-->
+    <string name="add_edit_message_template_remove">remove</string>
     <!--テンプレートを保存しようとしたけど保存できなかったときのエラー-->
     <string name="add_edit_message_template_save_error">保存できませんでした</string>
 </resources>
