@@ -47,8 +47,12 @@
     <string name="settings_warning_no_late_time_confirm">Send</string>
     <!--保存しようとしたときに遅刻する時間が設定されてなかったときの忠告を閉じて投稿しないボタンの文言-->
     <string name="settings_warning_no_late_time_dismiss">Fix</string>
+    <!--メッセージテンプレート編集画面のタイトル-->
+    <string name="add_edit_message_template_edit_title">Edit</string>
+    <!--メッセージテンプレート追加画面のタイトル-->
+    <string name="add_edit_message_template_add_title">Add</string>
     <!--メッセージテンプレート編集画面で時間を追加するボタンの文言-->
-    <string name="add_edit_message_template_latetime">time</string>
+    <string name="add_edit_message_template_latetime">add time placeholder</string>
     <!--メッセージテンプレート編集画面の保存ボタンの文言-->
     <string name="add_edit_message_template_save">save</string>
     <!--メッセージテンプレート編集画面のキャンセルボタンの文言-->

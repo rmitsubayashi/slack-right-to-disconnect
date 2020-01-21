@@ -102,21 +102,28 @@ class MessageTemplateActivity : AppCompatActivity(), MessageTemplateContract.Vie
                 }
             }
         )
-        old?.let {
-            view.add_edit_message_template_input.setText(it.value)
+        val isAdding = old == null
+        val isEditing = old != null
+        if (isEditing) {
+            view.add_edit_message_template_input.setText(old?.value)
         }
-        AlertDialog.Builder(this)
+
+        val title = if (isAdding) { getString(R.string.add_edit_message_template_add_title) } else { getString(R.string.add_edit_message_template_edit_title) }
+        val builder = AlertDialog.Builder(this)
             .setView(view)
+            .setTitle(title)
             .setPositiveButton(R.string.add_edit_message_template_save) { _, _ ->
                 messageTemplatePresenter.save()
             }
             .setNegativeButton(R.string.add_edit_message_template_cancel) { _, _ ->
                 messageTemplatePresenter.deselectCurrentMessageTemplate()
             }
-            .setNeutralButton(R.string.add_edit_message_template_remove) {_,_ ->
+        if (isEditing) {
+            builder.setNeutralButton(R.string.add_edit_message_template_remove) {_,_ ->
                 messageTemplatePresenter.removeCurrentMessageTemplate()
             }
-            .show()
+        }
+        builder.show()
     }
 
 }

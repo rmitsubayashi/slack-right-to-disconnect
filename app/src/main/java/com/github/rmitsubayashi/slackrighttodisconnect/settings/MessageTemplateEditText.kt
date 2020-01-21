@@ -8,13 +8,13 @@ import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatEditText
 import com.github.rmitsubayashi.domain.model.MessageTemplate
+import com.google.android.material.textfield.TextInputEditText
 import kotlin.math.max
 
 class MessageTemplateEditText
     @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
-    : AppCompatEditText(context, attrs, defStyleAttr) {
+    : TextInputEditText(context, attrs, defStyleAttr) {
 
     init {
         addTextChangedListener(RemoveLateTimeTextWatcher())
