@@ -8,6 +8,7 @@ import com.github.rmitsubayashi.data.repository.SecureSharedPrefKeys
 import com.github.rmitsubayashi.data.repository.SharedPrefsKeys
 import com.github.rmitsubayashi.data.repository.SlackDataRepository
 import com.github.rmitsubayashi.data.service.SlackService
+import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.repository.MessageRepository
 import com.github.rmitsubayashi.domain.repository.SlackRepository
 import org.koin.android.ext.koin.androidApplication
@@ -22,7 +23,11 @@ val repositoryModule = module {
         MessageDataRepository(get(named("normalPrefs")))
     }
     single<SlackRepository> {
-        SlackDataRepository(get(named("securePrefs")), get(named("normalPrefs")), get())
+        SlackDataRepository(get(named("securePrefs")),
+            get(named("normalPrefs")),
+            get(),
+            get(named("connectionManager"))
+            )
     }
 
     single<SlackService> {
@@ -49,5 +54,9 @@ val repositoryModule = module {
 
     factory(named("normalPrefs")) {
         androidApplication().getSharedPreferences(SharedPrefsKeys.FILE_NAME, Context.MODE_PRIVATE)
+    }
+
+    factory(named("connectionManager")) {
+        ConnectionManager(androidContext())
     }
 }
