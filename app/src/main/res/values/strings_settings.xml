@@ -11,8 +11,8 @@
     <!--設定画面のSlackトークンを変更する項目の文言-->
     <string name="title_slack_token">Slack Token</string>
 
-    <!--Slackトークンを生成できるサイトのURL-->
-    <string name="slack_token_generator_url" translatable="false">https://api.slack.com/custom-integrations/legacy-tokens</string>
+    <!--Slackトークンを生成できるサイトの案内-->
+    <string name="slack_token_generator_url">You can check out your Slack token <a href="https://api.slack.com/custom-integrations/legacy-tokens">here</a></string>
 
     <!--設定画面のSlackトークンを設定するボタンの文言-->
     <string name="settings_slack_token_confirm">Set</string>

@@ -2,6 +2,7 @@ package com.github.rmitsubayashi.slackrighttodisconnect.settings
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
@@ -60,8 +61,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
     private fun showSlackTokenEditor() {
         context?.let {
             val view = LayoutInflater.from(it).inflate(R.layout.dialog_set_slack_token, null)
+            view.set_slack_token_link.movementMethod = LinkMovementMethod.getInstance()
             AlertDialog.Builder(it)
                 .setView(view)
+                .setTitle(R.string.title_slack_token)
                 .setPositiveButton(R.string.settings_slack_token_confirm) { _, _ ->
                     val token = view.set_slack_token_edit_text.text.toString()
                     settingsPresenter.saveSlackToken(SlackToken(token))
