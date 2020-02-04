@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
-        app:key="@string/key_message_template"
-        app:title="@string/title_message_template"
-        />
-    <Preference
         app:key="@string/key_slack_token"
         app:title="@string/title_slack_token"
         app:summary="@string/settings_slack_token_not_set"

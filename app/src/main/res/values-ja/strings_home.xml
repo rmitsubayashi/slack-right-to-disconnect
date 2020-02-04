@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--遅刻時間を記入するポップアップの「何時間」の横に出る単位-->
-    <string name="home_late_time_hour">時間</string>
-    <!--遅刻時間を記入するポップアップの「何分」の横に出る単位-->
-    <string name="home_late_time_minutes">分</string>
-</resources>

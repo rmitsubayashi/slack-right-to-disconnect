@@ -6,7 +6,6 @@ import com.github.rmitsubayashi.presentation.BaseView
 
 interface SettingsContract {
     interface View: BaseView {
-        fun showMessageTemplateSelector()
         fun showInvalidSlackToken()
         fun showInvalidSlackChannel()
         fun updateSlackChannelSettingSummary(channelInfo: SlackChannelInfo?)

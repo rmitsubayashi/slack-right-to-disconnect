@@ -2,8 +2,7 @@ package com.github.rmitsubayashi.presentation.home
 
 import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.interactor.HomeInteractor
-import com.github.rmitsubayashi.domain.model.LateTime
-import com.github.rmitsubayashi.domain.model.MessageTemplate
+import com.github.rmitsubayashi.domain.model.Message
 import kotlinx.coroutines.*
 
 class HomePresenter(
@@ -14,47 +13,19 @@ class HomePresenter(
     override val coroutineContext = job + Dispatchers.IO
 
     override fun start() {
-        getMessageTemplates()
     }
 
     override fun stop() {
         job.cancel()
     }
 
-    override fun getMessageTemplates() {
-        launch {
-            val reasonsResource = homeInteractor.loadMessageTemplates()
-            withContext(Dispatchers.Main) {
-                when (reasonsResource.error) {
-                    null -> {
-                        reasonsResource.data?.let { homeView.setMessageTemplates(it) } ?: homeView.showEmptyMessageTemplatesError()
-
-                    } else -> {
-                        homeView.showEmptyMessageTemplatesError()
-                    }
-                }
-            }
-        }
-    }
-
-    override fun updateMessageTemplate(messageTemplate: MessageTemplate) {
-        val resultResource = homeInteractor.updateMessageTemplate(messageTemplate)
-        if (resultResource.error == null) {
-            homeView.setPreview(homeInteractor.getPreview())
-        } else {
+    override fun updateMessage(message: String) {
+        val resultResource = homeInteractor.updateMessage(Message(message))
+        if (resultResource.error != null) {
             homeView.showInputError()
         }
     }
 
-    override fun updateLateTime(lateTime: LateTime) {
-        val resultResource = homeInteractor.updateLateTime(lateTime)
-        if (resultResource.error == null) {
-            homeView.setLateTimeButtonText(lateTime.toString())
-            homeView.setPreview(homeInteractor.getPreview())
-        } else {
-            homeView.showInputError()
-        }
-    }
 
     override fun postToSlack() {
         homeView.showPostSending()

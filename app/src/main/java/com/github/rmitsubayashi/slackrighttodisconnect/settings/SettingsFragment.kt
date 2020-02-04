@@ -1,6 +1,5 @@
 package com.github.rmitsubayashi.slackrighttodisconnect.settings
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -37,12 +36,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
             settingsPresenter.saveSlackChannel(SlackChannelID(str))
             false
         }
-        val messageTemplatesPref: Preference? =
-            findPreference(getString(R.string.key_message_template))
-        messageTemplatesPref?.setOnPreferenceClickListener {
-            showMessageTemplateSelector()
-            false
-        }
     }
 
     override fun onStart() {
@@ -53,10 +46,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
     override fun onStop() {
         super.onStop()
         settingsPresenter.stop()
-    }
-
-    override fun showMessageTemplateSelector() {
-        startActivity(Intent(activity, MessageTemplateActivity::class.java))
     }
 
     private fun showSlackTokenEditor() {

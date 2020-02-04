@@ -3,13 +3,11 @@ package com.github.rmitsubayashi.data.serviceLocator
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.github.rmitsubayashi.data.repository.MessageDataRepository
 import com.github.rmitsubayashi.data.repository.SecureSharedPrefKeys
 import com.github.rmitsubayashi.data.repository.SharedPrefsKeys
 import com.github.rmitsubayashi.data.repository.SlackDataRepository
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
-import com.github.rmitsubayashi.domain.repository.MessageRepository
 import com.github.rmitsubayashi.domain.repository.SlackRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -19,9 +17,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val repositoryModule = module {
-    single<MessageRepository> {
-        MessageDataRepository(get(named("normalPrefs")))
-    }
     single<SlackRepository> {
         SlackDataRepository(get(named("securePrefs")),
             get(named("normalPrefs")),

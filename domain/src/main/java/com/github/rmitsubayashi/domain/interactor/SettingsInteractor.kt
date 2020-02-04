@@ -6,14 +6,11 @@ import com.github.rmitsubayashi.domain.error.GeneralError
 import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.model.*
-import com.github.rmitsubayashi.domain.repository.MessageRepository
 import com.github.rmitsubayashi.domain.repository.SlackRepository
 
 class SettingsInteractor(
-    private val slackRepository: SlackRepository,
-    private val messageRepository: MessageRepository
+    private val slackRepository: SlackRepository
 ) {
-    private var messageTemplates: List<MessageTemplate>? = null
     private var slackChannels: List<SlackChannelInfo>? = null
     suspend fun findSlackChannelByID(id: SlackChannelID): SlackChannelInfo? {
         if (slackChannels == null) {
@@ -84,71 +81,6 @@ class SettingsInteractor(
                 ValidationError.INVALID_SLACK_TOKEN
             )
         }
-    }
-
-    suspend fun loadMessageTemplates(): Resource<List<MessageTemplate>> {
-        return this.messageTemplates?.let {
-            Resource.success(it)
-        } ?: run {
-            val messageTemplatesResource = messageRepository.getMessageTemplates()
-            this.messageTemplates = messageTemplatesResource.data
-            return messageTemplatesResource
-        }
-    }
-
-    private val messageTemplateWarningsBypassed: MutableList<ValidationError> = mutableListOf()
-    suspend fun removeMessageTemplate(messageTemplate: MessageTemplate): Resource<Unit> {
-        return this.messageTemplates?.let {
-            val messageTemplatesCopy = it.toMutableList()
-            messageTemplatesCopy.remove(messageTemplate)
-            val result = messageRepository.updateMessageTemplates(messageTemplatesCopy)
-            this.messageTemplates = messageTemplatesCopy
-            result
-        }
-            ?: Resource.error(NetworkError.NETWORK_ERROR) //assumes you have to have loaded message templates to interact w/ this
-    }
-
-    suspend fun editMessageTemplate(old: MessageTemplate, new: MessageTemplate): Resource<Unit> {
-        if (!new.value.contains(MessageTemplate.LATE_TIME_PLACEHOLDER) &&
-            !messageTemplateWarningsBypassed.contains(ValidationError.EMPTY_LATE_TIME)
-        ) {
-            messageTemplateWarningsBypassed.add(ValidationError.EMPTY_LATE_TIME)
-            return Resource.error(ValidationError.EMPTY_LATE_TIME)
-        }
-        messageTemplateWarningsBypassed.clear()
-
-        return this.messageTemplates?.let {
-            val index = it.indexOf(old)
-            val messageTemplatesCopy = it.toMutableList()
-            messageTemplatesCopy[index] = new
-            val result = messageRepository.updateMessageTemplates(messageTemplatesCopy)
-            this.messageTemplates = messageTemplatesCopy
-            result
-        }
-            ?: Resource.error(NetworkError.NETWORK_ERROR) //assumes you have to have loaded message templates to interact w/ this
-    }
-
-    suspend fun addMessageTemplate(messageTemplate: MessageTemplate): Resource<Unit> {
-        if (!messageTemplate.value.contains(MessageTemplate.LATE_TIME_PLACEHOLDER) &&
-            !messageTemplateWarningsBypassed.contains(ValidationError.EMPTY_LATE_TIME)
-        ) {
-            messageTemplateWarningsBypassed.add(ValidationError.EMPTY_LATE_TIME)
-            return Resource.error(ValidationError.EMPTY_LATE_TIME)
-        }
-        messageTemplateWarningsBypassed.clear()
-
-        return this.messageTemplates?.let {
-            val messageTemplatesCopy = it.toMutableList()
-            messageTemplatesCopy.add(messageTemplate)
-            val result = messageRepository.updateMessageTemplates(messageTemplatesCopy)
-            this.messageTemplates = messageTemplatesCopy
-            result
-        }
-            ?: Resource.error(NetworkError.NETWORK_ERROR) //assumes you have to have loaded message templates to interact w/ this
-    }
-
-    fun dismissMessageTemplateWarning() {
-        messageTemplateWarningsBypassed.clear()
     }
 
     suspend fun getCurrentSlackChannel(): Resource<SlackChannelInfo> {
