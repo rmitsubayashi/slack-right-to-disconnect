@@ -9,10 +9,7 @@ import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.ValidationError
-import com.github.rmitsubayashi.domain.model.Message
-import com.github.rmitsubayashi.domain.model.SlackChannel
-import com.github.rmitsubayashi.domain.model.SlackChannelID
-import com.github.rmitsubayashi.domain.model.SlackToken
+import com.github.rmitsubayashi.domain.model.*
 import com.github.rmitsubayashi.domain.repository.SlackRepository
 
 internal class SlackDataRepository(
@@ -38,19 +35,28 @@ internal class SlackDataRepository(
         return Resource.success(null)
     }
 
-    override suspend fun getSlackToken(): Resource<SlackToken> {
+    override suspend fun getSlackToken(): Resource<SlackTokenInfo> {
         val token = secureSharedPreferences.getString(SecureSharedPrefKeys.SLACK_TOKEN, "")
             ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        return Resource.success(SlackToken(token))
+        val user = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_USER, "")
+            ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val team = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_TEAM, "")
+            ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        return Resource.success(SlackTokenInfo(SlackToken(token), user=user, team=team))
     }
 
-    override suspend fun setSlackToken(slackToken: SlackToken): Resource<Unit> {
+    override suspend fun setSlackToken(slackTokenInfo: SlackTokenInfo): Resource<Unit> {
         secureSharedPreferences.edit {
             putString(
                 SecureSharedPrefKeys.SLACK_TOKEN,
-                slackToken.value
+                slackTokenInfo.token.value
             )
         }
+        sharedPreferences.edit {
+            putString(SharedPrefsKeys.SLACK_TOKEN_USER, slackTokenInfo.user)
+            putString(SharedPrefsKeys.SLACK_TOKEN_TEAM, slackTokenInfo.team)
+        }
+
         return Resource.success(null)
     }
 
@@ -70,13 +76,14 @@ internal class SlackDataRepository(
         return Resource.success(null)
     }
 
-    override suspend fun validateSlackToken(slackToken: SlackToken): Resource<Unit> {
+    override suspend fun validateSlackToken(slackToken: SlackToken): Resource<SlackTokenInfo> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
         val response = slackService.validateToken(slackToken)
         return if (response.valid) {
-            Resource.success(null)
+            val info = SlackTokenInfo(slackToken, user=response.user, team=response.team)
+            Resource.success(info)
         } else {
             Resource.error(ValidationError.INVALID_SLACK_TOKEN)
         }
@@ -93,7 +100,7 @@ internal class SlackDataRepository(
         return Resource.success(response.exists)
     }
 
-    override suspend fun getSlackChannels(token: SlackToken): Resource<List<SlackChannel>> {
+    override suspend fun getSlackChannels(token: SlackToken): Resource<List<SlackChannelInfo>> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
@@ -102,7 +109,7 @@ internal class SlackDataRepository(
             return Resource.error(NetworkError.NETWORK_ERROR)
         }
         return Resource.success(
-            response.channels.map { SlackChannel(SlackChannelID(it.channelID), it.name) }
+            response.channels.map { SlackChannelInfo(SlackChannelID(it.channelID), it.name) }
         )
     }
 

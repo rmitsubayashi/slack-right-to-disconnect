@@ -40,9 +40,9 @@ class SettingsPresenter(
 
     override fun checkCurrentSlackToken() {
         launch {
-            val resultResource = settingsInteractor.isSlackTokenSet()
+            val resultResource = settingsInteractor.getCurrentSlackTokenInfo()
             withContext(Dispatchers.Main) {
-                settingsView.updateSlackTokenSettingSummary(resultResource.data ?: false)
+                settingsView.updateSlackTokenSettingSummary(resultResource.data)
             }
         }
     }
@@ -78,7 +78,7 @@ class SettingsPresenter(
             withContext(Dispatchers.Main) {
                 when (resultResource.error) {
                     null -> {
-                        settingsView.updateSlackTokenSettingSummary(true)
+                        settingsView.updateSlackTokenSettingSummary(resultResource.data)
                         settingsView.updateSlackChannelSettingSummary(null)
                         loadSlackChannels()
                     }

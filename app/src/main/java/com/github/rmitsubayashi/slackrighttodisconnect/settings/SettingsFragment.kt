@@ -8,9 +8,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.github.rmitsubayashi.domain.model.SlackChannel
+import com.github.rmitsubayashi.domain.model.SlackChannelInfo
 import com.github.rmitsubayashi.domain.model.SlackChannelID
 import com.github.rmitsubayashi.domain.model.SlackToken
+import com.github.rmitsubayashi.domain.model.SlackTokenInfo
 import com.github.rmitsubayashi.presentation.settings.SettingsContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
@@ -81,30 +82,30 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
         context?.showToast(R.string.settings_error_invalid_slack_channel_id)
     }
 
-    override fun updateSlackChannelSettingSummary(channel: SlackChannel?) {
+    override fun updateSlackChannelSettingSummary(channelInfo: SlackChannelInfo?) {
         findPreference<ListPreference>(getString(R.string.key_slack_channel_id))?.apply {
             summary =
-                if (channel == null || channel.name.isEmpty()) {
+                if (channelInfo == null || channelInfo.name.isEmpty()) {
                     getString(R.string.settings_slack_channel_id_not_set)
                 } else {
-                    channel.name
+                    channelInfo.name
                 }
 
-            value = channel?.id?.value
+            value = channelInfo?.id?.value
         }
 
     }
 
-    override fun updateSlackTokenSettingSummary(isSet: Boolean) {
+    override fun updateSlackTokenSettingSummary(slackTokenInfo: SlackTokenInfo?) {
         findPreference<Preference>(getString(R.string.key_slack_token))?.summary =
-            if (isSet) {
-                getString(R.string.settings_slack_token_set)
-            } else {
+            if (slackTokenInfo == null) {
                 getString(R.string.settings_slack_token_not_set)
+            } else {
+                slackTokenInfo.user + " " + slackTokenInfo.team
             }
     }
 
-    override fun updateSlackChannelList(channelNames: List<SlackChannel>?) {
+    override fun updateSlackChannelList(channelNames: List<SlackChannelInfo>?) {
         if (channelNames == null || channelNames.isEmpty()) {
             findPreference<ListPreference>(getString(R.string.key_slack_channel_id))?.isEnabled = false
         } else {

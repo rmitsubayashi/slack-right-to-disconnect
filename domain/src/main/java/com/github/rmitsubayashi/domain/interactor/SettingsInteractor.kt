@@ -14,8 +14,8 @@ class SettingsInteractor(
     private val messageRepository: MessageRepository
 ) {
     private var messageTemplates: List<MessageTemplate>? = null
-    private var slackChannels: List<SlackChannel>? = null
-    suspend fun findSlackChannelByID(id: SlackChannelID): SlackChannel? {
+    private var slackChannels: List<SlackChannelInfo>? = null
+    suspend fun findSlackChannelByID(id: SlackChannelID): SlackChannelInfo? {
         if (slackChannels == null) {
             getChannels()
         }
@@ -36,7 +36,7 @@ class SettingsInteractor(
         val slackTokenResource = slackRepository.getSlackToken()
         val slackToken =
             slackTokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        val validationResource = slackRepository.slackChannelExists(slackToken, channelID)
+        val validationResource = slackRepository.slackChannelExists(slackToken.token, channelID)
         validationResource.error?.let { return Resource.error(it) }
         return when (validationResource.data) {
             null -> Resource.error(GeneralError.UNEXPECTED)
@@ -65,16 +65,21 @@ class SettingsInteractor(
         }
     }
 
-    suspend fun saveSlackToken(token: SlackToken): Resource<Unit> {
+    suspend fun saveSlackToken(token: SlackToken): Resource<SlackTokenInfo> {
         val currentToken = slackRepository.getSlackToken()
-        if (currentToken.data?.value == token.value) {
+        if (currentToken.data?.token?.value == token.value) {
             return Resource.error(DatabaseError.ALREADY_EXISTS)
         }
 
         val validationResource = slackRepository.validateSlackToken(token)
         validationResource.error?.let { return Resource.error(it) }
         return when (validationResource.error) {
-            null -> slackRepository.setSlackToken(token)
+            null -> {
+                validationResource.data?.let {
+                    slackRepository.setSlackToken(it)
+                    validationResource
+                } ?: Resource.error(GeneralError.UNEXPECTED)
+            }
             else -> Resource.error(
                 ValidationError.INVALID_SLACK_TOKEN
             )
@@ -146,7 +151,7 @@ class SettingsInteractor(
         messageTemplateWarningsBypassed.clear()
     }
 
-    suspend fun getCurrentSlackChannel(): Resource<SlackChannel> {
+    suspend fun getCurrentSlackChannel(): Resource<SlackChannelInfo> {
         val idResource = slackRepository.getSlackChannelID()
         val nameResource = slackRepository.getSlackChannelName()
         if (idResource.data == null) {
@@ -155,28 +160,28 @@ class SettingsInteractor(
         if (nameResource.data == null) {
             return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
         }
-        return Resource.success(SlackChannel(idResource.data, nameResource.data))
+        return Resource.success(SlackChannelInfo(idResource.data, nameResource.data))
     }
 
-    suspend fun isSlackTokenSet(): Resource<Boolean> {
+    suspend fun getCurrentSlackTokenInfo(): Resource<SlackTokenInfo> {
         val tokenResource = slackRepository.getSlackToken()
         return when (tokenResource.error) {
             null ->
-                if (tokenResource.data == null || tokenResource.data.value.isEmpty()) {
-                    Resource.success(false)
+                if (tokenResource.data == null || tokenResource.data.token.value.isEmpty()) {
+                    Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
                 } else {
-                    Resource.success(true)
+                    Resource.success(tokenResource.data)
                 }
             else -> Resource.error(tokenResource.error)
         }
     }
 
-    suspend fun getChannels(): Resource<List<SlackChannel>> {
+    suspend fun getChannels(): Resource<List<SlackChannelInfo>> {
         val tokenResource = slackRepository.getSlackToken()
-        if (tokenResource.data == null || tokenResource.data.value.isEmpty()) {
+        if (tokenResource.data == null || tokenResource.data.token.value.isEmpty()) {
             return Resource.error(ValidationError.INVALID_SLACK_TOKEN)
         }
-        val channelsResource = slackRepository.getSlackChannels(tokenResource.data)
+        val channelsResource = slackRepository.getSlackChannels(tokenResource.data.token)
         this.slackChannels = channelsResource.data
         return channelsResource
     }

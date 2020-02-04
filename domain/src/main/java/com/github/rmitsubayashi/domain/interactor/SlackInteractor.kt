@@ -18,6 +18,6 @@ class SlackInteractor (private val slackRepository: SlackRepository) {
         }
         val slackToken = slackTokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
 
-        return slackRepository.post(message, channelID, slackToken)
+        return slackRepository.post(message, channelID, slackToken.token)
     }
 }

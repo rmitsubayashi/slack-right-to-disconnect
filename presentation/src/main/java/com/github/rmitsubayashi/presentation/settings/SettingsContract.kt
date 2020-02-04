@@ -9,9 +9,9 @@ interface SettingsContract {
         fun showMessageTemplateSelector()
         fun showInvalidSlackToken()
         fun showInvalidSlackChannel()
-        fun updateSlackChannelSettingSummary(channel: SlackChannel?)
-        fun updateSlackChannelList(channelNames: List<SlackChannel>?)
-        fun updateSlackTokenSettingSummary(isSet: Boolean)
+        fun updateSlackChannelSettingSummary(channelInfo: SlackChannelInfo?)
+        fun updateSlackChannelList(channelNames: List<SlackChannelInfo>?)
+        fun updateSlackTokenSettingSummary(slackTokenInfo: SlackTokenInfo?)
     }
 
     interface Presenter: BasePresenter {
