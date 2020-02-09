@@ -25,7 +25,10 @@ class SelectPostRecipientPresenter(
 
     override fun loadPostRecipients(type: RecipientType) {
         launch {
-            val resource = homeInteractor.getUsers()
+            val resource = when (type) {
+                RecipientType.USER -> homeInteractor.getUsers()
+                RecipientType.CHANNEL -> homeInteractor.getChannels()
+            }
             withContext(Dispatchers.Main) {
                 resource.data?.let {
                     view.setPostRecipients(it)

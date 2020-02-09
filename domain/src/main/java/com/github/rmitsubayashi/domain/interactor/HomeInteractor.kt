@@ -3,6 +3,7 @@ package com.github.rmitsubayashi.domain.interactor
 import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.model.Message
+import com.github.rmitsubayashi.domain.model.SlackChannelInfo
 import com.github.rmitsubayashi.domain.model.UserInfo
 import com.github.rmitsubayashi.domain.repository.SlackRepository
 
@@ -27,6 +28,14 @@ class HomeInteractor(
             return Resource.error(ValidationError.INVALID_SLACK_TOKEN)
         }
         return slackRepository.getUsers(tokenResource.data.token)
+    }
+
+    suspend fun getChannels(): Resource<List<SlackChannelInfo>> {
+        val tokenResource = slackRepository.getSlackToken()
+        if (tokenResource.data == null || tokenResource.data.token.value.isEmpty()) {
+            return Resource.error(ValidationError.INVALID_SLACK_TOKEN)
+        }
+        return slackRepository.getSlackChannels(tokenResource.data.token)
     }
 
     fun setRecipientID(id: String) {
