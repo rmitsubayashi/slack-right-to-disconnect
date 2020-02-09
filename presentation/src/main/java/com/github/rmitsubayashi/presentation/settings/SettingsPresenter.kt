@@ -47,7 +47,7 @@ class SettingsPresenter(
         }
     }
 
-    override fun saveSlackChannel(slackChannelID: SlackChannelID) {
+    override fun saveSlackChannel(slackChannelID: String) {
         launch {
             val resultResource = settingsInteractor.saveSlackChannel(slackChannelID)
             when (resultResource.error) {

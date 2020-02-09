@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/selectPostRecipientTypeFragment">
+
+    <fragment
+        android:id="@+id/selectPostRecipientTypeFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.SelectPostRecipientTypeFragment"
+        android:label="SelectPostRecipientTypeFragment" >
+        <action
+            android:id="@+id/action_selectPostRecipientTypeFragment_to_selectPostRecipientFragment"
+            app:destination="@id/selectPostRecipientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectPostRecipientFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.SelectPostRecipientFragment"
+        android:label="SelectPostRecipientFragment" >
+        <action
+            android:id="@+id/action_selectPostRecipientFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <argument
+            android:name="PostRecipientType"
+            app:argType="com.github.rmitsubayashi.presentation.post.model.RecipientType" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.PostFragment"
+        android:label="PostFragment" >
+        <action
+            android:id="@+id/action_postFragment_to_postSuccessFragment"
+            app:destination="@id/postSuccessFragment" />
+        <argument
+            android:name="RecipientID"
+            app:argType="string" />
+        <argument
+            android:name="RecipientName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/postSuccessFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.PostSuccessFragment"
+        android:label="PostSuccessFragment" >
+        <action
+            android:id="@+id/action_postSuccessFragment_to_selectPostRecipientTypeFragment"
+            app:destination="@id/selectPostRecipientTypeFragment" />
+    </fragment>
+</navigation>

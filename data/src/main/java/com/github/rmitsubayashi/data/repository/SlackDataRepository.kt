@@ -19,14 +19,14 @@ internal class SlackDataRepository(
     private val slackService: SlackService,
     private val connectionManager: ConnectionManager
 ) : SlackRepository {
-    override suspend fun getSlackChannelID(): Resource<SlackChannelID> {
+    override suspend fun getSlackChannelID(): Resource<String> {
         val channelID = sharedPreferences.getString(SharedPrefsKeys.SLACK_CHANNEL_ID, "")
             ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        return Resource.success(SlackChannelID(channelID))
+        return Resource.success(channelID)
     }
 
-    override suspend fun setSlackChannelID(channelID: SlackChannelID): Resource<Unit> {
-        sharedPreferences.edit { putString(SharedPrefsKeys.SLACK_CHANNEL_ID, channelID.value) }
+    override suspend fun setSlackChannelID(channelID: String): Resource<Unit> {
+        sharedPreferences.edit { putString(SharedPrefsKeys.SLACK_CHANNEL_ID, channelID) }
         return Resource.success(null)
     }
 
@@ -92,7 +92,7 @@ internal class SlackDataRepository(
 
     override suspend fun slackChannelExists(
         slackToken: SlackToken,
-        slackChannelID: SlackChannelID
+        slackChannelID: String
     ): Resource<Boolean> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
@@ -110,13 +110,13 @@ internal class SlackDataRepository(
             return Resource.error(NetworkError.NETWORK_ERROR)
         }
         return Resource.success(
-            response.channels.map { SlackChannelInfo(SlackChannelID(it.channelID), it.name) }
+            response.channels.map { SlackChannelInfo(it.channelID, it.name) }
         )
     }
 
     override suspend fun post(
         message: Message,
-        channelID: SlackChannelID,
+        channelID: String,
         token: SlackToken
     ): Resource<Unit> {
         if (!connectionManager.isConnected()) {
@@ -142,7 +142,7 @@ internal class SlackDataRepository(
         val filteredUsers = removeBotsAndInactiveUsers(response.users)
         return Resource.success(
             filteredUsers.map {
-                UserInfo(UserID(it.userID), userName = it.username, realName = it.realName)
+                UserInfo(it.userID, name = it.username)
             }
         )
     }

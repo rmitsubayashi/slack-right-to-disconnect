@@ -1,7 +1,6 @@
 package com.github.rmitsubayashi.domain.model
 
-data class UserInfo (
-    val id: UserID,
-    val userName: String,
-    val realName: String
-)
+data class UserInfo(
+    override val id: String,
+    override val name: String
+) : Recipient

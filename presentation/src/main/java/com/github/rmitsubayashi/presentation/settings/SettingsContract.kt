@@ -15,7 +15,7 @@ interface SettingsContract {
 
     interface Presenter: BasePresenter {
         fun saveSlackToken(slackToken: SlackToken)
-        fun saveSlackChannel(slackChannelID: SlackChannelID)
+        fun saveSlackChannel(slackChannelID: String)
         fun checkCurrentSlackChannel()
         fun checkCurrentSlackToken()
         fun loadSlackChannels()

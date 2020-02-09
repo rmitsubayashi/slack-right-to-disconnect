@@ -8,7 +8,6 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.github.rmitsubayashi.domain.model.SlackChannelInfo
-import com.github.rmitsubayashi.domain.model.SlackChannelID
 import com.github.rmitsubayashi.domain.model.SlackToken
 import com.github.rmitsubayashi.domain.model.SlackTokenInfo
 import com.github.rmitsubayashi.presentation.settings.SettingsContract
@@ -33,7 +32,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
             findPreference(getString(R.string.key_slack_channel_id))
         slackChannelPref?.setOnPreferenceChangeListener { _, newValue ->
             val str: String = newValue as String
-            settingsPresenter.saveSlackChannel(SlackChannelID(str))
+            settingsPresenter.saveSlackChannel(str)
             false
         }
     }
@@ -80,7 +79,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
                     channelInfo.name
                 }
 
-            value = channelInfo?.id?.value
+            value = channelInfo?.id
         }
 
     }
@@ -100,7 +99,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
         } else {
             findPreference<ListPreference>(getString(R.string.key_slack_channel_id))?.apply {
                 entries = channelNames.map { it.name }.toTypedArray()
-                entryValues = channelNames.map { it.id.value }.toTypedArray()
+                entryValues = channelNames.map { it.id }.toTypedArray()
                 isEnabled = true
             }
         }

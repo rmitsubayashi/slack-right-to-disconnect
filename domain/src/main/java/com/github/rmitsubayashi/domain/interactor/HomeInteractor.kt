@@ -10,9 +10,10 @@ class HomeInteractor(
     private val slackInteractor: SlackInteractor,
     private val slackRepository: SlackRepository
     ) {
-    var message: Message = Message("")
+    private var message: Message = Message("")
+    private var recipientID: String = ""
     suspend fun post(): Resource<Unit> {
-        return slackInteractor.postToSlack(message)
+        return slackInteractor.postToSlack(message, recipientID)
     }
 
     fun updateMessage(message: Message): Resource<Unit> {
@@ -26,5 +27,9 @@ class HomeInteractor(
             return Resource.error(ValidationError.INVALID_SLACK_TOKEN)
         }
         return slackRepository.getUsers(tokenResource.data.token)
+    }
+
+    fun setRecipientID(id: String) {
+        this.recipientID = id
     }
 }

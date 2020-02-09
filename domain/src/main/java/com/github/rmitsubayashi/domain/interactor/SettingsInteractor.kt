@@ -12,21 +12,21 @@ class SettingsInteractor(
     private val slackRepository: SlackRepository
 ) {
     private var slackChannels: List<SlackChannelInfo>? = null
-    suspend fun findSlackChannelByID(id: SlackChannelID): SlackChannelInfo? {
+    suspend fun findSlackChannelByID(id: String): SlackChannelInfo? {
         if (slackChannels == null) {
             getChannels()
         }
-        slackChannels?.map { if (it.id.value == id.value) {return it} }
+        slackChannels?.map { if (it.id == id) {return it} }
         return null
     }
 
-    suspend fun saveSlackChannel(channelID: SlackChannelID?): Resource<Unit> {
+    suspend fun saveSlackChannel(channelID: String?): Resource<Unit> {
         if (channelID == null) {
             return slackRepository.clearSlackChannel()
         }
 
         val currentSlackChannelID = slackRepository.getSlackChannelID()
-        if (currentSlackChannelID.data?.value == channelID.value) {
+        if (currentSlackChannelID.data == channelID) {
             return Resource.error(DatabaseError.ALREADY_EXISTS)
         }
 
