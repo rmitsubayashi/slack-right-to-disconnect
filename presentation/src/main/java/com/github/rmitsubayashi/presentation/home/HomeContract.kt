@@ -1,6 +1,7 @@
 package com.github.rmitsubayashi.presentation.home
 
 import com.github.rmitsubayashi.domain.model.Message
+import com.github.rmitsubayashi.domain.model.UserInfo
 import com.github.rmitsubayashi.presentation.BasePresenter
 import com.github.rmitsubayashi.presentation.BaseView
 
@@ -12,6 +13,7 @@ interface HomeContract {
         fun showPostSending()
         fun showPostError(errorMessage: String)
         fun navigateToSettings()
+        fun setUsers(users: List<UserInfo>)
     }
 
     interface Presenter: BasePresenter {

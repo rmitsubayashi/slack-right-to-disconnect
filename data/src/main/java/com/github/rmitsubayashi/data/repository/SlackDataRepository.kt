@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.github.rmitsubayashi.data.model.SlackAuthToken
 import com.github.rmitsubayashi.data.model.request.PostRequest
+import com.github.rmitsubayashi.data.model.response.UsersResponseUser
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource
@@ -42,7 +43,7 @@ internal class SlackDataRepository(
             ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
         val team = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_TEAM, "")
             ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        return Resource.success(SlackTokenInfo(SlackToken(token), user=user, team=team))
+        return Resource.success(SlackTokenInfo(SlackToken(token), user = user, team = team))
     }
 
     override suspend fun setSlackToken(slackTokenInfo: SlackTokenInfo): Resource<Unit> {
@@ -82,7 +83,7 @@ internal class SlackDataRepository(
         }
         val response = slackService.validateToken(slackToken)
         return if (response.valid) {
-            val info = SlackTokenInfo(slackToken, user=response.user, team=response.team)
+            val info = SlackTokenInfo(slackToken, user = response.user, team = response.team)
             Resource.success(info)
         } else {
             Resource.error(ValidationError.INVALID_SLACK_TOKEN)
@@ -127,6 +128,31 @@ internal class SlackDataRepository(
             Resource.success(null)
         } else {
             Resource.error(NetworkError.NETWORK_ERROR)
+        }
+    }
+
+    override suspend fun getUsers(token: SlackToken): Resource<List<UserInfo>> {
+        if (!connectionManager.isConnected()) {
+            return Resource.error(NetworkError.NOT_CONNECTED)
+        }
+        val response = slackService.getUsers(token)
+        if (!response.success) {
+            return Resource.error(NetworkError.NETWORK_ERROR)
+        }
+        val filteredUsers = removeBotsAndInactiveUsers(response.users)
+        return Resource.success(
+            filteredUsers.map {
+                UserInfo(UserID(it.userID), userName = it.username, realName = it.realName)
+            }
+        )
+    }
+
+    private fun removeBotsAndInactiveUsers(users: List<UsersResponseUser>): List<UsersResponseUser> {
+        return users.filter {
+            !it.deleted &&
+            !it.isBot &&
+            //何故かSlackbotはbotじゃない。。
+            it.userID != "USLACKBOT"
         }
     }
 }

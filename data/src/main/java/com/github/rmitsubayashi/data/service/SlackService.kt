@@ -37,4 +37,10 @@ interface SlackService {
         @Field("exclude_archived") excludeArchived: Boolean = true,
         @Field("exclude_members") excludeMembers: Boolean = true
     ): ChannelResponse
+
+    @POST("users.list")
+    @FormUrlEncoded
+    suspend fun getUsers(
+        @Field("token") token: SlackToken
+    ): UsersResponse
 }

@@ -15,4 +15,5 @@ interface SlackRepository {
     suspend fun slackChannelExists(slackToken: SlackToken, slackChannelID: SlackChannelID): Resource<Boolean>
     suspend fun post(message: Message, channelID: SlackChannelID, token: SlackToken): Resource<Unit>
     suspend fun getSlackChannels(token: SlackToken): Resource<List<SlackChannelInfo>>
+    suspend fun getUsers(token: SlackToken): Resource<List<UserInfo>>
 }

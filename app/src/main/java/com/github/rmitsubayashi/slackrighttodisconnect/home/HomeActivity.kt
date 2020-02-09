@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.github.rmitsubayashi.domain.model.Message
+import com.github.rmitsubayashi.domain.model.UserInfo
 import com.github.rmitsubayashi.presentation.home.HomeContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.settings.SettingsActivity
@@ -104,5 +106,11 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     override fun showPostError(errorMessage: String) {
         home_progress_bar.visibility = View.GONE
         showToast(getString(R.string.home_failure_message_posted, errorMessage))
+    }
+
+    override fun setUsers(users: List<UserInfo>) {
+        for (u in users) {
+            Log.d("user", u.realName)
+        }
     }
 }

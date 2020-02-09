@@ -13,6 +13,7 @@ class HomePresenter(
     override val coroutineContext = job + Dispatchers.IO
 
     override fun start() {
+        loadUsers()
     }
 
     override fun stop() {
@@ -36,6 +37,17 @@ class HomePresenter(
                     null -> homeView.showPostSuccess()
                     NetworkError.RESOURCE_NOT_AVAILABLE -> homeView.showPostError("you have to set both your slack token and slack id")
                     else -> homeView.showPostError(postResource.error.toString())
+                }
+            }
+        }
+    }
+
+    private fun loadUsers() {
+        launch {
+            val resource = homeInteractor.getUsers()
+            withContext(Dispatchers.Main) {
+                resource.data?.let {
+                    homeView.setUsers(it)
                 }
             }
         }
