@@ -2,7 +2,6 @@
 <resources>
     <!--各設定のマッピング用-->
     <string name="key_slack_token" translatable="false">key_slack_token</string>
-    <string name="key_slack_channel_id" translatable="false">key_slack_channel_id</string>
 
     <!--設定画面のSlackトークンを変更する項目の文言-->
     <string name="title_slack_token">Slack Token</string>
@@ -13,24 +12,12 @@
     <!--設定画面のSlackトークンを設定するボタンの文言-->
     <string name="settings_slack_token_confirm">Set</string>
 
-    <!--設定画面のSlackチャンネルIDを変更する項目の文言-->
-    <string name="title_slack_channel_id">Slack Channel ID</string>
-
-    <!--Slack Channel ID が設定されていない場合、設定画面に出る文言-->
-    <string name="settings_slack_channel_id_not_set">Not set</string>
-
     <!--Slack Token が設定されていない場合、設定画面に出る文言-->
     <string name="settings_slack_token_not_set">Not set</string>
     
     <!--保存しようとしたSlackトークンが無効の場合-->
     <string name="settings_error_invalid_slack_token">Invalid Slack token</string>
 
-    <!--保存しようとしたSlack Channel IDが存在しない場合-->
-    <string name="settings_error_invalid_slack_channel_id">Slack channel with that ID does not exist</string>
-
     <!--保存しようとした際の一般的なエラー-->
     <string name="settings_error_general">Something went wrong</string>
-
-    <!--テンプレート一覧を表示しようとしたけど取ってこれなかったときのエラー-->
-    <string name="settings_error_load_message_templates">Could not read message template</string>
 </resources>

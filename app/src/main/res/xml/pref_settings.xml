@@ -5,10 +5,5 @@
         app:title="@string/title_slack_token"
         app:summary="@string/settings_slack_token_not_set"
         />
-    <ListPreference
-        app:key="@string/key_slack_channel_id"
-        app:title="@string/title_slack_channel_id"
-        app:summary="@string/settings_slack_channel_id_not_set"
-        />
 
 </PreferenceScreen>

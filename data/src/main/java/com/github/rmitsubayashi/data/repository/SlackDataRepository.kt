@@ -19,23 +19,6 @@ internal class SlackDataRepository(
     private val slackService: SlackService,
     private val connectionManager: ConnectionManager
 ) : SlackRepository {
-    override suspend fun getSlackChannelID(): Resource<String> {
-        val channelID = sharedPreferences.getString(SharedPrefsKeys.SLACK_CHANNEL_ID, "")
-            ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        return Resource.success(channelID)
-    }
-
-    override suspend fun setSlackChannelID(channelID: String): Resource<Unit> {
-        sharedPreferences.edit { putString(SharedPrefsKeys.SLACK_CHANNEL_ID, channelID) }
-        return Resource.success(null)
-    }
-
-    override suspend fun clearSlackChannel(): Resource<Unit> {
-        sharedPreferences.edit { putString(SharedPrefsKeys.SLACK_CHANNEL_ID, "") }
-        sharedPreferences.edit { putString(SharedPrefsKeys.SLACK_CHANNEL_NAME, "") }
-        return Resource.success(null)
-    }
-
     override suspend fun getSlackToken(): Resource<SlackTokenInfo> {
         val token = secureSharedPreferences.getString(SecureSharedPrefKeys.SLACK_TOKEN, "")
             ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
@@ -61,22 +44,6 @@ internal class SlackDataRepository(
         return Resource.success(null)
     }
 
-    override suspend fun getSlackChannelName(): Resource<String> {
-        val name = sharedPreferences.getString(SharedPrefsKeys.SLACK_CHANNEL_NAME, "")
-            ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        return Resource.success(name)
-    }
-
-    override suspend fun setSlackChannelName(name: String): Resource<Unit> {
-        sharedPreferences.edit {
-            putString(
-                SharedPrefsKeys.SLACK_CHANNEL_NAME,
-                name
-            )
-        }
-        return Resource.success(null)
-    }
-
     override suspend fun validateSlackToken(slackToken: SlackToken): Resource<SlackTokenInfo> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
@@ -88,17 +55,6 @@ internal class SlackDataRepository(
         } else {
             Resource.error(ValidationError.INVALID_SLACK_TOKEN)
         }
-    }
-
-    override suspend fun slackChannelExists(
-        slackToken: SlackToken,
-        slackChannelID: String
-    ): Resource<Boolean> {
-        if (!connectionManager.isConnected()) {
-            return Resource.error(NetworkError.NOT_CONNECTED)
-        }
-        val response = slackService.validateChannel(slackToken, slackChannelID)
-        return Resource.success(response.exists)
     }
 
     override suspend fun getSlackChannels(token: SlackToken): Resource<List<SlackChannelInfo>> {
@@ -150,9 +106,9 @@ internal class SlackDataRepository(
     private fun removeBotsAndInactiveUsers(users: List<UsersResponseUser>): List<UsersResponseUser> {
         return users.filter {
             !it.deleted &&
-            !it.isBot &&
-            //何故かSlackbotはbotじゃない。。
-            it.userID != "USLACKBOT"
+                    !it.isBot &&
+                    //何故かSlackbotはbotじゃない。。
+                    it.userID != "USLACKBOT"
         }
     }
 }

@@ -22,13 +22,6 @@ interface SlackService {
         @Field("token") token: SlackToken
     ): ValidateTokenResponse
 
-    @POST("channels.info")
-    @FormUrlEncoded
-    suspend fun validateChannel(
-        @Field("token") token: SlackToken,
-        @Field("channel") channelID: String
-    ): ValidateChannelResponse
-
     @POST("channels.list")
     @FormUrlEncoded
     suspend fun getChannels(

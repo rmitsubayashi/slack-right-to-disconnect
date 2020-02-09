@@ -28,13 +28,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
             showSlackTokenEditor()
             false
         }
-        val slackChannelPref: ListPreference? =
-            findPreference(getString(R.string.key_slack_channel_id))
-        slackChannelPref?.setOnPreferenceChangeListener { _, newValue ->
-            val str: String = newValue as String
-            settingsPresenter.saveSlackChannel(str)
-            false
-        }
     }
 
     override fun onStart() {
@@ -66,24 +59,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
         context?.showToast(R.string.settings_error_invalid_slack_token)
     }
 
-    override fun showInvalidSlackChannel() {
-        context?.showToast(R.string.settings_error_invalid_slack_channel_id)
-    }
-
-    override fun updateSlackChannelSettingSummary(channelInfo: SlackChannelInfo?) {
-        findPreference<ListPreference>(getString(R.string.key_slack_channel_id))?.apply {
-            summary =
-                if (channelInfo == null || channelInfo.name.isEmpty()) {
-                    getString(R.string.settings_slack_channel_id_not_set)
-                } else {
-                    channelInfo.name
-                }
-
-            value = channelInfo?.id
-        }
-
-    }
-
     override fun updateSlackTokenSettingSummary(slackTokenInfo: SlackTokenInfo?) {
         findPreference<Preference>(getString(R.string.key_slack_token))?.summary =
             if (slackTokenInfo == null) {
@@ -91,17 +66,5 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
             } else {
                 slackTokenInfo.user + " " + slackTokenInfo.team
             }
-    }
-
-    override fun updateSlackChannelList(channelNames: List<SlackChannelInfo>?) {
-        if (channelNames == null || channelNames.isEmpty()) {
-            findPreference<ListPreference>(getString(R.string.key_slack_channel_id))?.isEnabled = false
-        } else {
-            findPreference<ListPreference>(getString(R.string.key_slack_channel_id))?.apply {
-                entries = channelNames.map { it.name }.toTypedArray()
-                entryValues = channelNames.map { it.id }.toTypedArray()
-                isEnabled = true
-            }
-        }
     }
 }
