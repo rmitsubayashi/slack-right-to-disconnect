@@ -25,8 +25,9 @@ class PostPresenter(
 
     }
 
-    override fun setRecipientID(id: String) {
+    override fun setRecipient(id: String, threadID: String?) {
         homeInteractor.setRecipientID(id)
+        homeInteractor.setThreadID(threadID)
     }
 
     override fun updateMessage(message: String) {

@@ -11,7 +11,7 @@ interface PostContract {
     }
 
     interface Presenter: BasePresenter {
-        fun setRecipientID(id: String)
+        fun setRecipient(id: String, threadID: String?)
         fun updateMessage(message: String)
         fun postToSlack()
     }

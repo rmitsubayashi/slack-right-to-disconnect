@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.rmitsubayashi.domain.model.Recipient
+import com.github.rmitsubayashi.domain.model.ThreadInfo
 import com.github.rmitsubayashi.presentation.post.SelectPostRecipientContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import kotlinx.android.synthetic.main.fragment_select_post_recipient.view.*
@@ -49,10 +50,16 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
     }
 
     override fun navigateToPost(recipient: Recipient) {
+        val threadID = if (recipient is ThreadInfo) {
+            recipient.threadID
+        } else {
+            null
+        }
         val action =
             SelectPostRecipientFragmentDirections.actionSelectPostRecipientFragmentToPostFragment(
                 RecipientID = recipient.id,
-                RecipientName = recipient.name
+                RecipientName = recipient.name,
+                ThreadID = threadID
             )
         findNavController().navigate(action)
     }

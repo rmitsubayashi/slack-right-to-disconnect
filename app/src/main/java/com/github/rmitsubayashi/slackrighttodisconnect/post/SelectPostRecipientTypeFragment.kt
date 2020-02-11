@@ -33,6 +33,11 @@ class SelectPostRecipientTypeFragment : Fragment(), SelectPostRecipientTypeContr
                         RecipientType.USER
                     )
                 }
+                select_post_recipient_type_thread_button.setOnClickListener {
+                    selectPostRecipientTypePresenter.selectPostRecipientType(
+                        RecipientType.THREAD
+                    )
+                }
             }
     }
 

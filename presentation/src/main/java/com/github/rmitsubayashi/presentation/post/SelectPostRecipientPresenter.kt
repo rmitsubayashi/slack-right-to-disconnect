@@ -28,6 +28,7 @@ class SelectPostRecipientPresenter(
             val resource = when (type) {
                 RecipientType.USER -> homeInteractor.getUsers()
                 RecipientType.CHANNEL -> homeInteractor.getChannels()
+                RecipientType.THREAD -> homeInteractor.getRecentThreads()
             }
             withContext(Dispatchers.Main) {
                 resource.data?.let {

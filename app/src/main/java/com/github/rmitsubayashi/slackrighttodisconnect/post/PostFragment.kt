@@ -50,7 +50,7 @@ class PostFragment: Fragment(), PostContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postPresenter.setRecipientID(args.RecipientID)
+        postPresenter.setRecipient(args.RecipientID, args.ThreadID)
     }
 
     override fun navigateToPostSuccess() {

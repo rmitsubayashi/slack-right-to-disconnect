@@ -6,5 +6,7 @@ data class PostResponse (
     @SerializedName("ok")
     val sent: Boolean,
     @SerializedName("error")
-    val error: String
+    val error: String,
+    @SerializedName("ts")
+    val threadIdentifier: String
 )

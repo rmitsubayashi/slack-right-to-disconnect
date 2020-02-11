@@ -12,6 +12,9 @@ import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.model.*
 import com.github.rmitsubayashi.domain.repository.SlackRepository
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.util.*
 
 internal class SlackDataRepository(
     private val secureSharedPreferences: SharedPreferences,
@@ -72,16 +75,17 @@ internal class SlackDataRepository(
 
     override suspend fun post(
         message: Message,
-        channelID: String,
-        token: SlackToken
-    ): Resource<Unit> {
+        id: String,
+        token: SlackToken,
+        threadID: String?
+    ): Resource<String> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
         val response =
-            slackService.postMessage(PostRequest(message, channelID), SlackAuthToken(token))
+            slackService.postMessage(PostRequest(message, id, threadID = threadID), SlackAuthToken(token))
         return if (response.sent) {
-            Resource.success(null)
+            Resource.success(response.threadIdentifier)
         } else {
             Resource.error(NetworkError.NETWORK_ERROR)
         }
@@ -110,5 +114,26 @@ internal class SlackDataRepository(
                     //何故かSlackbotはbotじゃない。。
                     it.userID != "USLACKBOT"
         }
+    }
+
+    override fun saveThreadInfo(id: String, message: Message, threadID: String) {
+        val list = getThreadInfo()
+        val threadInfo = ThreadInfo(id, message.value, Date(), threadID)
+        val newList = list.plus(threadInfo)
+        val json = Gson().toJson(newList)
+        sharedPreferences.edit {
+            putString(SharedPrefsKeys.RECENT_THREADS, json)
+        }
+    }
+
+    private fun getThreadInfo(): List<ThreadInfo> {
+        val json = sharedPreferences.getString(SharedPrefsKeys.RECENT_THREADS, null) ?: return emptyList()
+        val type = object: TypeToken<List<ThreadInfo>>(){}.type
+        return Gson().fromJson(json, type)
+    }
+
+    override suspend fun getRecentThreads(): Resource<List<ThreadInfo>> {
+        val list = getThreadInfo()
+        return Resource.success(list)
     }
 }
