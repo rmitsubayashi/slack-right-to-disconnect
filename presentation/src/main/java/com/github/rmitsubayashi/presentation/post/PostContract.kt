@@ -8,11 +8,15 @@ interface PostContract {
         fun showPostSending()
         fun showPostError(errorMessage: String)
         fun navigateToPostSuccess()
+        fun showMentionSuggestions(token: String, suggestions: List<String>)
     }
 
     interface Presenter: BasePresenter {
         fun setRecipient(id: String, threadID: String?)
         fun updateMessage(message: String)
+        fun addMention(text: String, start: Int)
+        fun removeMention(text: String, start: Int)
+        fun searchMentions(token: String, keywords: String)
         fun postToSlack()
     }
 }

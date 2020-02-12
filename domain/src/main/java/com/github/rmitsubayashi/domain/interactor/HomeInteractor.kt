@@ -13,10 +13,20 @@ class HomeInteractor(
     private val slackRepository: SlackRepository
     ) {
     private var message: Message = Message("")
+    private var users: List<UserInfo>? = null
     private var recipientID: String = ""
     private var threadID: String? = null
+    private val mentions = mutableSetOf<IntRange>()
     suspend fun post(): Resource<Unit> {
-        return slackInteractor.postToSlack(message, recipientID, threadID)
+        val sortedMentions = mentions.sortedByDescending { it.first }
+        var newMessage = message.value
+        for (mentionRange in sortedMentions) {
+            val userString = newMessage.substring(mentionRange)
+            val userID = users?.find { it.name == userString }?.id ?: userString
+            val slackMentionString = "<@${userID}>"
+            newMessage = newMessage.replaceRange(mentionRange, slackMentionString)
+        }
+        return slackInteractor.postToSlack(Message(newMessage), recipientID, threadID)
     }
 
     fun updateMessage(message: Message): Resource<Unit> {
@@ -24,12 +34,35 @@ class HomeInteractor(
         return Resource.success(null)
     }
 
+    fun addMention(text: String, start: Int): Resource<Unit> {
+        val range = IntRange(start, start-1+text.length)
+        mentions.add(range)
+        val beforeStr = this.message.value.substring(0, range.first)
+        val afterStr = this.message.value.substring(range.first+1)
+        val newMessage = beforeStr + text + afterStr
+        this.message = Message(newMessage)
+        return Resource.success(null)
+    }
+
+    fun removeMention(text: String, start: Int): Resource<Unit> {
+        val range = IntRange(start, start-1+text.length)
+        mentions.remove(range)
+        val newMessage = this.message.value.replaceRange(range, "")
+        this.message = Message(newMessage)
+        return Resource.success(null)
+    }
+
     suspend fun getUsers(): Resource<List<UserInfo>> {
+        if (users != null) {
+            return Resource.success(users)
+        }
         val tokenResource = slackRepository.getSlackToken()
         if (tokenResource.data == null || tokenResource.data.token.value.isEmpty()) {
             return Resource.error(ValidationError.INVALID_SLACK_TOKEN)
         }
-        return slackRepository.getUsers(tokenResource.data.token)
+        val usersResource = slackRepository.getUsers(tokenResource.data.token)
+        this.users = usersResource.data
+        return usersResource
     }
 
     suspend fun getChannels(): Resource<List<SlackChannelInfo>> {

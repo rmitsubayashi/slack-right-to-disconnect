@@ -34,6 +34,24 @@ class PostPresenter(
         homeInteractor.updateMessage(Message(message))
     }
 
+    override fun addMention(text: String, start: Int) {
+        homeInteractor.addMention(text, start)
+    }
+
+    override fun removeMention(text: String, start: Int) {
+        homeInteractor.removeMention(text, start)
+    }
+
+    override fun searchMentions(token: String, keywords: String) {
+        launch {
+            val usersResource = homeInteractor.getUsers()
+            val users = usersResource.data ?: return@launch
+            val userStrings = users.map { it.name }
+            val matches = userStrings.filter { it.startsWith(keywords) }
+            view.showMentionSuggestions(token, matches)
+        }
+    }
+
     override fun postToSlack() {
         view.showPostSending()
         launch {
