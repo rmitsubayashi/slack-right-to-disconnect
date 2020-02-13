@@ -60,11 +60,13 @@ internal class SlackDataRepository(
         }
     }
 
-    override suspend fun getSlackChannels(token: SlackToken): Resource<List<SlackChannelInfo>> {
+    override suspend fun getSlackChannels(): Resource<List<SlackChannelInfo>> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
-        val response = slackService.getChannels(token)
+        val tokenResource = this.getSlackToken()
+        val tokenInfo = tokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val response = slackService.getChannels(tokenInfo.token)
         if (!response.success) {
             return Resource.error(NetworkError.NETWORK_ERROR)
         }
@@ -91,20 +93,25 @@ internal class SlackDataRepository(
         }
     }
 
-    override suspend fun getUsers(token: SlackToken): Resource<List<UserInfo>> {
+    private var userCache: List<UserInfo>? = null
+    override suspend fun getUsers(): Resource<List<UserInfo>> {
+        if (userCache != null) {
+            return Resource.success(userCache)
+        }
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
-        val response = slackService.getUsers(token)
+        val tokenResource = this.getSlackToken()
+        val tokenInfo = tokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val response = slackService.getUsers(tokenInfo.token)
         if (!response.success) {
             return Resource.error(NetworkError.NETWORK_ERROR)
         }
         val filteredUsers = removeBotsAndInactiveUsers(response.users)
-        return Resource.success(
-            filteredUsers.map {
-                UserInfo(it.userID, name = it.username)
-            }
-        )
+        userCache = filteredUsers.map {
+            UserInfo(it.userID, name = it.username)
+        }
+        return Resource.success(userCache)
     }
 
     private fun removeBotsAndInactiveUsers(users: List<UsersResponseUser>): List<UsersResponseUser> {

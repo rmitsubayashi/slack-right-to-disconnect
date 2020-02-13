@@ -2,7 +2,6 @@ package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.interactor.HomeInteractor
-import com.github.rmitsubayashi.domain.model.Message
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -31,24 +30,23 @@ class PostPresenter(
     }
 
     override fun updateMessage(message: String) {
-        homeInteractor.updateMessage(Message(message))
+        homeInteractor.messageInputInteractor.updateInput(message)
     }
 
     override fun addMention(text: String, start: Int) {
-        homeInteractor.addMention(text, start)
+        homeInteractor.messageInputInteractor.addMention(text, start)
     }
 
     override fun removeMention(text: String, start: Int) {
-        homeInteractor.removeMention(text, start)
+        homeInteractor.messageInputInteractor.removeMention(text, start)
     }
 
-    override fun searchMentions(token: String, keywords: String) {
+    override fun searchMentions(token: String, keyword: String) {
         launch {
-            val usersResource = homeInteractor.getUsers()
-            val users = usersResource.data ?: return@launch
-            val userStrings = users.map { it.name }
-            val matches = userStrings.filter { it.startsWith(keywords) }
-            view.showMentionSuggestions(token, matches)
+            val matches = homeInteractor.messageInputInteractor.searchMention(keyword)
+            withContext(Dispatchers.Main) {
+                view.showMentionSuggestions(token, matches)
+            }
         }
     }
 

@@ -16,7 +16,7 @@ interface PostContract {
         fun updateMessage(message: String)
         fun addMention(text: String, start: Int)
         fun removeMention(text: String, start: Int)
-        fun searchMentions(token: String, keywords: String)
+        fun searchMentions(token: String, keyword: String)
         fun postToSlack()
     }
 }
