@@ -1,7 +1,7 @@
 package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.error.NetworkError
-import com.github.rmitsubayashi.domain.interactor.HomeInteractor
+import com.github.rmitsubayashi.domain.interactor.PostInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -10,7 +10,7 @@ import kotlin.coroutines.CoroutineContext
 
 class PostPresenter(
     private val view: PostContract.View,
-    private val homeInteractor: HomeInteractor
+    private val postInteractor: PostInteractor
 ) : PostContract.Presenter {
     private val job: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -25,25 +25,25 @@ class PostPresenter(
     }
 
     override fun setRecipient(id: String, threadID: String?) {
-        homeInteractor.setRecipientID(id)
-        homeInteractor.setThreadID(threadID)
+        postInteractor.setRecipientID(id)
+        postInteractor.setThreadID(threadID)
     }
 
     override fun updateMessage(message: String) {
-        homeInteractor.messageInputInteractor.updateInput(message)
+        postInteractor.messageInputInteractor.updateInput(message)
     }
 
     override fun addMention(text: String, start: Int) {
-        homeInteractor.messageInputInteractor.addMention(text, start)
+        postInteractor.messageInputInteractor.addMention(text, start)
     }
 
     override fun removeMention(text: String, start: Int) {
-        homeInteractor.messageInputInteractor.removeMention(text, start)
+        postInteractor.messageInputInteractor.removeMention(text, start)
     }
 
     override fun searchMentions(token: String, keyword: String) {
         launch {
-            val matches = homeInteractor.messageInputInteractor.searchMention(keyword)
+            val matches = postInteractor.messageInputInteractor.searchMention(keyword)
             withContext(Dispatchers.Main) {
                 view.showMentionSuggestions(token, matches)
             }
@@ -53,7 +53,7 @@ class PostPresenter(
     override fun postToSlack() {
         view.showPostSending()
         launch {
-            val postResource = homeInteractor.post()
+            val postResource = postInteractor.post()
             withContext(Dispatchers.Main) {
                 when (postResource.error) {
                     null -> view.navigateToPostSuccess()

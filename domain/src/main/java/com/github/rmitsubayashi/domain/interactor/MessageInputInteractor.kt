@@ -22,6 +22,8 @@ class MessageInputInteractor(
         }
         return Message(newMessage)
     }
+
+    internal fun getRawMessage(): Message = Message(rawInput)
     
     fun updateInput(rawInput: String) {
         this.rawInput = rawInput

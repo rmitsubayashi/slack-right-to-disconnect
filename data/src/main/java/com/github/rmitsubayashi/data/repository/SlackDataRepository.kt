@@ -78,14 +78,16 @@ internal class SlackDataRepository(
     override suspend fun post(
         message: Message,
         id: String,
-        token: SlackToken,
         threadID: String?
     ): Resource<String> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
+        val tokenResource = this.getSlackToken()
+        val tokenInfo = tokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val authToken = SlackAuthToken(tokenInfo.token)
         val response =
-            slackService.postMessage(PostRequest(message, id, threadID = threadID), SlackAuthToken(token))
+            slackService.postMessage(PostRequest(message, id, threadID = threadID), authToken)
         return if (response.sent) {
             Resource.success(response.threadIdentifier)
         } else {

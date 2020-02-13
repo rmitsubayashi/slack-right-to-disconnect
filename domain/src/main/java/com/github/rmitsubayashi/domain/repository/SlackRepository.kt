@@ -10,7 +10,6 @@ interface SlackRepository {
     suspend fun post(
         message: Message,
         id: String,
-        token: SlackToken,
         threadID: String? = null
     ): Resource<String>
 
