@@ -2,6 +2,8 @@ package com.github.rmitsubayashi.data.repository
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.github.rmitsubayashi.data.dao.ThreadDao
+import com.github.rmitsubayashi.data.model.Thread
 import com.github.rmitsubayashi.data.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.model.request.PostRequest
 import com.github.rmitsubayashi.data.model.response.UsersResponseUser
@@ -21,6 +23,7 @@ import java.util.*
 internal class SlackDataRepository(
     private val secureSharedPreferences: SharedPreferences,
     private val sharedPreferences: SharedPreferences,
+    private val threadDao: ThreadDao,
     private val slackService: SlackService,
     private val connectionManager: ConnectionManager
 ) : SlackRepository {
@@ -141,30 +144,19 @@ internal class SlackDataRepository(
     }
 
     override fun saveThreadInfo(id: String, message: Message, threadID: String) {
-        val list = getThreadInfo()
-        val threadInfo = ThreadInfo(id, message.value, Date(), threadID)
-        val newList = list.plus(threadInfo)
-        val json = Gson().toJson(newList)
-        sharedPreferences.edit {
-            putString(SharedPrefsKeys.RECENT_THREADS, json)
-        }
-    }
-
-    private fun getThreadInfo(): List<ThreadInfo> {
-        val json = sharedPreferences.getString(SharedPrefsKeys.RECENT_THREADS, null) ?: return emptyList()
-        val type = object: TypeToken<List<ThreadInfo>>(){}.type
-        return Gson().fromJson(json, type)
+        val thread = Thread(id, message.value, Date(), threadID)
+        threadDao.insert(thread)
     }
 
     override suspend fun getRecentThreads(): Resource<List<ThreadInfo>> {
-        val list = getThreadInfo()
-        return Resource.success(list)
+        val dataThreads = threadDao.getAll()
+        val domainThreads = dataThreads.map { ThreadInfo(it.id, it.name, it.date, it.threadID) }
+        return Resource.success(domainThreads)
     }
 
     override fun updateRecentThreads(recentThreads: List<ThreadInfo>) {
-        val json = Gson().toJson(recentThreads)
-        sharedPreferences.edit {
-            putString(SharedPrefsKeys.RECENT_THREADS, json)
-        }
+        threadDao.delete()
+        val dataThreads = recentThreads.map { Thread(it.id, it.name, it.date, it.threadID) }
+        threadDao.insert(*dataThreads.toTypedArray())
     }
 }

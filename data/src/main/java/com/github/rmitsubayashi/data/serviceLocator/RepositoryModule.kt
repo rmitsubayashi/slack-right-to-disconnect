@@ -24,6 +24,7 @@ val repositoryModule = module {
     single<SlackRepository> {
         SlackDataRepository(get(named("securePrefs")),
             get(named("normalPrefs")),
+            get<AppDatabase>().threadDao(),
             get(),
             get(named("connectionManager"))
             )
