@@ -31,7 +31,8 @@
         android:label="PostFragment" >
         <action
             android:id="@+id/action_postFragment_to_postSuccessFragment"
-            app:destination="@id/postSuccessFragment" />
+            app:destination="@id/postSuccessFragment"
+            app:popUpTo="@id/selectPostRecipientTypeFragment" />
         <argument
             android:name="RecipientID"
             app:argType="string" />
@@ -49,7 +50,9 @@
         android:label="PostSuccessFragment" >
         <action
             android:id="@+id/action_postSuccessFragment_to_selectPostRecipientTypeFragment"
-            app:destination="@id/selectPostRecipientTypeFragment" />
+            app:destination="@id/selectPostRecipientTypeFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_graph" />
         <argument
             android:name="RecipientID"
             app:argType="string" />
