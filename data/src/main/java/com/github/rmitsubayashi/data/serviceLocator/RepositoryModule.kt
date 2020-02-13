@@ -1,13 +1,17 @@
 package com.github.rmitsubayashi.data.serviceLocator
 
 import android.content.Context
+import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.github.rmitsubayashi.data.db.AppDatabase
+import com.github.rmitsubayashi.data.repository.BookmarkDataRepository
 import com.github.rmitsubayashi.data.repository.SecureSharedPrefKeys
 import com.github.rmitsubayashi.data.repository.SharedPrefsKeys
 import com.github.rmitsubayashi.data.repository.SlackDataRepository
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
+import com.github.rmitsubayashi.domain.repository.BookmarkRepository
 import com.github.rmitsubayashi.domain.repository.SlackRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -31,6 +35,14 @@ val repositoryModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         retrofit.create(SlackService::class.java)
+    }
+
+    single<BookmarkRepository> {
+        BookmarkDataRepository(get<AppDatabase>().bookmarkDao())
+    }
+
+    single {
+        Room.databaseBuilder(androidApplication(), AppDatabase::class.java, AppDatabase.DB_NAME).build()
     }
 
 

@@ -10,4 +10,5 @@ val interactorModule = module {
     }
     factory {MessageInputInteractor(get())}
     factory {RecipientInteractor(get())}
+    factory { BookmarkInteractor(get()) }
 }

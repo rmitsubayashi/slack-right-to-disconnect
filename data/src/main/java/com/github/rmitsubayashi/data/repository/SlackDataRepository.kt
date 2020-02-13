@@ -2,7 +2,7 @@ package com.github.rmitsubayashi.data.repository
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.github.rmitsubayashi.data.model.SlackAuthToken
+import com.github.rmitsubayashi.data.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.model.request.PostRequest
 import com.github.rmitsubayashi.data.model.response.UsersResponseUser
 import com.github.rmitsubayashi.data.service.SlackService
@@ -90,7 +90,8 @@ internal class SlackDataRepository(
         }
         val tokenResource = this.getSlackToken()
         val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
-        val authToken = SlackAuthToken(tokenInfo.token)
+        val authToken =
+            SlackAuthToken(tokenInfo.token)
         val response =
             slackService.postMessage(PostRequest(message, id, threadID = threadID), authToken)
         return if (response.sent) {

@@ -94,7 +94,8 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun navigateToPostSuccess() {
-        findNavController().navigate(R.id.action_postFragment_to_postSuccessFragment)
+        val action = PostFragmentDirections.actionPostFragmentToPostSuccessFragment(args.RecipientID, args.RecipientName)
+        findNavController().navigate(action)
     }
 
     override fun showPostSending() {

@@ -18,4 +18,6 @@ interface SlackRepository {
     suspend fun getRecentThreads(): Resource<List<ThreadInfo>>
     fun saveThreadInfo(id: String, message: Message, threadID: String)
     fun updateRecentThreads(recentThreads: List<ThreadInfo>)
+
+
 }

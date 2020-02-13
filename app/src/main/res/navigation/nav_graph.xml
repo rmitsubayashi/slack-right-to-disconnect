@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_selectPostRecipientFragment"
             app:destination="@id/selectPostRecipientFragment" />
+        <action
+            android:id="@+id/action_selectPostRecipientTypeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectPostRecipientFragment"
@@ -47,6 +50,12 @@
         <action
             android:id="@+id/action_postSuccessFragment_to_selectPostRecipientTypeFragment"
             app:destination="@id/selectPostRecipientTypeFragment" />
+        <argument
+            android:name="RecipientID"
+            app:argType="string" />
+        <argument
+            android:name="RecipientName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/settings_fragment"
