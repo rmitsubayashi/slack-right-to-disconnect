@@ -7,6 +7,8 @@ import com.github.rmitsubayashi.domain.model.SlackChannelInfo
 import com.github.rmitsubayashi.domain.model.ThreadInfo
 import com.github.rmitsubayashi.domain.model.UserInfo
 import com.github.rmitsubayashi.domain.repository.SlackRepository
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class HomeInteractor(
     private val slackInteractor: SlackInteractor,
@@ -82,6 +84,19 @@ class HomeInteractor(
     }
 
     suspend fun getRecentThreads(): Resource<List<ThreadInfo>> {
-        return slackRepository.getRecentThreads()
+        val recentThreadsResource = slackRepository.getRecentThreads()
+        recentThreadsResource.data?.let {
+            val today = Date()
+            val removeOldThreads = it.filter {
+                ti ->
+                val diff = today.time - ti.date.time
+                val diffInDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
+                diffInDays < 7
+            }
+            if (it.size > removeOldThreads.size) {
+                slackRepository.updateRecentThreads(removeOldThreads)
+            }
+            return Resource.success(removeOldThreads)
+        } ?: return recentThreadsResource
     }
 }

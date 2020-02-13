@@ -136,4 +136,11 @@ internal class SlackDataRepository(
         val list = getThreadInfo()
         return Resource.success(list)
     }
+
+    override fun updateRecentThreads(recentThreads: List<ThreadInfo>) {
+        val json = Gson().toJson(recentThreads)
+        sharedPreferences.edit {
+            putString(SharedPrefsKeys.RECENT_THREADS, json)
+        }
+    }
 }
