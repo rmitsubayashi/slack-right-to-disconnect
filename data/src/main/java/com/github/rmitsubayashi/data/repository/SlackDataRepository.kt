@@ -8,7 +8,9 @@ import com.github.rmitsubayashi.data.model.response.UsersResponseUser
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource
+import com.github.rmitsubayashi.domain.error.DatabaseError
 import com.github.rmitsubayashi.domain.error.NetworkError
+import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.model.*
 import com.github.rmitsubayashi.domain.repository.SlackRepository
@@ -23,12 +25,12 @@ internal class SlackDataRepository(
     private val connectionManager: ConnectionManager
 ) : SlackRepository {
     override suspend fun getSlackToken(): Resource<SlackTokenInfo> {
-        val token = secureSharedPreferences.getString(SecureSharedPrefKeys.SLACK_TOKEN, "")
-            ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        val user = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_USER, "")
-            ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
-        val team = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_TEAM, "")
-            ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val token = secureSharedPreferences.getString(SecureSharedPrefKeys.SLACK_TOKEN, null)
+            ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
+        val user = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_USER, null)
+            ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
+        val team = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_TEAM, null)
+            ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         return Resource.success(SlackTokenInfo(SlackToken(token), user = user, team = team))
     }
 
@@ -44,7 +46,7 @@ internal class SlackDataRepository(
             putString(SharedPrefsKeys.SLACK_TOKEN_TEAM, slackTokenInfo.team)
         }
 
-        return Resource.success(null)
+        return Resource.success()
     }
 
     override suspend fun validateSlackToken(slackToken: SlackToken): Resource<SlackTokenInfo> {
@@ -56,7 +58,7 @@ internal class SlackDataRepository(
             val info = SlackTokenInfo(slackToken, user = response.user, team = response.team)
             Resource.success(info)
         } else {
-            Resource.error(ValidationError.INVALID_SLACK_TOKEN)
+            Resource.error(SlackError.INVALID_SLACK_TOKEN)
         }
     }
 
@@ -65,10 +67,13 @@ internal class SlackDataRepository(
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
         val tokenResource = this.getSlackToken()
-        val tokenInfo = tokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val response = slackService.getChannels(tokenInfo.token)
         if (!response.success) {
-            return Resource.error(NetworkError.NETWORK_ERROR)
+            if (response.error == "limit_required") {
+                return Resource.error(SlackError.TOO_MANY_CHANNELS)
+            }
+            return Resource.error()
         }
         return Resource.success(
             response.channels.map { SlackChannelInfo(it.channelID, it.name) }
@@ -84,14 +89,20 @@ internal class SlackDataRepository(
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
         val tokenResource = this.getSlackToken()
-        val tokenInfo = tokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val authToken = SlackAuthToken(tokenInfo.token)
         val response =
             slackService.postMessage(PostRequest(message, id, threadID = threadID), authToken)
         return if (response.sent) {
             Resource.success(response.threadIdentifier)
         } else {
-            Resource.error(NetworkError.NETWORK_ERROR)
+            return when (response.error) {
+                "not_in_channel","is_archived","restricted_action_read_only_channel","restricted_action_thread_only_channel", "restricted_action_non_threadable_channel" ->
+                    Resource.error(SlackError.RESTRICTED_CHANNEL)
+                "msg_too_long","no_text" ->
+                    Resource.error(ValidationError.INVALID_CONTENT)
+                else -> Resource.error()
+            }
         }
     }
 
@@ -104,10 +115,13 @@ internal class SlackDataRepository(
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
         val tokenResource = this.getSlackToken()
-        val tokenInfo = tokenResource.data ?: return Resource.error(NetworkError.RESOURCE_NOT_AVAILABLE)
+        val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val response = slackService.getUsers(tokenInfo.token)
         if (!response.success) {
-            return Resource.error(NetworkError.NETWORK_ERROR)
+            if (response.error == "limit_required") {
+                return Resource.error(SlackError.TOO_MANY_USERS)
+            }
+            return Resource.error()
         }
         val filteredUsers = removeBotsAndInactiveUsers(response.users)
         userCache = filteredUsers.map {

@@ -1,6 +1,8 @@
 package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.error.NetworkError
+import com.github.rmitsubayashi.domain.error.SlackError
+import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.interactor.PostInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -57,8 +59,10 @@ class PostPresenter(
             withContext(Dispatchers.Main) {
                 when (postResource.error) {
                     null -> view.navigateToPostSuccess()
-                    NetworkError.RESOURCE_NOT_AVAILABLE -> view.showPostError("you have to set both your slack token and slack id")
-                    else -> view.showPostError(postResource.error.toString())
+                    SlackError.RESTRICTED_CHANNEL -> view.showRestrictedChannel()
+                    NetworkError.NOT_CONNECTED -> view.showNoNetwork()
+                    ValidationError.INVALID_CONTENT -> view.showInvalidContent()
+                    else -> view.showGeneralError()
                 }
             }
         }

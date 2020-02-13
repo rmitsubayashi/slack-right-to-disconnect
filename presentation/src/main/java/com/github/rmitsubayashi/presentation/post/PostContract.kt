@@ -6,7 +6,9 @@ import com.github.rmitsubayashi.presentation.BaseView
 interface PostContract {
     interface View: BaseView {
         fun showPostSending()
-        fun showPostError(errorMessage: String)
+        fun showNoNetwork()
+        fun showRestrictedChannel()
+        fun showInvalidContent()
         fun navigateToPostSuccess()
         fun showMentionSuggestions(token: String, suggestions: List<String>)
     }

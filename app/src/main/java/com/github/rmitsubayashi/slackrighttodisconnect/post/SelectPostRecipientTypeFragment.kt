@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.github.rmitsubayashi.presentation.post.SelectPostRecipientTypeContract
 import com.github.rmitsubayashi.presentation.post.model.RecipientType
 import com.github.rmitsubayashi.slackrighttodisconnect.R
+import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import kotlinx.android.synthetic.main.fragment_select_post_recipient_type.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -47,6 +48,10 @@ class SelectPostRecipientTypeFragment : Fragment(), SelectPostRecipientTypeContr
                 type
             )
         findNavController().navigate(action)
+    }
+
+    override fun showGeneralError() {
+        context?.showToast(R.string.general_error)
     }
 
 }

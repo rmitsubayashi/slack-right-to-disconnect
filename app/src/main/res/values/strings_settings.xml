@@ -18,6 +18,7 @@
     <!--保存しようとしたSlackトークンが無効の場合-->
     <string name="settings_error_invalid_slack_token">Invalid Slack token</string>
 
-    <!--保存しようとした際の一般的なエラー-->
-    <string name="settings_error_general">Something went wrong</string>
+    <!--保存した後のメッセージ-->
+    <string name="settings_saved">Saved!</string>
+
 </resources>

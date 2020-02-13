@@ -67,4 +67,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
                 slackTokenInfo.user + " " + slackTokenInfo.team
             }
     }
+
+    override fun showGeneralError() {
+        context?.showToast(R.string.general_error)
+    }
+
+    override fun showSaved() {
+        context?.showToast(R.string.settings_saved)
+    }
 }

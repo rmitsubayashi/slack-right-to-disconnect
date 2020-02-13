@@ -101,10 +101,6 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
 
     }
 
-    override fun showPostError(errorMessage: String) {
-        context?.showToast(errorMessage)
-    }
-
     override fun onQueryReceived(queryToken: QueryToken): MutableList<String> {
         val mutableList = mutableListOf(bucket)
         postPresenter.searchMentions(queryToken.tokenString, queryToken.keywords)
@@ -115,5 +111,21 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
         val suggestibles = suggestions.map { MentionSuggestion(it) }
         val suggestionResult = SuggestionsResult(QueryToken(token), suggestibles)
         post_message_edittext.onReceiveSuggestionsResult(suggestionResult, bucket)
+    }
+
+    override fun showNoNetwork() {
+        context?.showToast(R.string.no_network_error)
+    }
+
+    override fun showGeneralError() {
+        context?.showToast(R.string.general_error)
+    }
+
+    override fun showRestrictedChannel() {
+        context?.showToast(R.string.slack_restricted_channel)
+    }
+
+    override fun showInvalidContent() {
+        context?.showToast(R.string.slack_invalid_content)
     }
 }

@@ -1,5 +1,7 @@
 package com.github.rmitsubayashi.presentation.post
 
+import com.github.rmitsubayashi.domain.error.NetworkError
+import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.interactor.RecipientInteractor
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.model.RecipientType
@@ -31,9 +33,17 @@ class SelectPostRecipientPresenter(
                 RecipientType.THREAD -> recipientInteractor.getRecentThreads()
             }
             withContext(Dispatchers.Main) {
-                resource.data?.let {
-                    view.setPostRecipients(it)
+                when (resource.error) {
+                    null -> {
+                        resource.data?.let {
+                            view.setPostRecipients(it)
+                        } ?: view.showGeneralError()
+                    }
+                    NetworkError.NOT_CONNECTED -> view.showNoNetwork()
+                    SlackError.TOO_MANY_USERS, SlackError.TOO_MANY_CHANNELS -> view.showTooManySlackUsersOrChannels()
+                    else -> view.showGeneralError()
                 }
+
             }
         }
     }

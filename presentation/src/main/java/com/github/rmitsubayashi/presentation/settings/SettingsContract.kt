@@ -7,6 +7,7 @@ import com.github.rmitsubayashi.presentation.BaseView
 interface SettingsContract {
     interface View: BaseView {
         fun showInvalidSlackToken()
+        fun showSaved()
         fun updateSlackTokenSettingSummary(slackTokenInfo: SlackTokenInfo?)
     }
 

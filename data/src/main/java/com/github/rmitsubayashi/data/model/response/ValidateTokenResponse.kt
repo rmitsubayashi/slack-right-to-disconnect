@@ -8,7 +8,5 @@ data class ValidateTokenResponse(
     @SerializedName("team")
     val team: String,
     @SerializedName("user")
-    val user: String,
-    @SerializedName("error")
-    val error: String?
+    val user: String
 )

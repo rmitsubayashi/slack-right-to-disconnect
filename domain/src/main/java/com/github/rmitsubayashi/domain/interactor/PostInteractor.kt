@@ -27,7 +27,7 @@ class PostInteractor(
         return if (postResource.error != null) {
             Resource.error(postResource.error)
         } else {
-            Resource.success(null)
+            Resource.success()
         }
     }
 

@@ -1,3 +1,5 @@
 package com.github.rmitsubayashi.presentation
 
-interface BaseView
+interface BaseView {
+    fun showGeneralError()
+}

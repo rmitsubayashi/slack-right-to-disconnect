@@ -8,12 +8,11 @@
     <string name="home_menu_settings">Settings</string>
     <!--Slackにポストできた時に出てくるメッセージ-->
     <string name="home_success_message_posted">Success!</string>
-    <!--Slackにポストできなかったときに出てくるメッセージ-->
-    <string name="home_failure_message_posted">Failed to post: %s</string>
-    <!--Slackにポストしようとしたときに出てくる確認ポップアップのタイトル-->
-    <string name="home_confirm_message_title">Are you sure you want to send this message?</string>
     <!--ポストしようとしたときに手てくる確認ポップアップのOKボタン-->
     <string name="home_confirm_message_confirm">Send</string>
     <!--ポストしようとしたときに手てくる確認ポップアップのキャンセルボタン-->
     <string name="home_confirm_message_cancel">Go back</string>
+    <string name="slack_too_many_users_or_channels">your Slack channel has too many users or channels</string>
+    <string name="slack_restricted_channel">restricted channel</string>
+    <string name="slack_invalid_content">invalid message</string>
 </resources>

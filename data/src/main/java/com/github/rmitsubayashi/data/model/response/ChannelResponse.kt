@@ -6,5 +6,7 @@ data class ChannelResponse (
     @SerializedName("ok")
     val success: Boolean,
     @SerializedName("channels")
-    val channels: List<ChannelResponseChannel>
+    val channels: List<ChannelResponseChannel>,
+    @SerializedName("error")
+    val error: String
 )

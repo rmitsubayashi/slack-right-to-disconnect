@@ -13,6 +13,7 @@ import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.ThreadInfo
 import com.github.rmitsubayashi.presentation.post.SelectPostRecipientContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
+import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import kotlinx.android.synthetic.main.fragment_select_post_recipient.view.*
 import kotlinx.android.synthetic.main.fragment_select_post_recipient_type.view.*
 import org.koin.android.ext.android.inject
@@ -66,5 +67,17 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
 
     override fun setPostRecipients(recipients: List<Recipient>) {
         listAdapter.setRecipients(recipients)
+    }
+
+    override fun showGeneralError() {
+        context?.showToast(R.string.general_error)
+    }
+
+    override fun showNoNetwork() {
+        context?.showToast(R.string.no_network_error)
+    }
+
+    override fun showTooManySlackUsersOrChannels() {
+        context?.showToast(R.string.slack_too_many_users_or_channels)
     }
 }

@@ -6,5 +6,7 @@ data class UsersResponse (
     @SerializedName("ok")
     val success: Boolean,
     @SerializedName("members")
-    val users: List<UsersResponseUser>
+    val users: List<UsersResponseUser>,
+    @SerializedName("error")
+    val error: String
 )

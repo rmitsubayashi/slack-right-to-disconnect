@@ -9,6 +9,8 @@ interface SelectPostRecipientContract {
     interface View: BaseView {
         fun navigateToPost(recipient: Recipient)
         fun setPostRecipients(recipients: List<Recipient>)
+        fun showNoNetwork()
+        fun showTooManySlackUsersOrChannels()
     }
 
     interface Presenter: BasePresenter {
