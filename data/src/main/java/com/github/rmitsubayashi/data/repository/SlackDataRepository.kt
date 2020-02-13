@@ -125,7 +125,7 @@ internal class SlackDataRepository(
         }
         val filteredUsers = removeBotsAndInactiveUsers(response.users)
         userCache = filteredUsers.map {
-            UserInfo(it.userID, name = it.username)
+            UserInfo(it.userID, name = it.username, realName = it.realName)
         }
         return Resource.success(userCache)
     }
