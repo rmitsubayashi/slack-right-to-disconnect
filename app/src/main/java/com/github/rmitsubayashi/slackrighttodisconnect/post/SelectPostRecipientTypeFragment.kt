@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.github.rmitsubayashi.domain.model.BookmarkedRecipient
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.SelectPostRecipientTypeContract
-import com.github.rmitsubayashi.presentation.post.model.RecipientType
+import com.github.rmitsubayashi.domain.model.RecipientType
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import kotlinx.android.synthetic.main.fragment_select_post_recipient_type.*
@@ -58,15 +58,15 @@ class SelectPostRecipientTypeFragment : Fragment(), SelectPostRecipientTypeContr
         findNavController().navigate(action)
     }
 
-    override fun navigateToPost(recipient: Recipient) {
+    override fun navigateToPost(recipient: BookmarkedRecipient) {
         val action =
-            SelectPostRecipientTypeFragmentDirections.actionSelectPostRecipientTypeFragmentToPostFragment(recipient.id, recipient.name, null)
+            SelectPostRecipientTypeFragmentDirections.actionSelectPostRecipientTypeFragmentToPostFragment(recipient.id, recipient.name, null, recipient.recipientType)
         findNavController().navigate(action)
     }
 
     override fun setBookmarks(bookmarks: List<BookmarkedRecipient>) {
         if (bookmarks.isNotEmpty()) {
-            select_post_recipient_type_bookmark.text = bookmarks[0].name
+            select_post_recipient_type_bookmark.text = bookmarks[0].name + bookmarks[0].recipientType.name
             select_post_recipient_type_bookmark.setOnClickListener { selectPostRecipientTypePresenter.selectBookmark(bookmarks[0]) }
         }
     }

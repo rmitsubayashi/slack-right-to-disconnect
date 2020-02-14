@@ -4,7 +4,7 @@ import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.interactor.RecipientInteractor
 import com.github.rmitsubayashi.domain.model.Recipient
-import com.github.rmitsubayashi.presentation.post.model.RecipientType
+import com.github.rmitsubayashi.domain.model.RecipientType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

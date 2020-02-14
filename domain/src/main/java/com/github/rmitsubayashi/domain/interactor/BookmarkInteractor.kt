@@ -10,11 +10,11 @@ class BookmarkInteractor(private val bookmarkRepository: BookmarkRepository) {
         return bookmarkRepository.getBookmarks()
     }
 
-    suspend fun saveBookmark(recipient: Recipient): Resource<Unit> {
+    suspend fun saveBookmark(recipient: BookmarkedRecipient): Resource<Unit> {
         return bookmarkRepository.saveBookmark(recipient)
     }
 
-    suspend fun deleteBookmark(recipient: Recipient): Resource<Unit> {
+    suspend fun deleteBookmark(recipient: BookmarkedRecipient): Resource<Unit> {
         return bookmarkRepository.removeBookmark(recipient)
     }
 

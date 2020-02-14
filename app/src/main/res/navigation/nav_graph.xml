@@ -23,7 +23,7 @@
             app:destination="@id/postFragment" />
         <argument
             android:name="PostRecipientType"
-            app:argType="com.github.rmitsubayashi.presentation.post.model.RecipientType" />
+            app:argType="com.github.rmitsubayashi.domain.model.RecipientType" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -43,6 +43,9 @@
             android:name="ThreadID"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="RecipientType"
+            app:argType="com.github.rmitsubayashi.domain.model.RecipientType" />
     </fragment>
     <fragment
         android:id="@+id/postSuccessFragment"
@@ -59,6 +62,9 @@
         <argument
             android:name="RecipientName"
             app:argType="string" />
+        <argument
+            android:name="RecipientType"
+            app:argType="com.github.rmitsubayashi.domain.model.RecipientType" />
     </fragment>
     <fragment
         android:id="@+id/settings_fragment"

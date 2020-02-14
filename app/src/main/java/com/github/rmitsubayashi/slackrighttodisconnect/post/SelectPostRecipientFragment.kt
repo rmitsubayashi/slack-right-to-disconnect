@@ -60,7 +60,8 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
             SelectPostRecipientFragmentDirections.actionSelectPostRecipientFragmentToPostFragment(
                 RecipientID = recipient.id,
                 RecipientName = recipient.name,
-                ThreadID = threadID
+                ThreadID = threadID,
+                RecipientType = args.PostRecipientType
             )
         findNavController().navigate(action)
     }

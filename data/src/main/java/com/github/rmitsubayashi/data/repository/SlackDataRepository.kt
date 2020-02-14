@@ -143,20 +143,20 @@ internal class SlackDataRepository(
         }
     }
 
-    override fun saveThreadInfo(id: String, message: Message, threadID: String) {
-        val thread = Thread(id, message.value, Date(), threadID)
+    override fun saveThreadInfo(id: String, message: Message, threadID: String, type: RecipientType) {
+        val thread = Thread(id, message.value, Date(), threadID, type)
         threadDao.insert(thread)
     }
 
     override suspend fun getRecentThreads(): Resource<List<ThreadInfo>> {
         val dataThreads = threadDao.getAll()
-        val domainThreads = dataThreads.map { ThreadInfo(it.id, it.name, it.date, it.threadID) }
+        val domainThreads = dataThreads.map { ThreadInfo(it.id, it.name, it.date, it.threadID, it.parentType) }
         return Resource.success(domainThreads)
     }
 
     override fun updateRecentThreads(recentThreads: List<ThreadInfo>) {
         threadDao.delete()
-        val dataThreads = recentThreads.map { Thread(it.id, it.name, it.date, it.threadID) }
+        val dataThreads = recentThreads.map { Thread(it.id, it.name, it.date, it.threadID, it.parentType) }
         threadDao.insert(*dataThreads.toTypedArray())
     }
 }

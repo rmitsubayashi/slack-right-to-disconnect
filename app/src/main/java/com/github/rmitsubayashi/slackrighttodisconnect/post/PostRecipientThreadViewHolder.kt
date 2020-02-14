@@ -11,5 +11,6 @@ class PostRecipientThreadViewHolder(itemView: View, private val listener: PostRe
         itemView.row_post_recipient_name.text = recipient.name
         itemView.setOnClickListener { listener.onItemClicked(recipient) }
         itemView.row_post_recipient_thread_date.text = (recipient as ThreadInfo).date.toString()
+        itemView.row_post_recipient_thread_recipient_type.text = recipient.parentType.name
     }
 }

@@ -87,14 +87,14 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postPresenter.setRecipient(args.RecipientID, args.ThreadID)
+        postPresenter.setRecipient(args.RecipientID, args.RecipientType, args.ThreadID)
         post_message_edittext.setQueryTokenReceiver(this)
         post_message_edittext.displayTextCounter(false)
         post_message_edittext.setEditTextShouldWrapContent(true)
     }
 
     override fun navigateToPostSuccess() {
-        val action = PostFragmentDirections.actionPostFragmentToPostSuccessFragment(args.RecipientID, args.RecipientName)
+        val action = PostFragmentDirections.actionPostFragmentToPostSuccessFragment(args.RecipientID, args.RecipientName, args.RecipientType)
         findNavController().navigate(action)
     }
 

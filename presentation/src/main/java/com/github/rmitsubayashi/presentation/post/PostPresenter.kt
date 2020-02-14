@@ -4,6 +4,8 @@ import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.interactor.PostInteractor
+import com.github.rmitsubayashi.domain.interactor.RecipientInteractor
+import com.github.rmitsubayashi.domain.model.RecipientType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -26,9 +28,10 @@ class PostPresenter(
 
     }
 
-    override fun setRecipient(id: String, threadID: String?) {
+    override fun setRecipient(id: String, type: RecipientType, threadID: String?) {
         postInteractor.setRecipientID(id)
         postInteractor.setThreadID(threadID)
+        postInteractor.setRecipientType(type)
     }
 
     override fun updateMessage(message: String) {

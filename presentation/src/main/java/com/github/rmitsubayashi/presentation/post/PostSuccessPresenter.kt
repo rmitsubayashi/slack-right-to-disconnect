@@ -1,6 +1,7 @@
 package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.interactor.BookmarkInteractor
+import com.github.rmitsubayashi.domain.model.BookmarkedRecipient
 import com.github.rmitsubayashi.domain.model.Recipient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,7 +35,7 @@ class PostSuccessPresenter(
         }
     }
 
-    override fun bookmark(recipient: Recipient) {
+    override fun bookmark(recipient: BookmarkedRecipient) {
         launch {
             bookmarkInteractor.saveBookmark(recipient)
             withContext(Dispatchers.Main) {

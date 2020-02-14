@@ -6,5 +6,7 @@ data class ThreadInfo(
     override val id: String,
     override val name: String,
     val date: Date,
-    val threadID: String
+    val threadID: String,
+    // only user or channel
+    val parentType: RecipientType
 ): Recipient

@@ -31,12 +31,13 @@ class PostSuccessFragment : Fragment(), PostSuccessContract.View {
         postSuccessPresenter.checkBookmark(
             BookmarkedRecipient(
                 args.RecipientID,
-                args.RecipientName
+                args.RecipientName,
+                args.RecipientType
             )
         )
 
         post_success_bookmark.setOnClickListener {
-            val recipient = BookmarkedRecipient(args.RecipientID, args.RecipientName)
+            val recipient = BookmarkedRecipient(args.RecipientID, args.RecipientName, args.RecipientType)
             postSuccessPresenter.bookmark(recipient)
         }
         post_success_go_back.setOnClickListener {

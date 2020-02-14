@@ -2,10 +2,7 @@ package com.github.rmitsubayashi.domain.interactor
 
 import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.error.ValidationError
-import com.github.rmitsubayashi.domain.model.Message
-import com.github.rmitsubayashi.domain.model.SlackChannelInfo
-import com.github.rmitsubayashi.domain.model.ThreadInfo
-import com.github.rmitsubayashi.domain.model.UserInfo
+import com.github.rmitsubayashi.domain.model.*
 import com.github.rmitsubayashi.domain.repository.SlackRepository
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -16,12 +13,13 @@ class PostInteractor(
     ) {
     private var recipientID: String = ""
     private var threadID: String? = null
+    private var recipientType: RecipientType = RecipientType.THREAD
     suspend fun post(): Resource<Unit> {
         val formattedMessage = messageInputInteractor.formatMessageForSlack()
         val postResource = slackRepository.post(formattedMessage, recipientID, threadID)
         postResource.data?.let {
             if (shouldSaveThreadInfo(threadID)) {
-                slackRepository.saveThreadInfo(recipientID, messageInputInteractor.getRawMessage(), it)
+                slackRepository.saveThreadInfo(recipientID, messageInputInteractor.getRawMessage(), it, recipientType)
             }
         }
         return if (postResource.error != null) {
@@ -41,5 +39,9 @@ class PostInteractor(
 
     fun setThreadID(id: String?) {
         this.threadID = id
+    }
+    
+    fun setRecipientType(type: RecipientType) {
+        this.recipientType = type
     }
 }

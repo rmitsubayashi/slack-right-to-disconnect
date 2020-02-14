@@ -16,7 +16,7 @@ interface SlackRepository {
     suspend fun getSlackChannels(): Resource<List<SlackChannelInfo>>
     suspend fun getUsers(): Resource<List<UserInfo>>
     suspend fun getRecentThreads(): Resource<List<ThreadInfo>>
-    fun saveThreadInfo(id: String, message: Message, threadID: String)
+    fun saveThreadInfo(id: String, message: Message, threadID: String, type: RecipientType)
     fun updateRecentThreads(recentThreads: List<ThreadInfo>)
 
 

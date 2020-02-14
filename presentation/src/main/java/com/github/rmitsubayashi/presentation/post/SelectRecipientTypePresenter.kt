@@ -2,7 +2,7 @@ package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.interactor.BookmarkInteractor
 import com.github.rmitsubayashi.domain.model.BookmarkedRecipient
-import com.github.rmitsubayashi.presentation.post.model.RecipientType
+import com.github.rmitsubayashi.domain.model.RecipientType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

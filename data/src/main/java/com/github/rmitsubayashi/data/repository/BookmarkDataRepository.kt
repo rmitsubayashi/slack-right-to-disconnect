@@ -11,19 +11,19 @@ class BookmarkDataRepository(private val bookmarkDao: BookmarkDao): BookmarkRepo
     override suspend fun getBookmarks(): Resource<List<BookmarkedRecipient>> {
         val bookmarks = bookmarkDao.getAll()
         val domainBookmarks = bookmarks.map {
-            BookmarkedRecipient(it.slackID, it.title)
+            BookmarkedRecipient(it.slackID, it.title, it.type)
         }
         return Resource.success(domainBookmarks)
     }
 
-    override suspend fun saveBookmark(recipient: Recipient): Resource<Unit> {
-        val dataBookmark = Bookmark(recipient.id, recipient.name)
+    override suspend fun saveBookmark(recipient: BookmarkedRecipient): Resource<Unit> {
+        val dataBookmark = Bookmark(recipient.id, recipient.name, recipient.recipientType)
         bookmarkDao.insert(dataBookmark)
         return Resource.success()
     }
 
-    override suspend fun removeBookmark(recipient: Recipient): Resource<Unit> {
-        val dataBookmark = Bookmark(recipient.id, recipient.name)
+    override suspend fun removeBookmark(recipient: BookmarkedRecipient): Resource<Unit> {
+        val dataBookmark = Bookmark(recipient.id, recipient.name, recipient.recipientType)
         bookmarkDao.delete(dataBookmark)
         return Resource.success()
     }
