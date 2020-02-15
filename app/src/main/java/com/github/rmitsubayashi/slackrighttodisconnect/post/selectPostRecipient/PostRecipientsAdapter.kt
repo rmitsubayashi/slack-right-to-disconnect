@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.slackrighttodisconnect.post
+package com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -26,10 +26,22 @@ class PostRecipientsAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(viewID, parent, false)
         return when (viewType) {
-            VIEW_TYPE_USER -> PostRecipientViewHolder(view, listener)
-            VIEW_TYPE_CHANNEL -> PostRecipientViewHolder(view, listener)
-            VIEW_TYPE_RECENT_THREAD -> PostRecipientThreadViewHolder(view, listener)
-            else -> PostRecipientViewHolder(view, listener)
+            VIEW_TYPE_USER -> PostRecipientViewHolder(
+                view,
+                listener
+            )
+            VIEW_TYPE_CHANNEL -> PostRecipientViewHolder(
+                view,
+                listener
+            )
+            VIEW_TYPE_RECENT_THREAD -> PostRecipientThreadViewHolder(
+                view,
+                listener
+            )
+            else -> PostRecipientViewHolder(
+                view,
+                listener
+            )
         }
     }
 

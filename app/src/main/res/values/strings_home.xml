@@ -16,6 +16,12 @@
     <string name="slack_restricted_channel">restricted channel</string>
     <string name="slack_invalid_content">invalid message</string>
 
+    <string name="select_post_recipient_title">Who to send to?</string>
+    <string name="select_post_recipient_user">User</string>
+    <string name="select_post_recipient_channel">Channel</string>
+    <string name="select_post_recipient_recent_thread">Your Thread</string>
+    <string name="select_post_recipient_bookmark_title">Bookmarks</string>
+
     <string name="post_success_bookmark_button">bookmark</string>
     <string name="post_success_go_back_button">Go back</string>
 </resources>

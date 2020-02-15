@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.slackrighttodisconnect.post
+package com.github.rmitsubayashi.slackrighttodisconnect.post.post
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -29,7 +29,10 @@ class MentionSuggestion : Mentionable {
     companion object {
         @JvmField
         val CREATOR: Parcelable.Creator<MentionSuggestion> = object: Parcelable.Creator<MentionSuggestion> {
-            override fun createFromParcel(inParcel: Parcel): MentionSuggestion = MentionSuggestion(inParcel)
+            override fun createFromParcel(inParcel: Parcel): MentionSuggestion =
+                MentionSuggestion(
+                    inParcel
+                )
             override fun newArray(size: Int): Array<MentionSuggestion?> = arrayOfNulls(size)
         }
     }

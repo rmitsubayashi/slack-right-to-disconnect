@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.slackrighttodisconnect.post
+package com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +13,10 @@ import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.ThreadInfo
 import com.github.rmitsubayashi.presentation.post.SelectPostRecipientContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
+import com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient.SelectPostRecipientFragmentArgs
+import com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient.SelectPostRecipientFragmentDirections
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import kotlinx.android.synthetic.main.fragment_select_post_recipient.view.*
-import kotlinx.android.synthetic.main.fragment_select_post_recipient_type.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -34,13 +35,15 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        listAdapter = PostRecipientsAdapter(
-            object: PostRecipientRowClickListener {
-                override fun onItemClicked(recipient: Recipient) {
-                    selectPostRecipientPresenter.selectPostRecipient(recipient)
+        listAdapter =
+            PostRecipientsAdapter(
+                object :
+                    PostRecipientRowClickListener {
+                    override fun onItemClicked(recipient: Recipient) {
+                        selectPostRecipientPresenter.selectPostRecipient(recipient)
+                    }
                 }
-            }
-        )
+            )
         listLayoutManager = LinearLayoutManager(context)
         view.select_post_recipient_list.apply {
             adapter = listAdapter

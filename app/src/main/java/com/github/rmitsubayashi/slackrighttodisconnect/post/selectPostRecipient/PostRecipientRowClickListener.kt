@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.slackrighttodisconnect.post
+package com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient
 
 import com.github.rmitsubayashi.domain.model.Recipient
 

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/selectPostRecipientTypeFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.SelectPostRecipientTypeFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostReipientType.SelectPostRecipientTypeFragment"
         android:label="SelectPostRecipientTypeFragment" >
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_selectPostRecipientFragment"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectPostRecipientFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.SelectPostRecipientFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient.SelectPostRecipientFragment"
         android:label="SelectPostRecipientFragment" >
         <action
             android:id="@+id/action_selectPostRecipientFragment_to_postFragment"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.PostFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragment"
         android:label="PostFragment" >
         <action
             android:id="@+id/action_postFragment_to_postSuccessFragment"
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/postSuccessFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.PostSuccessFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.postSuccess.PostSuccessFragment"
         android:label="PostSuccessFragment" >
         <action
             android:id="@+id/action_postSuccessFragment_to_selectPostRecipientTypeFragment"

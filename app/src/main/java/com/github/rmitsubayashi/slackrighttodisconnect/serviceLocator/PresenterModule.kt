@@ -3,10 +3,10 @@ package com.github.rmitsubayashi.slackrighttodisconnect.serviceLocator
 import com.github.rmitsubayashi.presentation.post.*
 import com.github.rmitsubayashi.presentation.settings.SettingsContract
 import com.github.rmitsubayashi.presentation.settings.SettingsPresenter
-import com.github.rmitsubayashi.slackrighttodisconnect.post.PostFragment
-import com.github.rmitsubayashi.slackrighttodisconnect.post.PostSuccessFragment
-import com.github.rmitsubayashi.slackrighttodisconnect.post.SelectPostRecipientFragment
-import com.github.rmitsubayashi.slackrighttodisconnect.post.SelectPostRecipientTypeFragment
+import com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragment
+import com.github.rmitsubayashi.slackrighttodisconnect.post.postSuccess.PostSuccessFragment
+import com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient.SelectPostRecipientFragment
+import com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostReipientType.SelectPostRecipientTypeFragment
 import com.github.rmitsubayashi.slackrighttodisconnect.settings.SettingsFragment
 import org.koin.dsl.module
 

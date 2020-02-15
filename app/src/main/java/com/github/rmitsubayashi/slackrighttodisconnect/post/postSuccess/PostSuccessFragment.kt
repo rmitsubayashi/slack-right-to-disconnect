@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.slackrighttodisconnect.post
+package com.github.rmitsubayashi.slackrighttodisconnect.post.postSuccess
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.github.rmitsubayashi.domain.model.BookmarkedRecipient
 import com.github.rmitsubayashi.presentation.post.PostSuccessContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
+import com.github.rmitsubayashi.slackrighttodisconnect.post.postSuccess.PostSuccessFragmentArgs
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import kotlinx.android.synthetic.main.fragment_post_success.*
 import org.koin.android.ext.android.inject

@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.slackrighttodisconnect.post
+package com.github.rmitsubayashi.slackrighttodisconnect.post.post
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.PostContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
+import com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragmentArgs
+import com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragmentDirections
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import com.linkedin.android.spyglass.mentions.Mentionable
 import com.linkedin.android.spyglass.suggestions.SuggestionsResult
@@ -94,7 +95,12 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun navigateToPostSuccess() {
-        val action = PostFragmentDirections.actionPostFragmentToPostSuccessFragment(args.RecipientID, args.RecipientName, args.RecipientType)
+        val action =
+            PostFragmentDirections.actionPostFragmentToPostSuccessFragment(
+                args.RecipientID,
+                args.RecipientName,
+                args.RecipientType
+            )
         findNavController().navigate(action)
     }
 
@@ -109,7 +115,11 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun showMentionSuggestions(token: String, suggestions: List<String>) {
-        val suggestibles = suggestions.map { MentionSuggestion(it) }
+        val suggestibles = suggestions.map {
+            MentionSuggestion(
+                it
+            )
+        }
         val suggestionResult = SuggestionsResult(QueryToken(token), suggestibles)
         post_message_edittext.onReceiveSuggestionsResult(suggestionResult, bucket)
     }
