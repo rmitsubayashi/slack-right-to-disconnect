@@ -9,10 +9,18 @@
         android:label="SelectPostRecipientTypeFragment" >
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_selectPostRecipientFragment"
-            app:destination="@id/selectPostRecipientFragment" />
+            app:destination="@id/selectPostRecipientFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_postFragment"
-            app:destination="@id/postFragment" />
+            app:destination="@id/postFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/selectPostRecipientFragment"
@@ -20,7 +28,11 @@
         android:label="SelectPostRecipientFragment" >
         <action
             android:id="@+id/action_selectPostRecipientFragment_to_postFragment"
-            app:destination="@id/postFragment" />
+            app:destination="@id/postFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <argument
             android:name="PostRecipientType"
             app:argType="com.github.rmitsubayashi.domain.model.RecipientType" />
@@ -32,7 +44,11 @@
         <action
             android:id="@+id/action_postFragment_to_postSuccessFragment"
             app:destination="@id/postSuccessFragment"
-            app:popUpTo="@id/selectPostRecipientTypeFragment" />
+            app:popUpTo="@id/selectPostRecipientTypeFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <argument
             android:name="RecipientID"
             app:argType="string" />
