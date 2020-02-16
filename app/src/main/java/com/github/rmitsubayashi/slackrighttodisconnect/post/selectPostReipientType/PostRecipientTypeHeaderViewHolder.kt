@@ -3,7 +3,7 @@ package com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostReipientT
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.github.rmitsubayashi.domain.model.RecipientType
-import kotlinx.android.synthetic.main.row_select_post_recipient.view.*
+import kotlinx.android.synthetic.main.row_post_recipient_type_header.view.*
 
 class PostRecipientTypeHeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     fun setListener(listener: HeaderListener) {

@@ -8,15 +8,22 @@
     android:background="?attr/selectableItemBackground"
     android:minHeight="48dp">
 
+    <CheckBox
+        android:id="@+id/row_post_recipient_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/row_post_recipient_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textColor="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/row_post_recipient_checkbox"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="channel name" />
+        tools:text="user name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

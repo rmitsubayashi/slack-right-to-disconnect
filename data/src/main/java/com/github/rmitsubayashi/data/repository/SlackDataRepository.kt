@@ -6,6 +6,7 @@ import com.github.rmitsubayashi.data.dao.ThreadDao
 import com.github.rmitsubayashi.data.model.Thread
 import com.github.rmitsubayashi.data.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.model.request.PostRequest
+import com.github.rmitsubayashi.data.model.request.UserGroupRequest
 import com.github.rmitsubayashi.data.model.response.UsersResponseUser
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
@@ -16,8 +17,6 @@ import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.model.*
 import com.github.rmitsubayashi.domain.repository.SlackRepository
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.util.*
 
 internal class SlackDataRepository(
@@ -129,7 +128,7 @@ internal class SlackDataRepository(
         }
         val filteredUsers = removeBotsAndInactiveUsers(response.users)
         userCache = filteredUsers.map {
-            UserInfo(it.userID, name = it.username, realName = it.realName)
+            UserInfo(it.userID, name = it.username)
         }
         return Resource.success(userCache)
     }
@@ -141,6 +140,27 @@ internal class SlackDataRepository(
                     //何故かSlackbotはbotじゃない。。
                     it.userID != "USLACKBOT"
         }
+    }
+
+    override suspend fun createUserGroup(users: Collection<UserInfo>): Resource<UserInfo> {
+        if (!connectionManager.isConnected()) {
+            return Resource.error(NetworkError.NOT_CONNECTED)
+        }
+        val tokenResource = this.getSlackToken()
+        val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
+        val usersString = users.map { it.id }.joinToString(",")
+        val authToken = SlackAuthToken(tokenInfo.token)
+        val response = slackService.createUserGroup(UserGroupRequest(usersString), authToken)
+        if (!response.success) {
+            if (response.error == "too_many_users") {
+                return Resource.error(SlackError.TOO_MANY_USERS)
+            }
+            return Resource.error()
+        }
+        val userName = users.map { it.name }.joinToString(", ")
+        return Resource.success(
+            UserInfo(response.channel.id, userName)
+        )
     }
 
     override fun saveThreadInfo(id: String, message: Message, threadID: String, type: RecipientType) {

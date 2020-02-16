@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.ThreadInfo
+import com.github.rmitsubayashi.domain.model.UserInfo
 import com.github.rmitsubayashi.presentation.post.SelectPostRecipientContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient.SelectPostRecipientFragmentArgs
 import com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient.SelectPostRecipientFragmentDirections
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
+import kotlinx.android.synthetic.main.fragment_select_post_recipient.*
 import kotlinx.android.synthetic.main.fragment_select_post_recipient.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -42,6 +44,10 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
                     override fun onItemClicked(recipient: Recipient) {
                         selectPostRecipientPresenter.selectPostRecipient(recipient)
                     }
+
+                    override fun onUserItemClicked(user: UserInfo, selected: Boolean) {
+                        selectPostRecipientPresenter.toggleUser(user, selected)
+                    }
                 }
             )
         listLayoutManager = LinearLayoutManager(context)
@@ -49,7 +55,12 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
             adapter = listAdapter
             layoutManager = listLayoutManager
         }
+        listAdapter.setRecipientType(args.PostRecipientType)
         selectPostRecipientPresenter.loadPostRecipients(args.PostRecipientType)
+
+        select_post_recipient_select_button.setOnClickListener {
+            selectPostRecipientPresenter.selectUsers()
+        }
 
     }
 
@@ -73,6 +84,19 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
         listAdapter.setRecipients(recipients)
     }
 
+    override fun setSelectButtonEnabled(enabled: Boolean) {
+        select_post_recipient_select_button.isEnabled = enabled
+    }
+
+    override fun setSelectButtonVisibility(visible: Boolean) {
+        select_post_recipient_select_button.visibility =
+            if (visible) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+    }
+
     override fun showGeneralError() {
         context?.showToast(R.string.general_error)
     }
@@ -83,5 +107,9 @@ class SelectPostRecipientFragment : Fragment(), SelectPostRecipientContract.View
 
     override fun showTooManySlackUsersOrChannels() {
         context?.showToast(R.string.slack_too_many_users_or_channels)
+    }
+
+    override fun showTooManySelectedUsers() {
+        context?.showToast(R.string.slack_too_many_selected_users)
     }
 }

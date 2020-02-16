@@ -5,6 +5,7 @@ import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.interactor.RecipientInteractor
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.RecipientType
+import com.github.rmitsubayashi.domain.model.UserInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -26,6 +27,8 @@ class SelectPostRecipientPresenter(
     }
 
     override fun loadPostRecipients(type: RecipientType) {
+        view.setSelectButtonVisibility(recipientInteractor.shouldShowSelectButton(type))
+        view.setSelectButtonEnabled(recipientInteractor.shouldSelectButtonBeEnabled())
         launch {
             val resource = when (type) {
                 RecipientType.USER -> recipientInteractor.getUsers()
@@ -50,5 +53,32 @@ class SelectPostRecipientPresenter(
 
     override fun selectPostRecipient(recipient: Recipient) {
         view.navigateToPost(recipient)
+    }
+
+    override fun toggleUser(userInfo: UserInfo, selected: Boolean) {
+        if (selected) {
+            recipientInteractor.selectUser(userInfo)
+        } else {
+            recipientInteractor.deselectUser(userInfo)
+        }
+
+        view.setSelectButtonEnabled(recipientInteractor.shouldSelectButtonBeEnabled())
+    }
+
+    override fun selectUsers() {
+        launch {
+            val groupInfo = recipientInteractor.getUserGroup()
+            withContext(Dispatchers.Main) {
+                when (groupInfo.error) {
+                    null -> {
+                        groupInfo.data?.let { view.navigateToPost(it) } ?: view.showGeneralError()
+                    }
+                    SlackError.TOO_MANY_USERS -> view.showTooManySelectedUsers()
+                    NetworkError.NOT_CONNECTED -> view.showNoNetwork()
+                    else -> view.showGeneralError()
+                }
+
+            }
+        }
     }
 }

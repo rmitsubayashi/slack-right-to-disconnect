@@ -2,6 +2,7 @@ package com.github.rmitsubayashi.data.service
 
 import com.github.rmitsubayashi.data.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.model.request.PostRequest
+import com.github.rmitsubayashi.data.model.request.UserGroupRequest
 import com.github.rmitsubayashi.data.model.response.*
 import com.github.rmitsubayashi.domain.model.SlackToken
 import retrofit2.http.*
@@ -35,4 +36,13 @@ interface SlackService {
     suspend fun getUsers(
         @Field("token") token: SlackToken
     ): UsersResponse
+
+    @Headers(
+        "Content-type: application/json"
+    )
+    @POST("conversations.open")
+    suspend fun createUserGroup(
+        @Body userGroupRequest: UserGroupRequest,
+        @Header("Authorization") auth: SlackAuthToken
+    ): UserGroupResponse
 }
