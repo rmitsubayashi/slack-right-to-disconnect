@@ -9,6 +9,8 @@ val interactorModule = module {
         SettingsInteractor(get())
     }
     factory {MessageInputInteractor(get())}
-    factory {RecipientInteractor(get())}
+    factory {SelectChannelInteractor(get())}
+    factory {SelectUserInteractor(get())}
+    factory {SelectRecentThreadInteractor(get())}
     factory { BookmarkInteractor(get()) }
 }

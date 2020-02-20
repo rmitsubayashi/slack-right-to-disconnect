@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_post.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
+class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
     private val postPresenter: PostContract.Presenter by inject { parametersOf(this@PostFragment) }
     private val args: PostFragmentArgs by navArgs()
     private val bucket = "slack-people"
@@ -37,14 +37,17 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
         val view = inflater.inflate(R.layout.fragment_post, container, false)
         view.post_send_button.setOnClickListener { postPresenter.postToSlack() }
         view.post_message_edittext.addMentionWatcher(
-            object: MentionsEditText.MentionWatcher {
+            object : MentionsEditText.MentionWatcher {
                 override fun onMentionAdded(
                     mention: Mentionable,
                     text: String,
                     start: Int,
                     end: Int
                 ) {
-                    postPresenter.addMention(mention.getTextForDisplayMode(Mentionable.MentionDisplayMode.FULL), start)
+                    postPresenter.addMention(
+                        mention.getTextForDisplayMode(Mentionable.MentionDisplayMode.FULL),
+                        start
+                    )
                 }
 
                 override fun onMentionDeleted(
@@ -53,7 +56,10 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
                     start: Int,
                     end: Int
                 ) {
-                    postPresenter.removeMention(mention.getTextForDisplayMode(Mentionable.MentionDisplayMode.FULL), start)
+                    postPresenter.removeMention(
+                        mention.getTextForDisplayMode(Mentionable.MentionDisplayMode.FULL),
+                        start
+                    )
                 }
 
                 override fun onMentionPartiallyDeleted(
@@ -62,12 +68,15 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
                     start: Int,
                     end: Int
                 ) {
-                    postPresenter.removeMention(mention.getTextForDisplayMode(Mentionable.MentionDisplayMode.FULL), start)
+                    postPresenter.removeMention(
+                        mention.getTextForDisplayMode(Mentionable.MentionDisplayMode.FULL),
+                        start
+                    )
                 }
             }
         )
         view.post_message_edittext.addTextChangedListener(
-            object: TextWatcher {
+            object : TextWatcher {
                 override fun afterTextChanged(s: Editable) {
                     postPresenter.updateMessage(s.toString())
                 }
@@ -88,7 +97,7 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postPresenter.setRecipient(args.RecipientID, args.RecipientType, args.ThreadID)
+        postPresenter.setRecipient(args.Recipient, args.ThreadID)
         post_message_edittext.setQueryTokenReceiver(this)
         post_message_edittext.displayTextCounter(false)
         post_message_edittext.setEditTextShouldWrapContent(true)
@@ -97,9 +106,7 @@ class PostFragment: Fragment(), PostContract.View, QueryTokenReceiver {
     override fun navigateToPostSuccess() {
         val action =
             PostFragmentDirections.actionPostFragmentToPostSuccessFragment(
-                args.RecipientID,
-                args.RecipientName,
-                args.RecipientType
+                args.Recipient, args.ThreadID
             )
         findNavController().navigate(action)
     }

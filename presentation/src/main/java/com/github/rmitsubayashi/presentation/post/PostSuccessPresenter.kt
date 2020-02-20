@@ -1,7 +1,6 @@
 package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.interactor.BookmarkInteractor
-import com.github.rmitsubayashi.domain.model.BookmarkedRecipient
 import com.github.rmitsubayashi.domain.model.Recipient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,18 +23,18 @@ class PostSuccessPresenter(
 
     }
 
-    override fun checkBookmark(recipient: Recipient){
+    override fun checkBookmark(recipient: Recipient, threadID: String?){
         launch {
-            val resource = bookmarkInteractor.bookmarkExists(recipient)
+            val resource = bookmarkInteractor.canBookmark(recipient, threadID)
             withContext(Dispatchers.Main) {
                 resource.data?.let {
-                    exists -> view.enableBookmarkButton(!exists)
+                    canBookmark -> view.enableBookmarkButton(canBookmark)
                 } ?: view.enableBookmarkButton(false)
             }
         }
     }
 
-    override fun bookmark(recipient: BookmarkedRecipient) {
+    override fun bookmark(recipient: Recipient) {
         launch {
             bookmarkInteractor.saveBookmark(recipient)
             withContext(Dispatchers.Main) {

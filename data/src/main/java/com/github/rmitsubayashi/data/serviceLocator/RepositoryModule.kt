@@ -5,14 +5,15 @@ import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.github.rmitsubayashi.data.db.AppDatabase
-import com.github.rmitsubayashi.data.repository.BookmarkDataRepository
+import com.github.rmitsubayashi.data.repository.*
 import com.github.rmitsubayashi.data.repository.SecureSharedPrefKeys
 import com.github.rmitsubayashi.data.repository.SharedPrefsKeys
-import com.github.rmitsubayashi.data.repository.SlackDataRepository
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.repository.BookmarkRepository
-import com.github.rmitsubayashi.domain.repository.SlackRepository
+import com.github.rmitsubayashi.domain.repository.SlackMessageRepository
+import com.github.rmitsubayashi.domain.repository.SlackTeamRepository
+import com.github.rmitsubayashi.domain.repository.SlackTokenRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
@@ -21,13 +22,30 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val repositoryModule = module {
-    single<SlackRepository> {
-        SlackDataRepository(get(named("securePrefs")),
+    single<SlackTokenRepository> {
+        SlackTokenDataRepository(
+            get(named("securePrefs")),
             get(named("normalPrefs")),
-            get<AppDatabase>().threadDao(),
             get(),
-            get(named("connectionManager"))
-            )
+            get()
+        )
+    }
+
+    single<SlackMessageRepository> {
+        SlackMessageDataRepository(
+            get(),
+            get(),
+            get<AppDatabase>().threadDao(),
+            get()
+        )
+    }
+
+    single<SlackTeamRepository> {
+        SlackTeamDataRepository(
+            get(),
+            get(),
+            get()
+        )
     }
 
     single<SlackService> {
@@ -64,7 +82,7 @@ val repositoryModule = module {
         androidApplication().getSharedPreferences(SharedPrefsKeys.FILE_NAME, Context.MODE_PRIVATE)
     }
 
-    factory(named("connectionManager")) {
+    factory {
         ConnectionManager(androidContext())
     }
 }

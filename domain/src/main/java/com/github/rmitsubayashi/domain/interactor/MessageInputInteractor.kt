@@ -1,29 +1,26 @@
 package com.github.rmitsubayashi.domain.interactor
 
-import com.github.rmitsubayashi.domain.model.Message
-import com.github.rmitsubayashi.domain.repository.SlackRepository
+import com.github.rmitsubayashi.domain.repository.SlackTeamRepository
 
 class MessageInputInteractor(
-    private val slackRepository: SlackRepository
+    private val slackTeamRepository: SlackTeamRepository
 ) {
     private var rawInput: String = ""
     private val mentions = mutableSetOf<IntRange>()
     
-    internal suspend fun formatMessageForSlack(): Message {
+    internal suspend fun formatMessageForSlack(): String {
         val sortedMentions = mentions.sortedByDescending { it.first }
         var newMessage = rawInput
-        val usersResource = slackRepository.getUsers()
-        val users = usersResource.data ?: return Message(rawInput)
+        val usersResource = slackTeamRepository.getUsers()
+        val users = usersResource.data ?: return rawInput
         for (mentionRange in sortedMentions) {
             val userString = newMessage.substring(mentionRange)
-            val userID = users.find { it.name == userString }?.id ?: userString
+            val userID = users.find { it.displayName == userString }?.slackID ?: userString
             val slackMentionString = "<@${userID}>"
             newMessage = newMessage.replaceRange(mentionRange, slackMentionString)
         }
-        return Message(newMessage)
+        return newMessage
     }
-
-    internal fun getRawMessage(): Message = Message(rawInput)
     
     fun updateInput(rawInput: String) {
         this.rawInput = rawInput
@@ -44,9 +41,9 @@ class MessageInputInteractor(
     }
 
     suspend fun searchMention(keyword: String): List<String> {
-        val usersResource = slackRepository.getUsers()
+        val usersResource = slackTeamRepository.getUsers()
         val users = usersResource.data ?: return emptyList()
-        val userStrings = users.map { it.name }
+        val userStrings = users.map { it.displayName }
         return userStrings.filter { it.startsWith(keyword) }
     }
 }

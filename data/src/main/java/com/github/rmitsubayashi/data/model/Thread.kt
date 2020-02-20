@@ -9,8 +9,9 @@ import java.util.Date
 @Entity
 data class Thread (
     @ColumnInfo(name = "id") val id: String,
-    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "message") val message: String,
     @ColumnInfo(name = "date")val date: Date,
     @PrimaryKey val threadID: String,
-    @ColumnInfo(name = "type") val parentType: RecipientType
+    @ColumnInfo(name = "type") val parentType: RecipientType,
+    @ColumnInfo(name = "parent_name") val parentName: String
 )

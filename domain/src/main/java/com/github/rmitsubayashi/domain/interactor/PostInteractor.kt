@@ -1,25 +1,22 @@
 package com.github.rmitsubayashi.domain.interactor
 
 import com.github.rmitsubayashi.domain.Resource
-import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.model.*
-import com.github.rmitsubayashi.domain.repository.SlackRepository
-import java.util.*
-import java.util.concurrent.TimeUnit
+import com.github.rmitsubayashi.domain.repository.SlackMessageRepository
+import java.util.Date
 
 class PostInteractor(
-    private val slackRepository: SlackRepository,
+    private val slackMessageRepository: SlackMessageRepository,
     val messageInputInteractor: MessageInputInteractor
     ) {
-    private var recipientID: String = ""
+    private var recipient: Recipient? = null
     private var threadID: String? = null
-    private var recipientType: RecipientType = RecipientType.THREAD
     suspend fun post(): Resource<Unit> {
         val formattedMessage = messageInputInteractor.formatMessageForSlack()
-        val postResource = slackRepository.post(formattedMessage, recipientID, threadID)
+        val postResource = slackMessageRepository.post(Message(formattedMessage, recipient!!, threadID, Date()))
         postResource.data?.let {
-            if (shouldSaveThreadInfo(threadID)) {
-                slackRepository.saveThreadInfo(recipientID, messageInputInteractor.getRawMessage(), it, recipientType)
+            if (shouldSaveMessage()) {
+                slackMessageRepository.saveRecentThread(Message(formattedMessage, recipient!!, it, Date()))
             }
         }
         return if (postResource.error != null) {
@@ -29,19 +26,15 @@ class PostInteractor(
         }
     }
 
-    private fun shouldSaveThreadInfo(threadID: String?): Boolean {
-        return threadID.isNullOrBlank()
+    private fun shouldSaveMessage(): Boolean {
+        return threadID == null
     }
 
-    fun setRecipientID(id: String) {
-        this.recipientID = id
+    fun setRecipient(recipient: Recipient) {
+        this.recipient = recipient
     }
 
     fun setThreadID(id: String?) {
         this.threadID = id
-    }
-    
-    fun setRecipientType(type: RecipientType) {
-        this.recipientType = type
     }
 }

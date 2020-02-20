@@ -4,22 +4,22 @@ import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.error.DatabaseError
 import com.github.rmitsubayashi.domain.error.GeneralError
 import com.github.rmitsubayashi.domain.model.*
-import com.github.rmitsubayashi.domain.repository.SlackRepository
+import com.github.rmitsubayashi.domain.repository.SlackTokenRepository
 
 class SettingsInteractor(
-    private val slackRepository: SlackRepository
+    private val slackTokenRepository: SlackTokenRepository
 ) {
     suspend fun saveSlackToken(token: SlackToken): Resource<SlackTokenInfo> {
-        val currentToken = slackRepository.getSlackToken()
+        val currentToken = slackTokenRepository.getSlackToken()
         if (currentToken.data?.token?.value == token.value) {
             return Resource.error(DatabaseError.ALREADY_EXISTS)
         }
 
-        val validationResource = slackRepository.validateSlackToken(token)
+        val validationResource = slackTokenRepository.validateSlackToken(token)
         return when (validationResource.error) {
             null -> {
                 validationResource.data?.let {
-                    slackRepository.setSlackToken(it)
+                    slackTokenRepository.setSlackToken(it)
                     validationResource
                 } ?: Resource.error(GeneralError.UNEXPECTED)
             }
@@ -28,6 +28,6 @@ class SettingsInteractor(
     }
 
     suspend fun getCurrentSlackTokenInfo(): Resource<SlackTokenInfo> {
-        return slackRepository.getSlackToken()
+        return slackTokenRepository.getSlackToken()
     }
 }

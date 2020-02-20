@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
-import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.github.rmitsubayashi.domain.model.SlackChannelInfo
 import com.github.rmitsubayashi.domain.model.SlackToken
 import com.github.rmitsubayashi.domain.model.SlackTokenInfo
 import com.github.rmitsubayashi.presentation.settings.SettingsContract

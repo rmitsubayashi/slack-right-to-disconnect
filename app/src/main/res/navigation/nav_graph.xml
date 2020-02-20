@@ -5,15 +5,8 @@
 
     <fragment
         android:id="@+id/selectPostRecipientTypeFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostReipientType.SelectPostRecipientTypeFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.selectType.SelectTypeFragment"
         android:label="SelectPostRecipientTypeFragment" >
-        <action
-            android:id="@+id/action_selectPostRecipientTypeFragment_to_selectPostRecipientFragment"
-            app:destination="@id/selectPostRecipientFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_postFragment"
             app:destination="@id/postFragment"
@@ -21,21 +14,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/selectPostRecipientFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.selectPostRecipient.SelectPostRecipientFragment"
-        android:label="SelectPostRecipientFragment" >
         <action
-            android:id="@+id/action_selectPostRecipientFragment_to_postFragment"
-            app:destination="@id/postFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <argument
-            android:name="PostRecipientType"
-            app:argType="com.github.rmitsubayashi.domain.model.RecipientType" />
+            android:id="@+id/action_selectPostRecipientTypeFragment_to_selectChannelFragment"
+            app:destination="@id/selectChannelFragment" />
+        <action
+            android:id="@+id/action_selectPostRecipientTypeFragment_to_selectRecentThreadFragment"
+            app:destination="@id/selectRecentThreadFragment" />
+        <action
+            android:id="@+id/action_selectPostRecipientTypeFragment_to_selectUserFragment"
+            app:destination="@id/selectUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -50,18 +37,12 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
         <argument
-            android:name="RecipientID"
-            app:argType="string" />
-        <argument
-            android:name="RecipientName"
-            app:argType="string" />
+            android:name="Recipient"
+            app:argType="com.github.rmitsubayashi.domain.model.Recipient" />
         <argument
             android:name="ThreadID"
             app:argType="string"
             app:nullable="true" />
-        <argument
-            android:name="RecipientType"
-            app:argType="com.github.rmitsubayashi.domain.model.RecipientType" />
     </fragment>
     <fragment
         android:id="@+id/postSuccessFragment"
@@ -73,17 +54,39 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/nav_graph" />
         <argument
-            android:name="RecipientID"
-            app:argType="string" />
+            android:name="Recipient"
+            app:argType="com.github.rmitsubayashi.domain.model.Recipient" />
         <argument
-            android:name="RecipientName"
-            app:argType="string" />
-        <argument
-            android:name="RecipientType"
-            app:argType="com.github.rmitsubayashi.domain.model.RecipientType" />
+            android:name="ThreadID"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/settings_fragment"
         android:name="com.github.rmitsubayashi.slackrighttodisconnect.settings.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/selectChannelFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.select.channel.SelectChannelFragment"
+        android:label="SelectChannelFragment" >
+        <action
+            android:id="@+id/action_selectChannelFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectRecentThreadFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.select.recentThread.SelectRecentThreadFragment"
+        android:label="SelectRecentThreadFragment" >
+        <action
+            android:id="@+id/action_selectRecentThreadFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectUserFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.post.select.user.SelectUserFragment"
+        android:label="SelectUserFragment" >
+        <action
+            android:id="@+id/action_selectUserFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
 </navigation>

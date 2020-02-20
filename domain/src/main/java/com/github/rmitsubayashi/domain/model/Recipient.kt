@@ -1,6 +1,9 @@
 package com.github.rmitsubayashi.domain.model
 
-interface Recipient {
-    val id: String
-    val name: String
-}
+import java.io.Serializable
+
+data class Recipient (
+    val slackID: String,
+    val displayName: String,
+    val recipientType: RecipientType
+): Serializable

@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.github.rmitsubayashi.domain.model.BookmarkedRecipient
 import com.github.rmitsubayashi.presentation.post.PostSuccessContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
-import com.github.rmitsubayashi.slackrighttodisconnect.post.postSuccess.PostSuccessFragmentArgs
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import kotlinx.android.synthetic.main.fragment_post_success.*
 import org.koin.android.ext.android.inject
@@ -29,17 +27,10 @@ class PostSuccessFragment : Fragment(), PostSuccessContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postSuccessPresenter.checkBookmark(
-            BookmarkedRecipient(
-                args.RecipientID,
-                args.RecipientName,
-                args.RecipientType
-            )
-        )
+        postSuccessPresenter.checkBookmark(args.Recipient, args.ThreadID)
 
         post_success_bookmark.setOnClickListener {
-            val recipient = BookmarkedRecipient(args.RecipientID, args.RecipientName, args.RecipientType)
-            postSuccessPresenter.bookmark(recipient)
+            postSuccessPresenter.bookmark(args.Recipient)
         }
         post_success_go_back.setOnClickListener {
             navigateToSelectPostRecipientType()

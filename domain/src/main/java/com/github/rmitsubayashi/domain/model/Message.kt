@@ -1,3 +1,11 @@
 package com.github.rmitsubayashi.domain.model
 
-inline class Message (val value: String)
+import java.util.Date
+
+data class Message (
+    val message: String,
+    val recipient: Recipient,
+    val threadID: String?,
+    val date: Date
+
+)

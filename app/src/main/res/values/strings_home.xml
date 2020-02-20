@@ -12,7 +12,8 @@
     <string name="home_confirm_message_confirm">Send</string>
     <!--ポストしようとしたときに手てくる確認ポップアップのキャンセルボタン-->
     <string name="home_confirm_message_cancel">Go back</string>
-    <string name="slack_too_many_users_or_channels">your Slack channel has too many users or channels</string>
+    <string name="slack_too_many_users">your Slack channel has too many users</string>
+    <string name="slack_too_many_channels">your Slack channel has too many channels</string>
     <string name="slack_too_many_selected_users">Please select fewer users</string>
     <string name="slack_restricted_channel">restricted channel</string>
     <string name="slack_invalid_content">invalid message</string>
