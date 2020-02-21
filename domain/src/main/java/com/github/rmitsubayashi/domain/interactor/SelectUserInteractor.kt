@@ -31,4 +31,6 @@ class SelectUserInteractor(
         }
         return slackTeamRepository.createUserGroup(selectedUsers)
     }
+
+    fun shouldShowSelectButton(): Boolean = selectedUsers.isNotEmpty()
 }

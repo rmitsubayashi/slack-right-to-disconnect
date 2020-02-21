@@ -4,19 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--bottom padding 60dp = 36dp(material button height) + 16dp(button bottom margin) + 8dp(create margin between button and last row) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list__select_user"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/button__select_user__select"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="60dp"
+        android:clipToPadding="false"
+        />
 
     <Button
         android:id="@+id/button__select_user__select"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/button__select__select"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

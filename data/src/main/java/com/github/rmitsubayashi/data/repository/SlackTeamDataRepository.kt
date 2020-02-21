@@ -58,7 +58,9 @@ class SlackTeamDataRepository(
         userCache = filteredUsers.map {
             Recipient(it.userID, it.username, RecipientType.USER)
         }
-        return Resource.success(userCache)
+        val mutableList = mutableListOf<Recipient>()
+        userCache?.let { for (i in 0 .. 15) mutableList.addAll(it) }
+        return Resource.success(mutableList)
     }
 
     private fun removeBotsAndInactiveUsers(users: List<UsersResponseUser>): List<UsersResponseUser> {

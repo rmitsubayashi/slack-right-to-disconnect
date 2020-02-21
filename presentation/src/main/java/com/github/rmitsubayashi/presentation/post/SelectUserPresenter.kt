@@ -20,6 +20,7 @@ class SelectUserPresenter(
 
     override fun start() {
         loadUsers()
+        updateSelectUserEnabledState()
     }
 
     private fun loadUsers() {
@@ -45,6 +46,12 @@ class SelectUserPresenter(
         } else {
             selectUserInteractor.deselectUser(user)
         }
+        updateSelectUserEnabledState()
+    }
+
+    private fun updateSelectUserEnabledState() {
+        val enableSelectUserButton = selectUserInteractor.shouldShowSelectButton()
+        view.setSelectButtonEnabled(enableSelectUserButton)
     }
 
     override fun selectUsers() {
