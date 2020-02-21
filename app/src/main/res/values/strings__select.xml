@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label__select_channel__title">Which channel?</string>
+    <string name="label__select_user__title">Which user?</string>
+    <string name="label__select_thread__title">Which thread?</string>
+    <string name="button__select__select">Select</string>
+    <string name="error__select_user__slack_too_many_users">your Slack channel has too many users</string>
+    <string name="error__select_channel__slack_too_many_channels">your Slack channel has too many channels</string>
+    <string name="error__select_user__slack_too_many_selected_users">Please select fewer users</string>
+    <string name="label__select_thread__date_format">M/d H:mm</string>
+    <string name="label__select_thread__channel_format">#%s</string>
+    <string name="label__select_thread__user_format">\@%s</string>
+</resources>

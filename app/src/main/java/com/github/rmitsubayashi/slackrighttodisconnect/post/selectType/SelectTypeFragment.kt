@@ -12,7 +12,7 @@ import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.SelectTypeContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
-import kotlinx.android.synthetic.main.fragment_select_post_recipient_type.*
+import kotlinx.android.synthetic.main.fragment__select_type.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -26,7 +26,7 @@ class SelectTypeFragment : Fragment(), SelectTypeContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_select_post_recipient_type, container, false)
+        return inflater.inflate(R.layout.fragment__select_type, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class SelectTypeFragment : Fragment(), SelectTypeContract.View {
             }
         )
         listLayoutManager = LinearLayoutManager(context)
-        select_post_recipient_type_layout.apply {
+        list__select_type.apply {
             adapter = listAdapter
             layoutManager = listLayoutManager
         }
@@ -88,7 +88,7 @@ class SelectTypeFragment : Fragment(), SelectTypeContract.View {
     }
 
     override fun showGeneralError() {
-        context?.showToast(R.string.general_error)
+        context?.showToast(R.string.error__core__general)
     }
 
 }

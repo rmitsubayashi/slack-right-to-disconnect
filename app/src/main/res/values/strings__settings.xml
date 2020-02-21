@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--各設定のマッピング用-->
+    <string name="key__settings_slack_token" translatable="false">key_slack_token</string>
+
+    <!--設定画面のSlackトークンを変更する項目の文言-->
+    <string name="label__settings__slack_token">Slack Token</string>
+
+    <!--Slackトークンを生成できるサイトの案内-->
+    <string name="url__settings__slack_token_generator_url">You can check out your Slack token <a href="https://api.slack.com/custom-integrations/legacy-tokens">here</a></string>
+
+    <!--設定画面のSlackトークンを設定するボタンの文言-->
+    <string name="button__settings__slack_token_confirm">Set</string>
+
+    <!--Slack Token が設定されていない場合、設定画面に出る文言-->
+    <string name="label__settings__slack_token_not_set">Not set</string>
+    
+    <!--保存しようとしたSlackトークンが無効の場合-->
+    <string name="error__settings__invalid_slack_token">Invalid Slack token</string>
+
+    <!--保存した後のメッセージ-->
+    <string name="toast__settings__saved">Saved!</string>
+
+</resources>

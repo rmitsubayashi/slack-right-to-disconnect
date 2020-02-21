@@ -10,12 +10,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/select_post_recipient_title"
+        android:text="@string/label__select_type__title"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/select_post_recipient_type_channel_button"
+        android:id="@+id/button__select_type__channel"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
@@ -24,7 +24,7 @@
         android:background="@drawable/round_outlined_button">
 
         <ImageView
-            android:id="@+id/select_post_recipient_type_channel_icon"
+            android:id="@+id/image__select__type__channel"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
@@ -32,25 +32,25 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_channel"
             android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/select_post_recipient_type_channel_label"
+            app:layout_constraintBottom_toBottomOf="@+id/label__select_type__channel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/select_post_recipient_type_channel_label" />
+            app:layout_constraintTop_toTopOf="@+id/label__select_type__channel" />
 
         <TextView
-            android:id="@+id/select_post_recipient_type_channel_label"
+            android:id="@+id/label__select_type__channel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="@string/select_post_recipient_channel"
+            android:text="@string/button__select_type__channel"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/select_post_recipient_type_channel_icon"
+            app:layout_constraintStart_toEndOf="@+id/image__select__type__channel"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/select_post_recipient_type_user_button"
+        android:id="@+id/button__select_type__user"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
@@ -59,7 +59,7 @@
         android:background="@drawable/round_outlined_button">
 
         <ImageView
-            android:id="@+id/select_post_recipient_type_user_icon"
+            android:id="@+id/image__select_type__user"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
@@ -67,25 +67,25 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_users"
             android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/select_post_recipient_type_user_label"
+            app:layout_constraintBottom_toBottomOf="@+id/label__select_type__user"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/select_post_recipient_type_user_label" />
+            app:layout_constraintTop_toTopOf="@+id/label__select_type__user" />
 
         <TextView
-            android:id="@+id/select_post_recipient_type_user_label"
+            android:id="@+id/label__select_type__user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="@string/select_post_recipient_user"
+            android:text="@string/button__select_type__user"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/select_post_recipient_type_user_icon"
+            app:layout_constraintStart_toEndOf="@+id/image__select_type__user"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/select_post_recipient_type_thread_button"
+        android:id="@+id/button__select_type__thread"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
@@ -94,7 +94,7 @@
         android:background="@drawable/round_outlined_button">
 
         <ImageView
-            android:id="@+id/select_post_recipient_type_thread_icon"
+            android:id="@+id/image__select_type__thread"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
@@ -102,31 +102,31 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_thread"
             android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/select_post_recipient_type_thread_label"
+            app:layout_constraintBottom_toBottomOf="@+id/label__select_type__thread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/select_post_recipient_type_thread_label" />
+            app:layout_constraintTop_toTopOf="@+id/label__select_type__thread" />
 
         <TextView
-            android:id="@+id/select_post_recipient_type_thread_label"
+            android:id="@+id/label__select_type__thread"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="@string/select_post_recipient_recent_thread"
+            android:text="@string/button__select_type__recent_thread"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/select_post_recipient_type_thread_icon"
+            app:layout_constraintStart_toEndOf="@+id/image__select_type__thread"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/select_post_recipient_type_bookmark"
+        android:id="@+id/label__select__type__bookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/select_post_recipient_bookmark_title"
+        android:text="@string/button__select_type__recent_thread"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         android:textColor="?android:textColorSecondary"
         />

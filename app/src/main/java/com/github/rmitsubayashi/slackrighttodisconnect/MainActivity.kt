@@ -8,21 +8,21 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity__main.*
 
 class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity__main)
 
         setupAppBar()
     }
 
     private fun setupAppBar() {
-        setSupportActionBar(toolbar)
-        val navController = findNavController(R.id.nav_host_fragment)
+        setSupportActionBar(toolbar__main)
+        val navController = findNavController(R.id.nav_host__main)
         val appBarConfig = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfig)
+        toolbar__main.setupWithNavController(navController, appBarConfig)
         hideAppBarTitle()
     }
 
@@ -30,22 +30,22 @@ class MainActivity: AppCompatActivity() {
         // initial screen
         supportActionBar?.setDisplayShowTitleEnabled(false)
         // after navigating, ↑ is overridden by the navigation controller..
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.nav_host__main)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.settings_fragment -> {toolbar.title = "Settings"}
-                else -> {toolbar.title = ""}
+                R.id.settingsFragment -> {toolbar__main.title = getString(R.string.label__menu__settings) }
+                else -> {toolbar__main.title = ""}
             }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_app_bar_home, menu)
+        menuInflater.inflate(R.menu.menu__app_bar, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.nav_host__main)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 

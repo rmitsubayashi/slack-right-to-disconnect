@@ -16,8 +16,8 @@ class SelectChannelAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val viewID = when (viewType) {
-            VIEW_TYPE_HEADER -> R.layout.row_post_recipient_header
-            else -> R.layout.row_select_channel
+            VIEW_TYPE_HEADER -> R.layout.row__select__header
+            else -> R.layout.row__select__channel
         }
         val view =
             LayoutInflater.from(parent.context).inflate(viewID, parent, false)
@@ -30,7 +30,7 @@ class SelectChannelAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val listIndex = position - headerCt
         when (getItemViewType(position)) {
-            VIEW_TYPE_HEADER -> (holder as HeaderViewHolder).setTitle(R.string.post_recipient_title_channel)
+            VIEW_TYPE_HEADER -> (holder as HeaderViewHolder).setTitle(R.string.label__select_channel__title)
             VIEW_TYPE_CHANNEL -> (holder as SelectChannelViewHolder).setChannel(channels[listIndex])
         }
     }

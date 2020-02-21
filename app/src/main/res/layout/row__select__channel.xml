@@ -9,7 +9,7 @@
     android:minHeight="48dp">
 
     <TextView
-        android:id="@+id/row_select_channel_name"
+        android:id="@+id/label__row_select_channel__name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

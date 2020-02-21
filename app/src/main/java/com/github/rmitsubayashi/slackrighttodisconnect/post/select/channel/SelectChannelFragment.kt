@@ -12,7 +12,7 @@ import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.SelectChannelContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
-import kotlinx.android.synthetic.main.fragment_select_channel.view.*
+import kotlinx.android.synthetic.main.fragment__select_channel.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -31,7 +31,7 @@ class SelectChannelFragment : Fragment(), SelectChannelContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_select_channel, container, false)
+        return inflater.inflate(R.layout.fragment__select_channel, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class SelectChannelFragment : Fragment(), SelectChannelContract.View {
             }
         )
         listLayoutManager = LinearLayoutManager(context)
-        view.select_channel_list.apply {
+        view.list__select_channel.apply {
             adapter = listAdapter
             layoutManager = listLayoutManager
         }
@@ -63,14 +63,14 @@ class SelectChannelFragment : Fragment(), SelectChannelContract.View {
     }
 
     override fun showGeneralError() {
-        context?.showToast(R.string.general_error)
+        context?.showToast(R.string.error__core__general)
     }
 
     override fun showNoNetwork() {
-        context?.showToast(R.string.no_network_error)
+        context?.showToast(R.string.error__core__no_network)
     }
 
     override fun showTooManyChannels() {
-        context?.showToast(R.string.slack_too_many_channels)
+        context?.showToast(R.string.error__select_channel__slack_too_many_channels)
     }
 }

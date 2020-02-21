@@ -5,19 +5,19 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/select_user_list"
+        android:id="@+id/list__select_user"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/select_user_select_button"
+        app:layout_constraintBottom_toTopOf="@+id/button__select_user__select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/select_user_select_button"
+        android:id="@+id/button__select_user__select"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/post_recipient_select_button"
+        android:text="@string/button__select__select"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

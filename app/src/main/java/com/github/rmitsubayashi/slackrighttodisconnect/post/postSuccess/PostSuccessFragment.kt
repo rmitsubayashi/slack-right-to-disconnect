@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.github.rmitsubayashi.presentation.post.PostSuccessContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
-import kotlinx.android.synthetic.main.fragment_post_success.*
+import kotlinx.android.synthetic.main.fragment__post_success.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -23,7 +23,7 @@ class PostSuccessFragment : Fragment(), PostSuccessContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_post_success, container, false)
+        return inflater.inflate(R.layout.fragment__post_success, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class PostSuccessFragment : Fragment(), PostSuccessContract.View {
     }
 
     override fun showGeneralError() {
-        context?.showToast(R.string.general_error)
+        context?.showToast(R.string.error__core__general)
     }
 
 

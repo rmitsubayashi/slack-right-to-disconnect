@@ -11,7 +11,7 @@ import com.github.rmitsubayashi.domain.model.SlackTokenInfo
 import com.github.rmitsubayashi.presentation.settings.SettingsContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
-import kotlinx.android.synthetic.main.dialog_set_slack_token.view.*
+import kotlinx.android.synthetic.main.dialog__set_slack_token.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -21,7 +21,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_settings, rootKey)
         val slackTokenPref: Preference? =
-            findPreference(getString(R.string.key_slack_token))
+            findPreference(getString(R.string.key__settings_slack_token))
         slackTokenPref?.setOnPreferenceClickListener {
             showSlackTokenEditor()
             false
@@ -40,12 +40,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
 
     private fun showSlackTokenEditor() {
         context?.let {
-            val view = LayoutInflater.from(it).inflate(R.layout.dialog_set_slack_token, null)
+            val view = LayoutInflater.from(it).inflate(R.layout.dialog__set_slack_token, null)
             view.set_slack_token_link.movementMethod = LinkMovementMethod.getInstance()
             AlertDialog.Builder(it)
                 .setView(view)
-                .setTitle(R.string.title_slack_token)
-                .setPositiveButton(R.string.settings_slack_token_confirm) { _, _ ->
+                .setTitle(R.string.label__settings__slack_token)
+                .setPositiveButton(R.string.button__settings__slack_token_confirm) { _, _ ->
                     val token = view.set_slack_token_edit_text.text.toString()
                     settingsPresenter.saveSlackToken(SlackToken(token))
 
@@ -54,23 +54,23 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
     }
 
     override fun showInvalidSlackToken() {
-        context?.showToast(R.string.settings_error_invalid_slack_token)
+        context?.showToast(R.string.error__settings__invalid_slack_token)
     }
 
     override fun updateSlackTokenSettingSummary(slackTokenInfo: SlackTokenInfo?) {
-        findPreference<Preference>(getString(R.string.key_slack_token))?.summary =
+        findPreference<Preference>(getString(R.string.key__settings_slack_token))?.summary =
             if (slackTokenInfo == null) {
-                getString(R.string.settings_slack_token_not_set)
+                getString(R.string.label__settings__slack_token_not_set)
             } else {
                 slackTokenInfo.user + " " + slackTokenInfo.team
             }
     }
 
     override fun showGeneralError() {
-        context?.showToast(R.string.general_error)
+        context?.showToast(R.string.error__core__general)
     }
 
     override fun showSaved() {
-        context?.showToast(R.string.settings_saved)
+        context?.showToast(R.string.toast__settings__saved)
     }
 }

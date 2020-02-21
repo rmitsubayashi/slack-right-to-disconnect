@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">SlackRightToDisconnect</string>
-    <string name="general_error">Something went wrong</string>
-    <string name="no_network_error">No connection</string>
-</resources>

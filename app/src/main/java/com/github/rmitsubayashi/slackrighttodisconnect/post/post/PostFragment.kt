@@ -11,16 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.rmitsubayashi.presentation.post.PostContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
-import com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragmentArgs
-import com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragmentDirections
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
 import com.linkedin.android.spyglass.mentions.Mentionable
 import com.linkedin.android.spyglass.suggestions.SuggestionsResult
 import com.linkedin.android.spyglass.tokenization.QueryToken
 import com.linkedin.android.spyglass.tokenization.interfaces.QueryTokenReceiver
 import com.linkedin.android.spyglass.ui.MentionsEditText
-import kotlinx.android.synthetic.main.fragment_post.*
-import kotlinx.android.synthetic.main.fragment_post.view.*
+import kotlinx.android.synthetic.main.fragment__post.*
+import kotlinx.android.synthetic.main.fragment__post.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -34,7 +32,7 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_post, container, false)
+        val view = inflater.inflate(R.layout.fragment__post, container, false)
         view.post_send_button.setOnClickListener { postPresenter.postToSlack() }
         view.post_message_edittext.addMentionWatcher(
             object : MentionsEditText.MentionWatcher {
@@ -132,18 +130,18 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun showNoNetwork() {
-        context?.showToast(R.string.no_network_error)
+        context?.showToast(R.string.error__core__no_network)
     }
 
     override fun showGeneralError() {
-        context?.showToast(R.string.general_error)
+        context?.showToast(R.string.error__core__general)
     }
 
     override fun showRestrictedChannel() {
-        context?.showToast(R.string.slack_restricted_channel)
+        context?.showToast(R.string.error__post__slack_restricted_channel)
     }
 
     override fun showInvalidContent() {
-        context?.showToast(R.string.slack_invalid_content)
+        context?.showToast(R.string.error__post__invalid_input)
     }
 }

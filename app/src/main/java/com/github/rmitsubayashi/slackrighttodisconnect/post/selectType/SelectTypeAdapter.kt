@@ -24,8 +24,8 @@ class SelectTypeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val viewID = when (viewType) {
-            VIEW_TYPE_HEADER -> R.layout.row_post_recipient_type_header
-            else -> R.layout.row_bookmark
+            VIEW_TYPE_HEADER -> R.layout.row__select_type__header
+            else -> R.layout.row__select_type__bookmark
         }
         val view = LayoutInflater.from(parent.context).inflate(viewID, parent, false)
         return when (viewType) {

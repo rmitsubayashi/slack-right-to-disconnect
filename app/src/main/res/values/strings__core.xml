@@ -1,0 +1,7 @@
+<resources>
+    <string name="label__app__name">SlackRightToDisconnect</string>
+    <string name="error__core__general">Something went wrong</string>
+    <string name="error__core__no_network">No connection</string>
+    <!--設定ボタンの隠れた文言-->
+    <string name="label__menu__settings">Settings</string>
+</resources>

@@ -12,8 +12,8 @@ import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.SelectUserContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
-import kotlinx.android.synthetic.main.fragment_select_user.*
-import kotlinx.android.synthetic.main.fragment_select_user.view.*
+import kotlinx.android.synthetic.main.fragment__select_user.*
+import kotlinx.android.synthetic.main.fragment__select_user.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -28,7 +28,7 @@ class SelectUserFragment : Fragment(), SelectUserContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_select_user, container, false)
+        return inflater.inflate(R.layout.fragment__select_user, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,12 +40,12 @@ class SelectUserFragment : Fragment(), SelectUserContract.View {
             }
         )
         listLayoutManager = LinearLayoutManager(context)
-        view.select_user_list.apply {
+        view.list__select_user.apply {
             adapter = listAdapter
             layoutManager = listLayoutManager
         }
         selectUserPresenter.start()
-        select_user_select_button.setOnClickListener {
+        button__select_user__select.setOnClickListener {
             selectUserPresenter.selectUsers()
         }
     }
@@ -57,7 +57,7 @@ class SelectUserFragment : Fragment(), SelectUserContract.View {
     }
 
     override fun setSelectButtonEnabled(enabled: Boolean) {
-        select_user_select_button.isEnabled = enabled
+        button__select_user__select.isEnabled = enabled
     }
 
     override fun setUsers(users: List<Recipient>) {
@@ -65,19 +65,19 @@ class SelectUserFragment : Fragment(), SelectUserContract.View {
     }
 
     override fun showGeneralError() {
-        context?.showToast(R.string.general_error)
+        context?.showToast(R.string.error__core__general)
     }
 
     override fun showNoNetwork() {
-        context?.showToast(R.string.no_network_error)
+        context?.showToast(R.string.error__core__no_network)
     }
 
     override fun showTooManyUsers() {
-        context?.showToast(R.string.slack_too_many_users)
+        context?.showToast(R.string.error__select_user__slack_too_many_users)
     }
 
     override fun showTooManySelectedUsers() {
-        context?.showToast(R.string.slack_too_many_selected_users)
+        context?.showToast(R.string.error__select_user__slack_too_many_selected_users)
     }
 
 
