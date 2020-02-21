@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.data.model.response
+package com.github.rmitsubayashi.data.service.model.response
 
 import com.google.gson.annotations.SerializedName
 

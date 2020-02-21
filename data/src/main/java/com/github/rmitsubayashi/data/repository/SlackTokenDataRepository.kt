@@ -2,6 +2,8 @@ package com.github.rmitsubayashi.data.repository
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.github.rmitsubayashi.data.local.sharedpreferences.SecureSharedPrefKeys
+import com.github.rmitsubayashi.data.local.sharedpreferences.SharedPrefsKeys
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource

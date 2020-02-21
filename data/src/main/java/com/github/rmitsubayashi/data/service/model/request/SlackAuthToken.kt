@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.data.model.request
+package com.github.rmitsubayashi.data.service.model.request
 
 import com.github.rmitsubayashi.domain.model.SlackToken
 

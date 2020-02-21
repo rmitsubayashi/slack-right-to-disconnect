@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.data.model
+package com.github.rmitsubayashi.data.local.sqlite.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.github.rmitsubayashi.data.db.AppDatabase
+import com.github.rmitsubayashi.data.local.sqlite.AppDatabase
 import com.github.rmitsubayashi.data.repository.*
-import com.github.rmitsubayashi.data.repository.SecureSharedPrefKeys
-import com.github.rmitsubayashi.data.repository.SharedPrefsKeys
+import com.github.rmitsubayashi.data.local.sharedpreferences.SecureSharedPrefKeys
+import com.github.rmitsubayashi.data.local.sharedpreferences.SharedPrefsKeys
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.repository.BookmarkRepository

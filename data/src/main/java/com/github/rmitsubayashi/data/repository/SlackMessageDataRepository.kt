@@ -1,9 +1,9 @@
 package com.github.rmitsubayashi.data.repository
 
-import com.github.rmitsubayashi.data.dao.ThreadDao
-import com.github.rmitsubayashi.data.model.Thread
-import com.github.rmitsubayashi.data.model.request.PostRequest
-import com.github.rmitsubayashi.data.model.request.SlackAuthToken
+import com.github.rmitsubayashi.data.local.sqlite.dao.ThreadDao
+import com.github.rmitsubayashi.data.local.sqlite.model.Thread
+import com.github.rmitsubayashi.data.service.model.request.PostRequest
+import com.github.rmitsubayashi.data.service.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource

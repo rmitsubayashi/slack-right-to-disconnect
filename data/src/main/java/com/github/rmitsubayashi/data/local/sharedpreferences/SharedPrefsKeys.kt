@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.data.repository
+package com.github.rmitsubayashi.data.local.sharedpreferences
 
 internal object SharedPrefsKeys {
     const val FILE_NAME = "slack_right_to_disconnect"

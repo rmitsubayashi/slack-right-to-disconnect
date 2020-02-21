@@ -1,8 +1,8 @@
 package com.github.rmitsubayashi.data.repository
 
-import com.github.rmitsubayashi.data.model.request.SlackAuthToken
-import com.github.rmitsubayashi.data.model.request.UserGroupRequest
-import com.github.rmitsubayashi.data.model.response.UsersResponseUser
+import com.github.rmitsubayashi.data.service.model.request.SlackAuthToken
+import com.github.rmitsubayashi.data.service.model.request.UserGroupRequest
+import com.github.rmitsubayashi.data.service.model.response.UsersResponseUser
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource

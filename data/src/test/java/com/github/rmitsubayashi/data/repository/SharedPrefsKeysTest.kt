@@ -1,6 +1,7 @@
 package com.github.rmitsubayashi.data.repository
 
 
+import com.github.rmitsubayashi.data.local.sharedpreferences.SharedPrefsKeys
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test

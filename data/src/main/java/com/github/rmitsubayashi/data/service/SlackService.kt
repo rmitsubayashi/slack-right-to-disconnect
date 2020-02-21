@@ -1,9 +1,9 @@
 package com.github.rmitsubayashi.data.service
 
-import com.github.rmitsubayashi.data.model.request.SlackAuthToken
-import com.github.rmitsubayashi.data.model.request.PostRequest
-import com.github.rmitsubayashi.data.model.request.UserGroupRequest
-import com.github.rmitsubayashi.data.model.response.*
+import com.github.rmitsubayashi.data.service.model.request.SlackAuthToken
+import com.github.rmitsubayashi.data.service.model.request.PostRequest
+import com.github.rmitsubayashi.data.service.model.request.UserGroupRequest
+import com.github.rmitsubayashi.data.service.model.response.*
 import com.github.rmitsubayashi.domain.model.SlackToken
 import retrofit2.http.*
 

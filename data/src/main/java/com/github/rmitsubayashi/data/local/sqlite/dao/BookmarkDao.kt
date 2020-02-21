@@ -1,7 +1,7 @@
-package com.github.rmitsubayashi.data.dao
+package com.github.rmitsubayashi.data.local.sqlite.dao
 
 import androidx.room.*
-import com.github.rmitsubayashi.data.model.Bookmark
+import com.github.rmitsubayashi.data.local.sqlite.model.Bookmark
 
 @Dao
 interface BookmarkDao {

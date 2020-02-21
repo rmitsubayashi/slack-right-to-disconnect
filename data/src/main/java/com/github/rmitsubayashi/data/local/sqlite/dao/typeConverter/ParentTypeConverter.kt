@@ -1,4 +1,4 @@
-package com.github.rmitsubayashi.data.dao.typeConverter
+package com.github.rmitsubayashi.data.local.sqlite.dao.typeConverter
 
 import androidx.room.TypeConverter
 import com.github.rmitsubayashi.domain.model.RecipientType

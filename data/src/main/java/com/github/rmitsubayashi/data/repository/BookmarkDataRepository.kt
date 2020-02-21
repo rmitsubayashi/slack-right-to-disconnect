@@ -1,7 +1,7 @@
 package com.github.rmitsubayashi.data.repository
 
-import com.github.rmitsubayashi.data.dao.BookmarkDao
-import com.github.rmitsubayashi.data.model.Bookmark
+import com.github.rmitsubayashi.data.local.sqlite.dao.BookmarkDao
+import com.github.rmitsubayashi.data.local.sqlite.model.Bookmark
 import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.repository.BookmarkRepository
@@ -16,13 +16,23 @@ class BookmarkDataRepository(private val bookmarkDao: BookmarkDao): BookmarkRepo
     }
 
     override suspend fun saveBookmark(recipient: Recipient): Resource<Unit> {
-        val dataBookmark = Bookmark(recipient.slackID, recipient.displayName, recipient.recipientType)
+        val dataBookmark =
+            Bookmark(
+                recipient.slackID,
+                recipient.displayName,
+                recipient.recipientType
+            )
         bookmarkDao.insert(dataBookmark)
         return Resource.success()
     }
 
     override suspend fun removeBookmark(recipient: Recipient): Resource<Unit> {
-        val dataBookmark = Bookmark(recipient.slackID, recipient.displayName, recipient.recipientType)
+        val dataBookmark =
+            Bookmark(
+                recipient.slackID,
+                recipient.displayName,
+                recipient.recipientType
+            )
         bookmarkDao.delete(dataBookmark)
         return Resource.success()
     }
