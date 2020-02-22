@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.github.rmitsubayashi.domain.model.Message
+import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.PostContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
@@ -19,6 +21,8 @@ import com.linkedin.android.spyglass.tokenization.interfaces.QueryTokenReceiver
 import com.linkedin.android.spyglass.ui.MentionsEditText
 import kotlinx.android.synthetic.main.fragment__post.*
 import kotlinx.android.synthetic.main.fragment__post.view.*
+import kotlinx.android.synthetic.main.view__post__recent_thread_info.*
+import kotlinx.android.synthetic.main.view__post__recipient_info.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -95,16 +99,19 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postPresenter.setRecipient(args.Recipient, args.ThreadID)
-        post_message_edittext.setQueryTokenReceiver(this)
-        post_message_edittext.displayTextCounter(false)
-        post_message_edittext.setEditTextShouldWrapContent(true)
+        postPresenter.setRecipient(args.recipient, args.message)
+        post_message_edittext.apply {
+            setQueryTokenReceiver(this)
+            post_message_edittext.displayTextCounter(false)
+            post_message_edittext.setEditTextShouldWrapContent(true)
+            setHint(getString(R.string.hint__post__message))
+        }
     }
 
     override fun navigateToPostSuccess() {
         val action =
             PostFragmentDirections.actionPostFragmentToPostSuccessFragment(
-                args.Recipient, args.ThreadID
+                args.recipient, args.message?.threadID
             )
         findNavController().navigate(action)
     }
@@ -127,6 +134,26 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
         }
         val suggestionResult = SuggestionsResult(QueryToken(token), suggestibles)
         post_message_edittext.onReceiveSuggestionsResult(suggestionResult, bucket)
+    }
+
+    override fun showRecentThreadInfo(message: Message, daysAgo: Int) {
+        val plural = resources.getQuantityString(R.plurals.label__post__recent_thread_info_days_ago, daysAgo)
+        val text = getString(R.string.label__post__recent_thread_info, message.recipient.displayName, plural)
+        stub__post__info.apply {
+            layoutResource = R.layout.view__post__recent_thread_info
+            inflate()
+            label__post__recent_thread_info_details.text = text
+            recent_thread_info_message.text = message.message
+        }
+
+    }
+
+    override fun showRecipientInfo(recipient: Recipient) {
+        stub__post__info.apply {
+            layoutResource = R.layout.view__post__recipient_info
+            inflate()
+            label__post__recipient_info.text = getString(R.string.label__post__recipient_info, recipient.displayName)
+        }
     }
 
     override fun showNoNetwork() {

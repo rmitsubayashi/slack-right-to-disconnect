@@ -7,7 +7,7 @@ import com.github.rmitsubayashi.presentation.BaseView
 
 interface SelectRecentThreadContract {
     interface View: BaseView {
-        fun navigateToPost(recipient: Recipient, threadID: String)
+        fun navigateToPost(recipient: Recipient, message: Message)
         fun setRecentThreads(recentThreads: List<Message>)
         fun showNoRecentThreads()
     }

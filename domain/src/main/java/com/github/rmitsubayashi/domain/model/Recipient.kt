@@ -6,4 +6,4 @@ data class Recipient (
     val slackID: String,
     val displayName: String,
     val recipientType: RecipientType
-): Serializable
+): Serializable //pass between fragments

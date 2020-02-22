@@ -52,8 +52,7 @@ class SelectChannelFragment : Fragment(), SelectChannelContract.View {
 
     override fun navigateToPost(recipient: Recipient) {
         val action = SelectChannelFragmentDirections.actionSelectChannelFragmentToPostFragment(
-            recipient,
-            null
+            recipient, null
         )
         findNavController().navigate(action)
     }

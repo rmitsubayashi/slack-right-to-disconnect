@@ -51,11 +51,11 @@ class SelectRecentThreadFragment : Fragment(), SelectRecentThreadContract.View {
         selectRecentThreadPresenter.start()
     }
 
-    override fun navigateToPost(recipient: Recipient, threadID: String) {
+    override fun navigateToPost(recipient: Recipient, message: Message) {
         val action =
             SelectRecentThreadFragmentDirections.actionSelectRecentThreadFragmentToPostFragment(
                 recipient,
-                threadID
+                message
             )
         findNavController().navigate(action)
     }

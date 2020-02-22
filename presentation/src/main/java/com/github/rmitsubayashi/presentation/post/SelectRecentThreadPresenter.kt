@@ -42,8 +42,6 @@ class SelectRecentThreadPresenter(
     }
 
     override fun selectRecentThread(recentThread: Message) {
-        recentThread.threadID?.let {
-            view.navigateToPost(recentThread.recipient, it)
-        } ?: view.showGeneralError()
+        view.navigateToPost(recentThread.recipient, recentThread)
     }
 }

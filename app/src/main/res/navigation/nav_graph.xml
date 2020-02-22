@@ -40,8 +40,8 @@
             android:name="Recipient"
             app:argType="com.github.rmitsubayashi.domain.model.Recipient" />
         <argument
-            android:name="ThreadID"
-            app:argType="string"
+            android:name="Message"
+            app:argType="com.github.rmitsubayashi.domain.model.Message"
             app:nullable="true" />
     </fragment>
     <fragment

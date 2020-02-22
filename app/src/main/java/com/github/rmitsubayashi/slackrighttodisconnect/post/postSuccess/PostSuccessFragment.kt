@@ -27,10 +27,10 @@ class PostSuccessFragment : Fragment(), PostSuccessContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postSuccessPresenter.checkBookmark(args.Recipient, args.ThreadID)
+        postSuccessPresenter.checkBookmark(args.recipient, args.threadID)
 
         post_success_bookmark.setOnClickListener {
-            postSuccessPresenter.bookmark(args.Recipient)
+            postSuccessPresenter.bookmark(args.recipient)
         }
         post_success_go_back.setOnClickListener {
             navigateToSelectPostRecipientType()

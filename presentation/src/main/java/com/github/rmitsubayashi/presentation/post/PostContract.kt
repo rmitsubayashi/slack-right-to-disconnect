@@ -1,5 +1,6 @@
 package com.github.rmitsubayashi.presentation.post
 
+import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.RecipientType
 import com.github.rmitsubayashi.presentation.BasePresenter
@@ -13,10 +14,12 @@ interface PostContract {
         fun showInvalidContent()
         fun navigateToPostSuccess()
         fun showMentionSuggestions(token: String, suggestions: List<String>)
+        fun showRecipientInfo(recipient: Recipient)
+        fun showRecentThreadInfo(message: Message, daysAgo: Int)
     }
 
     interface Presenter: BasePresenter {
-        fun setRecipient(recipient: Recipient, threadID: String?)
+        fun setRecipient(recipient: Recipient, thread: Message?)
         fun updateMessage(message: String)
         fun addMention(text: String, start: Int)
         fun removeMention(text: String, start: Int)
