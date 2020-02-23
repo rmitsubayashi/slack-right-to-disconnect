@@ -100,12 +100,10 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postPresenter.setRecipient(args.recipient, args.message)
-        post_message_edittext.apply {
-            setQueryTokenReceiver(this)
-            post_message_edittext.displayTextCounter(false)
-            post_message_edittext.setEditTextShouldWrapContent(true)
-            setHint(getString(R.string.hint__post__message))
-        }
+        post_message_edittext.setQueryTokenReceiver(this)
+        post_message_edittext.displayTextCounter(false)
+        post_message_edittext.setEditTextShouldWrapContent(true)
+        post_message_edittext.setHint(getString(R.string.hint__post__message))
     }
 
     override fun navigateToPostSuccess() {
