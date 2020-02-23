@@ -6,7 +6,7 @@
     <string name="button__post__post">Send</string>
     <string name="error__post__slack_restricted_channel">restricted channel</string>
     <string name="label__post__title">What to send?</string>
-    <string name="hint__post__message">type message here</string>
+    <string name="hint__post__message">Type message here</string>
     <string name="label__post__recipient_info">Sending to %s</string>
     <plurals name="label__post__recent_thread_info_days_ago">
         <item quantity="zero">today</item>

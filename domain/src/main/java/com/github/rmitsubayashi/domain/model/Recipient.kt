@@ -7,3 +7,15 @@ data class Recipient (
     val displayName: String,
     val recipientType: RecipientType
 ): Serializable //pass between fragments
+{
+    fun toSlackDisplayName(): String {
+        return when (recipientType) {
+            RecipientType.CHANNEL -> "#$displayName"
+            RecipientType.USER -> {
+                val userArray = displayName.split(", ")
+                val slackDisplayUsers = userArray.map { "@$it" }
+                slackDisplayUsers.joinToString(", ")
+            }
+        }
+    }
+}

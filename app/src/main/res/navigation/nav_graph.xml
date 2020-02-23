@@ -16,13 +16,25 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_selectChannelFragment"
-            app:destination="@id/selectChannelFragment" />
+            app:destination="@id/selectChannelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_selectRecentThreadFragment"
-            app:destination="@id/selectRecentThreadFragment" />
+            app:destination="@id/selectRecentThreadFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_selectPostRecipientTypeFragment_to_selectUserFragment"
-            app:destination="@id/selectUserFragment" />
+            app:destination="@id/selectUserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -71,7 +83,11 @@
         android:label="SelectChannelFragment" >
         <action
             android:id="@+id/action_selectChannelFragment_to_postFragment"
-            app:destination="@id/postFragment" />
+            app:destination="@id/postFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/selectRecentThreadFragment"
@@ -79,7 +95,11 @@
         android:label="SelectRecentThreadFragment" >
         <action
             android:id="@+id/action_selectRecentThreadFragment_to_postFragment"
-            app:destination="@id/postFragment" />
+            app:destination="@id/postFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/selectUserFragment"
@@ -87,6 +107,10 @@
         android:label="SelectUserFragment" >
         <action
             android:id="@+id/action_selectUserFragment_to_postFragment"
-            app:destination="@id/postFragment" />
+            app:destination="@id/postFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>

@@ -17,7 +17,7 @@ class SelectRecentThreadViewHolder(
     fun setRecentThread(message: Message) {
         itemView.label__row_select_thread__message.text = message.message
         itemView.label__row_select_thread__date.text = formatDate(message.date)
-        itemView.label__row_select_thread__name.text = formatRecipient(message.recipient)
+        itemView.label__row_select_thread__name.text = message.recipient.toSlackDisplayName()
         itemView.setOnClickListener { listener.onRecentThreadClicked(message) }
     }
 
@@ -27,16 +27,5 @@ class SelectRecentThreadViewHolder(
             Locale.getDefault()
         )
         return dateFormat.format(date)
-    }
-
-    private fun formatRecipient(recipient: Recipient): String {
-        return when (recipient.recipientType) {
-            RecipientType.USER -> {
-                itemView.context.getString(R.string.label__select_thread__user_format, recipient.displayName)
-            }
-            RecipientType.CHANNEL -> {
-                itemView.context.getString(R.string.label__select_thread__channel_format, recipient.displayName)
-            }
-        }
     }
 }
