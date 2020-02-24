@@ -12,6 +12,7 @@ import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.SelectChannelContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
+import kotlinx.android.synthetic.main.fragment__select_channel.*
 import kotlinx.android.synthetic.main.fragment__select_channel.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -59,6 +60,10 @@ class SelectChannelFragment : Fragment(), SelectChannelContract.View {
 
     override fun setChannels(channels: List<Recipient>) {
         listAdapter.setChannels(channels)
+    }
+
+    override fun showLoading(loading: Boolean) {
+        progressbar__select_channel.visibility = if (loading) { View.VISIBLE } else { View.GONE }
     }
 
     override fun showGeneralError() {

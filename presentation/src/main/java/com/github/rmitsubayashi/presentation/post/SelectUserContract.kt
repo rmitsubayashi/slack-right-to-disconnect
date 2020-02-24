@@ -12,6 +12,7 @@ interface SelectUserContract {
         fun showTooManyUsers()
         fun showTooManySelectedUsers()
         fun setSelectButtonEnabled(enabled: Boolean)
+        fun showLoading(loading: Boolean)
     }
 
     interface Presenter: BasePresenter {

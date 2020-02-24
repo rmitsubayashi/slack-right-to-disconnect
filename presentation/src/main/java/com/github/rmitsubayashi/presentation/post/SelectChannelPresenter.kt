@@ -23,9 +23,11 @@ class SelectChannelPresenter(
     }
 
     private fun loadChannels() {
+        view.showLoading(true)
         launch {
             val resource = selectChannelInteractor.getChannels()
             withContext(Dispatchers.Main){
+                view.showLoading(false)
                 when (resource.error) {
                     null -> resource.data?.let { view.setChannels(it) } ?: view.showGeneralError()
                     NetworkError.NOT_CONNECTED -> view.showNoNetwork()

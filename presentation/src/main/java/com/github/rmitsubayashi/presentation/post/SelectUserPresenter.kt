@@ -24,9 +24,11 @@ class SelectUserPresenter(
     }
 
     private fun loadUsers() {
+        view.showLoading(true)
         launch {
             val resource = selectUserInteractor.getUsers()
             withContext(Dispatchers.Main){
+                view.showLoading(false)
                 when (resource.error) {
                     null -> resource.data?.let { view.setUsers(it) } ?: view.showGeneralError()
                     NetworkError.NOT_CONNECTED -> view.showNoNetwork()

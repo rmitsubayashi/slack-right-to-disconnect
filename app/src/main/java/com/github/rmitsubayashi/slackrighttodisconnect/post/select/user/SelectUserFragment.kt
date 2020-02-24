@@ -64,6 +64,10 @@ class SelectUserFragment : Fragment(), SelectUserContract.View {
         listAdapter.setUsers(users)
     }
 
+    override fun showLoading(loading: Boolean) {
+        progressbar__select_user.visibility = if (loading) { View.VISIBLE } else { View.GONE }
+    }
+
     override fun showGeneralError() {
         context?.showToast(R.string.error__core__general)
     }

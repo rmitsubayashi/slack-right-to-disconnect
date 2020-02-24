@@ -10,6 +10,7 @@ interface SelectChannelContract {
         fun setChannels(channels: List<Recipient>)
         fun showNoNetwork()
         fun showTooManyChannels()
+        fun showLoading(loading: Boolean)
     }
 
     interface Presenter: BasePresenter {
