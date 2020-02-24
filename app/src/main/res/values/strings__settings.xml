@@ -21,4 +21,6 @@
     <!--保存した後のメッセージ-->
     <string name="toast__settings__saved">Saved!</string>
 
+    <string name="label__settings__slack_token_info">User:\t\t\t%s\nSpace:\t\t%s</string>
+
 </resources>

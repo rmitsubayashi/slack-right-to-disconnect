@@ -62,7 +62,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
             if (slackTokenInfo == null) {
                 getString(R.string.label__settings__slack_token_not_set)
             } else {
-                slackTokenInfo.user + " " + slackTokenInfo.team
+                getString(R.string.label__settings__slack_token_info, slackTokenInfo.user, slackTokenInfo.team)
             }
     }
 
