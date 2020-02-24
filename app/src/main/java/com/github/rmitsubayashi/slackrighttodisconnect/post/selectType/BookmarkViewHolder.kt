@@ -12,6 +12,10 @@ class BookmarkViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         itemView.setOnClickListener {
             listener.onBookmarkClicked(bookmarkedRecipient)
         }
+        itemView.setOnLongClickListener {
+            listener.onBookmarkLongClicked(bookmarkedRecipient)
+            true
+        }
         val drawableID = when (bookmarkedRecipient.recipientType) {
             RecipientType.USER -> R.drawable.ic_users
             RecipientType.CHANNEL -> R.drawable.ic_channel

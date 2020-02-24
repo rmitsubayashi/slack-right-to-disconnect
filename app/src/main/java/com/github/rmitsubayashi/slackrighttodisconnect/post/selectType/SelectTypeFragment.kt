@@ -1,9 +1,12 @@
 package com.github.rmitsubayashi.slackrighttodisconnect.post.selectType
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +51,18 @@ class SelectTypeFragment : Fragment(), SelectTypeContract.View {
                 override fun onBookmarkClicked(bookmarkedRecipient: Recipient) {
                     selectTypePresenter.selectBookmark(bookmarkedRecipient)
                 }
+
+                override fun onBookmarkLongClicked(bookmarkedRecipient: Recipient) {
+                    context?.let {
+                        val removeString = getString(R.string.label__select_type__remove_bookmark)
+                        AlertDialog.Builder(it)
+                            .setItems(arrayOf(removeString)) {
+                                _,_ ->
+                                selectTypePresenter.removeBookmark(bookmarkedRecipient)
+                            }
+                            .show()
+                    }
+                }
             }
         )
         listLayoutManager = LinearLayoutManager(context)
@@ -85,6 +100,10 @@ class SelectTypeFragment : Fragment(), SelectTypeContract.View {
 
     override fun setBookmarks(bookmarks: List<Recipient>) {
         listAdapter.setBookmarks(bookmarks)
+    }
+
+    override fun removeBookmark(bookmark: Recipient) {
+        listAdapter.removeBookmark(bookmark)
     }
 
     override fun showGeneralError() {

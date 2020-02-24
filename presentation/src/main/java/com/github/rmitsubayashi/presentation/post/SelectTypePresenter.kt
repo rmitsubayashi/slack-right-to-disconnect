@@ -51,4 +51,13 @@ class SelectTypePresenter (
     override fun selectBookmark(bookmark: Recipient) {
         view.navigateToPost(bookmark)
     }
+
+    override fun removeBookmark(bookmark: Recipient) {
+        launch {
+            bookmarkInteractor.deleteBookmark(bookmark)
+            withContext(Dispatchers.Main) {
+                view.removeBookmark(bookmark)
+            }
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.github.rmitsubayashi.slackrighttodisconnect.post.selectType
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.slackrighttodisconnect.R
@@ -43,10 +44,16 @@ class SelectTypeAdapter(
         (holder as BookmarkViewHolder).setBookmark(bookmark, bookmarkListener)
     }
 
-    fun setBookmarks(bookmarks: List<Recipient>) {
+    fun setBookmarks(newBookmarks: List<Recipient>) {
         this.bookmarks.clear()
-        this.bookmarks.addAll(bookmarks)
+        this.bookmarks.addAll(newBookmarks)
         notifyDataSetChanged()
+    }
+
+    fun removeBookmark(bookmark: Recipient) {
+        val position = this.bookmarks.indexOf(bookmark)
+        this.bookmarks.removeAt(position)
+        notifyItemRemoved(position+headerCt)
     }
 
     companion object {

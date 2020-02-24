@@ -5,4 +5,5 @@
     <string name="button__select_type__channel">Channel</string>
     <string name="button__select_type__recent_thread">Your Thread</string>
     <string name="label__select_type__bookmarks">Bookmarks</string>
+    <string name="label__select_type__remove_bookmark">remove</string>
 </resources>

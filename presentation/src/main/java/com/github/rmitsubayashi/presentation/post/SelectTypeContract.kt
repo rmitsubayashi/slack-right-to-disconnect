@@ -11,6 +11,7 @@ interface SelectTypeContract {
         fun navigateToSelectRecentThread()
         fun navigateToPost(recipient: Recipient)
         fun setBookmarks(bookmarks: List<Recipient>)
+        fun removeBookmark(bookmark: Recipient)
     }
 
     interface Presenter: BasePresenter {
@@ -18,5 +19,6 @@ interface SelectTypeContract {
         fun selectSelectChannel()
         fun selectSelectRecentThread()
         fun selectBookmark(bookmark: Recipient)
+        fun removeBookmark(bookmark: Recipient)
     }
 }
