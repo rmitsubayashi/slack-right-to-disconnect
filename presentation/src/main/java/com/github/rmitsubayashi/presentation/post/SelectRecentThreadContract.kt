@@ -9,7 +9,7 @@ interface SelectRecentThreadContract {
     interface View: BaseView {
         fun navigateToPost(recipient: Recipient, message: Message)
         fun setRecentThreads(recentThreads: List<Message>)
-        fun showNoRecentThreads()
+        fun showNoRecentThreads(noRecentThreads: Boolean)
     }
 
     interface Presenter: BasePresenter {

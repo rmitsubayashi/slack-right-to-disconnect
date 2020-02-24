@@ -17,4 +17,8 @@ class SelectTypeHeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemVi
         }
     }
 
+    fun setEmptyBookmarks(isEmpty: Boolean) {
+        itemView.label__select_type__no_bookmarks.visibility = if (isEmpty) { View.VISIBLE } else { View.GONE }
+    }
+
 }

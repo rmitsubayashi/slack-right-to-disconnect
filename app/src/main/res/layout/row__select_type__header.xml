@@ -126,8 +126,17 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/button__select_type__recent_thread"
+        android:text="@string/label__select_type__bookmarks"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        android:textColor="?android:textColorSecondary"
-        />
+        android:textColor="?android:textColorSecondary" />
+
+    <TextView
+        android:id="@+id/label__select_type__no_bookmarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/label__select_type__no_bookmarks"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:visibility="gone" />
 </LinearLayout>

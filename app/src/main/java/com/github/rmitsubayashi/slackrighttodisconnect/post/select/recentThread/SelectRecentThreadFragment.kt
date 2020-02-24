@@ -13,6 +13,7 @@ import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.SelectRecentThreadContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
+import kotlinx.android.synthetic.main.fragment__select_recent_thread.*
 import kotlinx.android.synthetic.main.fragment__select_recent_thread.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -68,7 +69,7 @@ class SelectRecentThreadFragment : Fragment(), SelectRecentThreadContract.View {
         context?.showToast(R.string.error__core__general)
     }
 
-    override fun showNoRecentThreads() {
-        throw NotImplementedError()
+    override fun showNoRecentThreads(noRecentThreads: Boolean) {
+        label__select_recent_thread_empty.visibility = if (noRecentThreads) { View.VISIBLE } else { View.GONE }
     }
 }

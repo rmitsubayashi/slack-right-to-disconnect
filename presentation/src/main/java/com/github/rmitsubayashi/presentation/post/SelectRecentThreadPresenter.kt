@@ -24,10 +24,11 @@ class SelectRecentThreadPresenter(
         launch {
             val resource = selectRecentThreadInteractor.getRecentThreads()
             withContext(Dispatchers.Main){
+                view.showNoRecentThreads(false)
                 when (resource.error) {
                     null -> resource.data?.let {
                         if (it.isEmpty()) {
-                            view.showNoRecentThreads()
+                            view.showNoRecentThreads(true)
                         } else {
                             view.setRecentThreads(it)
                         }

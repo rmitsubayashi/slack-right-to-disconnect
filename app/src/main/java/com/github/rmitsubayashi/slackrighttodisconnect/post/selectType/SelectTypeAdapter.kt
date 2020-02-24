@@ -37,6 +37,7 @@ class SelectTypeAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == 0) {
+            (holder as SelectTypeHeaderViewHolder).setEmptyBookmarks(bookmarks.isEmpty())
             return
         }
 
@@ -54,6 +55,7 @@ class SelectTypeAdapter(
         val position = this.bookmarks.indexOf(bookmark)
         this.bookmarks.removeAt(position)
         notifyItemRemoved(position+headerCt)
+        notifyItemChanged(0)
     }
 
     companion object {

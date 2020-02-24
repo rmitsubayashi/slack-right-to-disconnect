@@ -8,4 +8,5 @@
     <string name="error__select_channel__slack_too_many_channels">your Slack channel has too many channels</string>
     <string name="error__select_user__slack_too_many_selected_users">Please select fewer users</string>
     <string name="label__select_thread__date_format">M/d H:mm</string>
+    <string name="label__select_thread__no_thread">No recent threads\n(threads older than a week will not show up here)</string>
 </resources>
