@@ -29,16 +29,17 @@ class PostSuccessFragment : Fragment(), PostSuccessContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postSuccessPresenter.checkBookmark(args.recipient, args.threadID)
 
-        post_success_bookmark.setOnClickListener {
+        button__post_success__bookmark.setOnClickListener {
             postSuccessPresenter.bookmark(args.recipient)
         }
-        post_success_go_back.setOnClickListener {
+        button__post_success__go_back.setOnClickListener {
             navigateToSelectPostRecipientType()
         }
     }
 
     override fun enableBookmarkButton(enable: Boolean) {
-        post_success_bookmark.isEnabled = enable
+        button__post_success__bookmark.isEnabled = enable
+        button__post_success__bookmark.text = getString(if (enable) { R.string.button__post_success__bookmark } else { R.string.button__post_success__bookmarked })
     }
 
     override fun navigateToSelectPostRecipientType() {
