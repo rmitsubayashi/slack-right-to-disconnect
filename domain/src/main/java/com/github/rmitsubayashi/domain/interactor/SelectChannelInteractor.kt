@@ -8,6 +8,10 @@ class SelectChannelInteractor(
     private val slackTeamRepository: SlackTeamRepository
 ) {
     suspend fun getChannels(): Resource<List<Recipient>> {
-        return slackTeamRepository.getSlackChannels()
+        val resource = slackTeamRepository.getSlackChannels()
+        resource.data?.let {
+            val orderedList = it.sortedBy { recipient -> recipient.displayName }
+            return Resource.success(orderedList)
+        } ?: return resource
     }
 }

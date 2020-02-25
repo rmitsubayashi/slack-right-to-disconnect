@@ -11,7 +11,11 @@ class SelectUserInteractor(
     private val selectedUsers: MutableSet<Recipient> = mutableSetOf()
 
     suspend fun getUsers(): Resource<List<Recipient>> {
-        return slackTeamRepository.getUsers()
+        val resource = slackTeamRepository.getUsers()
+        resource.data?.let {
+            val sortedList = it.sortedBy { recipient -> recipient.displayName }
+            return Resource.success(sortedList)
+        } ?: return resource
     }
 
     fun selectUser(user: Recipient) {
