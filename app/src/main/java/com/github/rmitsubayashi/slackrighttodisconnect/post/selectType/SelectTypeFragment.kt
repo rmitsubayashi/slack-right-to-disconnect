@@ -1,8 +1,6 @@
 package com.github.rmitsubayashi.slackrighttodisconnect.post.selectType
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,6 +94,10 @@ class SelectTypeFragment : Fragment(), SelectTypeContract.View {
     override fun navigateToSelectRecentThread() {
         val action = SelectTypeFragmentDirections.actionSelectPostRecipientTypeFragmentToSelectRecentThreadFragment()
         findNavController().navigate(action)
+    }
+
+    override fun navigateToOnboarding() {
+        findNavController().navigate(R.id.action_selectPostRecipientTypeFragment_to_benefitsFragment)
     }
 
     override fun setBookmarks(bookmarks: List<Recipient>) {

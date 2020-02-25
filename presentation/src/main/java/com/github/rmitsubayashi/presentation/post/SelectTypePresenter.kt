@@ -1,6 +1,7 @@
 package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.interactor.BookmarkInteractor
+import com.github.rmitsubayashi.domain.interactor.OnboardingInteractor
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.RecipientType
 import kotlinx.coroutines.Dispatchers
@@ -11,14 +12,23 @@ import kotlin.coroutines.CoroutineContext
 
 class SelectTypePresenter (
     private val view: SelectTypeContract.View,
-    private val bookmarkInteractor: BookmarkInteractor
+    private val bookmarkInteractor: BookmarkInteractor,
+    private val onboardingInteractor: OnboardingInteractor
 ): SelectTypeContract.Presenter {
     private val job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
     override fun start() {
-        loadBookmarks()
+        launch {
+            if (onboardingInteractor.shouldOnboard().data == true) {
+                withContext(Dispatchers.Main) {
+                    view.navigateToOnboarding()
+                }
+                return@launch
+            }
+            loadBookmarks()
+        }
     }
 
     private fun loadBookmarks() {

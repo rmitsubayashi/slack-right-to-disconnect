@@ -13,4 +13,5 @@ val interactorModule = module {
     factory {SelectUserInteractor(get())}
     factory {SelectRecentThreadInteractor(get())}
     factory { BookmarkInteractor(get()) }
+    factory { OnboardingInteractor(get()) }
 }

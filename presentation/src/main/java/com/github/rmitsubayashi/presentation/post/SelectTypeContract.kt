@@ -12,6 +12,7 @@ interface SelectTypeContract {
         fun navigateToPost(recipient: Recipient)
         fun setBookmarks(bookmarks: List<Recipient>)
         fun removeBookmark(bookmark: Recipient)
+        fun navigateToOnboarding()
     }
 
     interface Presenter: BasePresenter {

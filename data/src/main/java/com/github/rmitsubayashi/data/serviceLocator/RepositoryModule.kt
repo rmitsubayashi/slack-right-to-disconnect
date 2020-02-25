@@ -10,10 +10,7 @@ import com.github.rmitsubayashi.data.local.sharedpreferences.SecureSharedPrefKey
 import com.github.rmitsubayashi.data.local.sharedpreferences.SharedPrefsKeys
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
-import com.github.rmitsubayashi.domain.repository.BookmarkRepository
-import com.github.rmitsubayashi.domain.repository.SlackMessageRepository
-import com.github.rmitsubayashi.domain.repository.SlackTeamRepository
-import com.github.rmitsubayashi.domain.repository.SlackTokenRepository
+import com.github.rmitsubayashi.domain.repository.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
@@ -48,6 +45,10 @@ val repositoryModule = module {
         )
     }
 
+    single<OnboardingRepository> {
+        OnboardingDataRepository(get(named("normalPrefs")))
+    }
+
     single<SlackService> {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://slack.com/api/")
@@ -61,7 +62,8 @@ val repositoryModule = module {
     }
 
     single {
-        Room.databaseBuilder(androidApplication(), AppDatabase::class.java, AppDatabase.DB_NAME).build()
+        Room.databaseBuilder(androidApplication(), AppDatabase::class.java, AppDatabase.DB_NAME)
+            .build()
     }
 
 

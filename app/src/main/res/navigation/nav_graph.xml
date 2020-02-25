@@ -35,6 +35,10 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_selectPostRecipientTypeFragment_to_benefitsFragment"
+            app:destination="@id/benefitsFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -112,5 +116,30 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/benefitsFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.BenefitsFragment"
+        android:label="BenefitsFragment" >
+        <action
+            android:id="@+id/action_benefitsFragment_to_slackTokenFragment"
+            app:destination="@id/slackTokenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/slackTokenFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackTokenFragment"
+        android:label="SlackTokenFragment" >
+        <action
+            android:id="@+id/action_slackTokenFragment_to_slackTokenSuccessFragment"
+            app:destination="@id/slackTokenSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/slackTokenSuccessFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackTokenSuccessFragment"
+        android:label="SlackTokenSuccessFragment" >
+        <action
+            android:id="@+id/action_slackTokenSuccessFragment_to_selectPostRecipientTypeFragment"
+            app:destination="@id/selectPostRecipientTypeFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 </navigation>
