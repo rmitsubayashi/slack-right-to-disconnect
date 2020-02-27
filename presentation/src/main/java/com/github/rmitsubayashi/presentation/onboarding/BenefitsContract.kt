@@ -5,7 +5,7 @@ import com.github.rmitsubayashi.presentation.BaseView
 
 interface BenefitsContract {
     interface View: BaseView {
-        fun navigateToSlackToken()
+        fun openURL(url: String)
         fun hideAppBar()
     }
 

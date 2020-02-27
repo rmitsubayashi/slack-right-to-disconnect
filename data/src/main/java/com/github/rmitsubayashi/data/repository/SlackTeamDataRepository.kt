@@ -12,18 +12,18 @@ import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.RecipientType
 import com.github.rmitsubayashi.domain.repository.SlackTeamRepository
-import com.github.rmitsubayashi.domain.repository.SlackTokenRepository
+import com.github.rmitsubayashi.domain.repository.SlackAuthenticationRepository
 
 class SlackTeamDataRepository(
     private val slackService: SlackService,
     private val connectionManager: ConnectionManager,
-    private val slackTokenRepository: SlackTokenRepository
+    private val slackAuthenticationRepository: SlackAuthenticationRepository
 ): SlackTeamRepository {
     override suspend fun getSlackChannels(): Resource<List<Recipient>> {
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
-        val tokenResource = slackTokenRepository.getSlackToken()
+        val tokenResource = slackAuthenticationRepository.getSlackToken()
         val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val response = slackService.getChannels(tokenInfo.token)
         if (!response.success) {
@@ -45,7 +45,7 @@ class SlackTeamDataRepository(
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
-        val tokenResource = slackTokenRepository.getSlackToken()
+        val tokenResource = slackAuthenticationRepository.getSlackToken()
         val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val response = slackService.getUsers(tokenInfo.token)
         if (!response.success) {
@@ -74,7 +74,7 @@ class SlackTeamDataRepository(
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
-        val tokenResource = slackTokenRepository.getSlackToken()
+        val tokenResource = slackAuthenticationRepository.getSlackToken()
         val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val usersString = users.map { it.slackID }.joinToString(",")
         val authToken = SlackAuthToken(tokenInfo.token)

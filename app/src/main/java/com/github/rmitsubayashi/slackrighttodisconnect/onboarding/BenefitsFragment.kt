@@ -1,5 +1,7 @@
 package com.github.rmitsubayashi.slackrighttodisconnect.onboarding
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +10,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.github.rmitsubayashi.presentation.onboarding.BenefitsContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
@@ -98,9 +99,14 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
         (activity as AppCompatActivity).supportActionBar?.hide()
     }
 
-    override fun navigateToSlackToken() {
-        val action = BenefitsFragmentDirections.actionBenefitsFragmentToSlackTokenFragment()
-        findNavController().navigate(action)
+    override fun openURL(url: String) {
+        val page = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, page)
+        activity?.let {
+            if (intent.resolveActivity(it.packageManager) != null) {
+                startActivity(intent)
+            }
+        }
     }
 
     override fun showGeneralError() {

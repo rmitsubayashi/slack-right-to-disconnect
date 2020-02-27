@@ -14,10 +14,10 @@ import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.repository.SlackMessageRepository
-import com.github.rmitsubayashi.domain.repository.SlackTokenRepository
+import com.github.rmitsubayashi.domain.repository.SlackAuthenticationRepository
 
 class SlackMessageDataRepository(
-    private val slackTokenRepository: SlackTokenRepository,
+    private val slackAuthenticationRepository: SlackAuthenticationRepository,
     private val slackService: SlackService,
     private val threadDao: ThreadDao,
     private val connectionManager: ConnectionManager
@@ -26,7 +26,7 @@ class SlackMessageDataRepository(
         if (!connectionManager.isConnected()) {
             return Resource.error(NetworkError.NOT_CONNECTED)
         }
-        val tokenResource = slackTokenRepository.getSlackToken()
+        val tokenResource = slackAuthenticationRepository.getSlackToken()
         val tokenInfo = tokenResource.data ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val authToken =
             SlackAuthToken(tokenInfo.token)

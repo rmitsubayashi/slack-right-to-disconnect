@@ -2,13 +2,11 @@ package com.github.rmitsubayashi.data.service.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ValidateTokenResponse(
+data class AccessTokenResponse(
     @SerializedName("ok")
-    val valid: Boolean,
-    @SerializedName("team")
-    val team: String,
-    @SerializedName("user")
-    val user: String,
+    val success: Boolean,
+    @SerializedName("access_token")
+    val token: String,
     @SerializedName("error")
     val error: String
 )

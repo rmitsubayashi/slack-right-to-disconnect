@@ -120,26 +120,18 @@
     <fragment
         android:id="@+id/benefitsFragment"
         android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.BenefitsFragment"
-        android:label="BenefitsFragment" >
-        <action
-            android:id="@+id/action_benefitsFragment_to_slackTokenFragment"
-            app:destination="@id/slackTokenFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/slackTokenFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackTokenFragment"
-        android:label="SlackTokenFragment" >
-        <action
-            android:id="@+id/action_slackTokenFragment_to_slackTokenSuccessFragment"
-            app:destination="@id/slackTokenSuccessFragment" />
-    </fragment>
+        android:label="BenefitsFragment" />
     <fragment
         android:id="@+id/slackTokenSuccessFragment"
-        android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackTokenSuccessFragment"
-        android:label="SlackTokenSuccessFragment" >
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackLoginResultFragment"
+        android:label="SlackTokenSuccessFragment">
         <action
             android:id="@+id/action_slackTokenSuccessFragment_to_selectPostRecipientTypeFragment"
             app:destination="@id/selectPostRecipientTypeFragment"
             app:popUpTo="@id/nav_graph" />
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="https://slack-right-to-disconnect.com/authenticate?code={code}&amp;state={state}" />
     </fragment>
 </navigation>

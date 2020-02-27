@@ -45,4 +45,11 @@ interface SlackService {
         @Body userGroupRequest: UserGroupRequest,
         @Header("Authorization") auth: SlackAuthToken
     ): UserGroupResponse
+
+    @POST("oauth.access")
+    @FormUrlEncoded
+    suspend fun generateAccessToken(
+        @Header("Authorization") clientCredentials: String,
+        @Field("code") code: String
+    ): AccessTokenResponse
 }

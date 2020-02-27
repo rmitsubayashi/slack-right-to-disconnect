@@ -2,9 +2,11 @@ package com.github.rmitsubayashi.data.repository
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.github.rmitsubayashi.data.BuildConfig
 import com.github.rmitsubayashi.data.local.sharedpreferences.SecureSharedPrefKeys
 import com.github.rmitsubayashi.data.local.sharedpreferences.SharedPrefsKeys
 import com.github.rmitsubayashi.data.service.SlackService
+import com.github.rmitsubayashi.data.service.model.request.SlackClientCredentials
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.error.DatabaseError
@@ -12,14 +14,14 @@ import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.model.SlackToken
 import com.github.rmitsubayashi.domain.model.SlackTokenInfo
-import com.github.rmitsubayashi.domain.repository.SlackTokenRepository
+import com.github.rmitsubayashi.domain.repository.SlackAuthenticationRepository
 
-class SlackTokenDataRepository(
+class SlackAuthenticationDataRepository(
     private val secureSharedPreferences: SharedPreferences,
     private val sharedPreferences: SharedPreferences,
     private val slackService: SlackService,
     private val connectionManager: ConnectionManager
-): SlackTokenRepository {
+): SlackAuthenticationRepository {
     override suspend fun getSlackToken(): Resource<SlackTokenInfo> {
         val token = secureSharedPreferences.getString(SecureSharedPrefKeys.SLACK_TOKEN, null)
             ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
@@ -53,6 +55,19 @@ class SlackTokenDataRepository(
         return if (response.valid) {
             val info = SlackTokenInfo(slackToken, user = response.user, team = response.team)
             Resource.success(info)
+        } else {
+            Resource.error(SlackError.INVALID_SLACK_TOKEN)
+        }
+    }
+
+    override suspend fun generateSlackToken(code: String): Resource<String> {
+        if (!connectionManager.isConnected()) {
+            return Resource.error(NetworkError.NOT_CONNECTED)
+        }
+        val credentials = SlackClientCredentials(BuildConfig.SLACK_CLIENT_ID, BuildConfig.SLACK_CLIENT_SECRET)
+        val response = slackService.generateAccessToken(credentials.generateEncodedString(), code)
+        return if (response.success) {
+            Resource.success(response.token)
         } else {
             Resource.error(SlackError.INVALID_SLACK_TOKEN)
         }

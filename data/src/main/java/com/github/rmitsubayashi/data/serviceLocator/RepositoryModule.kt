@@ -19,8 +19,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val repositoryModule = module {
-    single<SlackTokenRepository> {
-        SlackTokenDataRepository(
+    single<SlackAuthenticationRepository> {
+        SlackAuthenticationDataRepository(
             get(named("securePrefs")),
             get(named("normalPrefs")),
             get(),

@@ -5,8 +5,7 @@ import com.github.rmitsubayashi.presentation.post.*
 import com.github.rmitsubayashi.presentation.settings.SettingsContract
 import com.github.rmitsubayashi.presentation.settings.SettingsPresenter
 import com.github.rmitsubayashi.slackrighttodisconnect.onboarding.BenefitsFragment
-import com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackTokenFragment
-import com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackTokenSuccessFragment
+import com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackLoginResultFragment
 import com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragment
 import com.github.rmitsubayashi.slackrighttodisconnect.post.postSuccess.PostSuccessFragment
 import com.github.rmitsubayashi.slackrighttodisconnect.post.select.channel.SelectChannelFragment
@@ -46,15 +45,10 @@ val presenterModule = module {
     }
 
     factory<BenefitsContract.Presenter> {(fragment: BenefitsFragment) ->
-        BenefitsPresenter(fragment)
+        BenefitsPresenter(fragment, get())
     }
 
-    factory<SlackTokenContract.Presenter> {(fragment: SlackTokenFragment) ->
-        SlackTokenPresenter(fragment, get(), get())
-    }
-
-    factory<SlackTokenSuccessContract.Presenter> {(fragment: SlackTokenSuccessFragment) ->
-        SlackTokenSuccessPresenter(fragment)
-
+    factory<SlackLoginResultContract.Presenter> { (fragment: SlackLoginResultFragment) ->
+        SlackLoginResultPresenter(fragment, get())
     }
 }

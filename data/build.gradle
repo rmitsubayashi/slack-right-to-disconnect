@@ -22,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        all {
+            buildConfigField "String", "SLACK_CLIENT_ID", SLACK_CLIENT_ID
+            buildConfigField "String", "SLACK_CLIENT_SECRET", SLACK_CLIENT_SECRET
+        }
     }
 
 }

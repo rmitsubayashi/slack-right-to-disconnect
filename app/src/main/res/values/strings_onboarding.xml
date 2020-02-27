@@ -6,10 +6,7 @@
     <string name="label__onboarding__receive_description">Block the endless stream of messages\non your phone</string>
     <string name="label__onboarding__send_title">Send</string>
     <string name="label__onboarding__send_description">But you can still send that urgent message\nif you must</string>
-    <string name="button__onboarding__get_started">Let\'s get started</string>
-    <string name="label__onboarding__slack_token">You will need a legacy token to be able to send messages.\nFollow the guide <a href="https://slack.com/help/articles/215770388-Create-and-regenerate-API-tokens">here</a> to generate a token!</string>
-    <string name="hint__onboarding__slack_token">copy/paste your token here</string>
-    <string name="button__onboarding__slack_token">Verify</string>
-    <string name="label__onboarding__success">Great!!</string>
+    <string name="button__onboarding__get_started">Sign in to Slack</string>
+    <string name="label__onboarding__success">Successfully logged in!</string>
     <string name="button__onboarding__send_now">Send a message now</string>
 </resources>
