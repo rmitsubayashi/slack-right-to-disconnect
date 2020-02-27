@@ -6,7 +6,12 @@ data class UserGroupResponse (
     @SerializedName("ok")
     val success: Boolean,
     @SerializedName("channel")
-    val channel: UserGroupResponseChannel,
+    val channel: Channel,
     @SerializedName("error")
     val error: String
-)
+) {
+    data class Channel (
+        @SerializedName("id")
+        val id: String
+    )
+}

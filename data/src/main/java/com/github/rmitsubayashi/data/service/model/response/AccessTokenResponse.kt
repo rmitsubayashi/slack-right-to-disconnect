@@ -7,6 +7,12 @@ data class AccessTokenResponse(
     val success: Boolean,
     @SerializedName("access_token")
     val token: String,
+    @SerializedName("team_id")
+    val teamID: String,
+    @SerializedName("team_name")
+    val teamName: String,
+    @SerializedName("user_id")
+    val userID: String,
     @SerializedName("error")
     val error: String
 )

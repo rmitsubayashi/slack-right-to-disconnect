@@ -17,12 +17,6 @@ interface SlackService {
         @Header("Authorization") auth: SlackAuthToken
     ): PostResponse
 
-    @POST("auth.test")
-    @FormUrlEncoded
-    suspend fun validateToken(
-        @Field("token") token: SlackToken
-    ): ValidateTokenResponse
-
     @POST("channels.list")
     @FormUrlEncoded
     suspend fun getChannels(
@@ -52,4 +46,18 @@ interface SlackService {
         @Header("Authorization") clientCredentials: String,
         @Field("code") code: String
     ): AccessTokenResponse
+
+    @POST("users.info")
+    @FormUrlEncoded
+    suspend fun getUserInfo(
+        @Field("token") token: SlackToken,
+        @Field("user") userID: String
+    ): UserInfoResponse
+
+    @POST("team.info")
+    @FormUrlEncoded
+    suspend fun getTeamInfo(
+        @Field("token") token: SlackToken
+    ): TeamInfoResponse
+
 }

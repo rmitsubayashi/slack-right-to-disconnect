@@ -8,6 +8,7 @@ import com.github.rmitsubayashi.domain.model.RecipientType
 @Entity
 data class Bookmark (
     @PrimaryKey val slackID: String,
-    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "slack_name") val slackName: String,
+    @ColumnInfo(name = "display_name") val displayName: String,
     @ColumnInfo(name = "type") val type: RecipientType
 )

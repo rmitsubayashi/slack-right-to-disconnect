@@ -7,6 +7,5 @@ import com.github.rmitsubayashi.domain.model.SlackTokenInfo
 interface SlackAuthenticationRepository {
     suspend fun getSlackToken(): Resource<SlackTokenInfo>
     suspend fun setSlackToken(slackTokenInfo: SlackTokenInfo): Resource<Unit>
-    suspend fun validateSlackToken(slackToken: SlackToken): Resource<SlackTokenInfo>
-    suspend fun generateSlackToken(code: String): Resource<String>
+    suspend fun generateSlackToken(code: String): Resource<SlackTokenInfo>
 }

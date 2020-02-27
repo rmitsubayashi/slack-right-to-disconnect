@@ -1,7 +1,5 @@
 package com.github.rmitsubayashi.presentation.settings
 
-import com.github.rmitsubayashi.domain.error.DatabaseError
-import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.interactor.SettingsInteractor
 import com.github.rmitsubayashi.domain.model.*
 import kotlinx.coroutines.Dispatchers
@@ -34,19 +32,6 @@ class SettingsPresenter(
     }
 
     override fun saveSlackToken(slackToken: SlackToken) {
-        launch {
-            val resultResource = settingsInteractor.saveSlackToken(slackToken)
-            withContext(Dispatchers.Main) {
-                when (resultResource.error) {
-                    null -> {
-                        settingsView.updateSlackTokenSettingSummary(resultResource.data)
-                        settingsView.showSaved()
-                    }
-                    DatabaseError.ALREADY_EXISTS -> settingsView.showSaved()
-                    SlackError.INVALID_SLACK_TOKEN -> settingsView.showInvalidSlackToken()
-                    else -> settingsView.showGeneralError()
-                }
-            }
-        }
+
     }
 }

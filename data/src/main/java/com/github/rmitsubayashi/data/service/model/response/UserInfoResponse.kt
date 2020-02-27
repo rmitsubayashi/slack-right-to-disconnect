@@ -2,18 +2,18 @@ package com.github.rmitsubayashi.data.service.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ChannelResponse (
+data class UserInfoResponse (
     @SerializedName("ok")
     val success: Boolean,
-    @SerializedName("channels")
-    val channels: List<Channel>,
+    @SerializedName("user")
+    val user: User,
     @SerializedName("error")
     val error: String
 ) {
-    data class Channel (
-        @SerializedName("id")
-        val channelID: String,
+    data class User (
         @SerializedName("name")
-        val name: String
+        val slackName: String,
+        @SerializedName("real_name")
+        val displayName: String
     )
 }

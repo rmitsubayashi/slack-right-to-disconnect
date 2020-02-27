@@ -13,5 +13,6 @@ data class Thread (
     @ColumnInfo(name = "date")val date: Date,
     @PrimaryKey val threadID: String,
     @ColumnInfo(name = "type") val parentType: RecipientType,
-    @ColumnInfo(name = "parent_name") val parentName: String
+    @ColumnInfo(name = "parent_slack_name") val parentSlackName: String,
+    @ColumnInfo(name = "parent_display_name") val parentDisplayName: String
 )

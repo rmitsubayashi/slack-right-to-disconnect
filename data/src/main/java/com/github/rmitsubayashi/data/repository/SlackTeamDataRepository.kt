@@ -2,8 +2,8 @@ package com.github.rmitsubayashi.data.repository
 
 import com.github.rmitsubayashi.data.service.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.service.model.request.UserGroupRequest
-import com.github.rmitsubayashi.data.service.model.response.UsersResponseUser
 import com.github.rmitsubayashi.data.service.SlackService
+import com.github.rmitsubayashi.data.service.model.response.UsersResponse
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.error.DatabaseError
@@ -33,7 +33,7 @@ class SlackTeamDataRepository(
             return Resource.error()
         }
         return Resource.success(
-            response.channels.map { Recipient(it.channelID, it.name, RecipientType.CHANNEL) }
+            response.channels.map { Recipient(it.channelID, it.name, it.name, RecipientType.CHANNEL) }
         )
     }
 
@@ -56,12 +56,12 @@ class SlackTeamDataRepository(
         }
         val filteredUsers = removeBotsAndInactiveUsers(response.users)
         userCache = filteredUsers.map {
-            Recipient(it.userID, it.username, RecipientType.USER)
+            Recipient(it.userID, it.username, it.realName, RecipientType.USER)
         }
         return Resource.success(userCache)
     }
 
-    private fun removeBotsAndInactiveUsers(users: List<UsersResponseUser>): List<UsersResponseUser> {
+    private fun removeBotsAndInactiveUsers(users: List<UsersResponse.User>): List<UsersResponse.User> {
         return users.filter {
             !it.deleted &&
                     !it.isBot &&
@@ -85,9 +85,11 @@ class SlackTeamDataRepository(
             }
             return Resource.error()
         }
-        val userName = users.map { it.displayName }.joinToString(", ")
+        val slackUserName = users.map { it.slackName }.joinToString(", ")
+        val slackDisplayName = users.map{ it.displayName }.joinToString { ", " }
+
         return Resource.success(
-            Recipient(response.channel.id, userName, RecipientType.USER)
+            Recipient(response.channel.id, slackUserName, slackDisplayName, RecipientType.USER)
         )
     }
 }

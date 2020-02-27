@@ -10,7 +10,7 @@ class BookmarkDataRepository(private val bookmarkDao: BookmarkDao): BookmarkRepo
     override suspend fun getBookmarks(): Resource<List<Recipient>> {
         val bookmarks = bookmarkDao.getAll()
         val domainBookmarks = bookmarks.map {
-            Recipient(it.slackID, it.title, it.type)
+            Recipient(it.slackID, it.slackName, it.displayName, it.type)
         }
         return Resource.success(domainBookmarks)
     }
@@ -19,6 +19,7 @@ class BookmarkDataRepository(private val bookmarkDao: BookmarkDao): BookmarkRepo
         val dataBookmark =
             Bookmark(
                 recipient.slackID,
+                recipient.slackName,
                 recipient.displayName,
                 recipient.recipientType
             )
@@ -30,6 +31,7 @@ class BookmarkDataRepository(private val bookmarkDao: BookmarkDao): BookmarkRepo
         val dataBookmark =
             Bookmark(
                 recipient.slackID,
+                recipient.slackName,
                 recipient.displayName,
                 recipient.recipientType
             )

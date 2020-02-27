@@ -53,6 +53,7 @@ class SlackMessageDataRepository(
                 message.date,
                 it,
                 message.recipient.recipientType,
+                message.recipient.slackName,
                 message.recipient.displayName
             )
             threadDao.insert(thread)
@@ -62,7 +63,7 @@ class SlackMessageDataRepository(
     override suspend fun getRecentThreads(): Resource<List<Message>> {
         val dataThreads = threadDao.getAll()
         val domainThreads = dataThreads.map { 
-            val recipient = Recipient(it.id, it.parentName, it.parentType)
+            val recipient = Recipient(it.id, it.parentSlackName, it.parentDisplayName, it.parentType)
             Message(it.message, recipient, it.threadID, it.date) 
         }
         return Resource.success(domainThreads)
@@ -79,6 +80,7 @@ class SlackMessageDataRepository(
                     it.date,
                     threadID,
                     it.recipient.recipientType,
+                    it.recipient.slackName,
                     it.recipient.displayName
                 )
             }

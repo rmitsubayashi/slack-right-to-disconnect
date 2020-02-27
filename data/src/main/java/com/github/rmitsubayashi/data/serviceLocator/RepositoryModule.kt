@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.github.rmitsubayashi.data.BuildConfig
 import com.github.rmitsubayashi.data.local.sqlite.AppDatabase
 import com.github.rmitsubayashi.data.repository.*
 import com.github.rmitsubayashi.data.local.sharedpreferences.SecureSharedPrefKeys
@@ -11,6 +12,8 @@ import com.github.rmitsubayashi.data.local.sharedpreferences.SharedPrefsKeys
 import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.repository.*
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
@@ -50,9 +53,14 @@ val repositoryModule = module {
     }
 
     single<SlackService> {
+        val clientBuilder = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG) {
+            clientBuilder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        }
         val retrofit = Retrofit.Builder()
             .baseUrl("https://slack.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
+            .client(clientBuilder.build())
             .build()
         retrofit.create(SlackService::class.java)
     }
