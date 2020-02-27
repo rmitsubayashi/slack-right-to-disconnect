@@ -34,7 +34,10 @@ class SlackAuthenticationDataRepository(
             ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
         val teamDomain = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_TEAM_DOMAIN, null)
             ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
-        return Resource.success(SlackTokenInfo(SlackToken(token), user = user, teamDomain = teamDomain,team = team))
+        val userID = sharedPreferences.getString(SharedPrefsKeys.SLACK_TOKEN_USER_ID, null)
+            ?: return Resource.error(DatabaseError.DOES_NOT_EXIST)
+
+        return Resource.success(SlackTokenInfo(SlackToken(token), user = user, userID = userID, teamDomain = teamDomain, team = team))
     }
 
     override suspend fun setSlackToken(slackTokenInfo: SlackTokenInfo): Resource<Unit> {
@@ -46,6 +49,7 @@ class SlackAuthenticationDataRepository(
         }
         sharedPreferences.edit {
             putString(SharedPrefsKeys.SLACK_TOKEN_USER, slackTokenInfo.user)
+            putString(SharedPrefsKeys.SLACK_TOKEN_USER_ID, slackTokenInfo.userID)
             putString(SharedPrefsKeys.SLACK_TOKEN_TEAM, slackTokenInfo.team)
             putString(SharedPrefsKeys.SLACK_TOKEN_TEAM_DOMAIN, slackTokenInfo.teamDomain)
         }
@@ -81,7 +85,8 @@ class SlackAuthenticationDataRepository(
                 SlackToken(accessTokenResponse.token),
                 accessTokenResponse.teamName,
                 teamDomain,
-                displayName
+                displayName,
+                accessTokenResponse.userID
             )
         )
 

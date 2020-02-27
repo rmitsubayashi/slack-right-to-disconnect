@@ -5,5 +5,6 @@ internal object SharedPrefsKeys {
     const val SLACK_TOKEN_TEAM = "slack_token_team"
     const val SLACK_TOKEN_TEAM_DOMAIN = "slack_token_team_domain"
     const val SLACK_TOKEN_USER = "slack_token_user"
+    const val SLACK_TOKEN_USER_ID = "slack_token_user_id"
     const val ONBOARDING_FINISHED = "onboarding_finished"
 }

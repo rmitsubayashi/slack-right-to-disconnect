@@ -4,5 +4,6 @@ data class SlackTokenInfo (
     val token: SlackToken,
     val team: String,
     val teamDomain: String,
-    val user: String
+    val user: String,
+    val userID: String
 )
