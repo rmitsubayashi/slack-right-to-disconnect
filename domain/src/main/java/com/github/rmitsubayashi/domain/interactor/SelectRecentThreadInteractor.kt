@@ -5,6 +5,7 @@ import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.repository.SlackMessageRepository
 import java.util.Date
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class SelectRecentThreadInteractor(
     private val slackMessageRepository: SlackMessageRepository
@@ -24,5 +25,11 @@ class SelectRecentThreadInteractor(
             }
             return Resource.success(removeOldThreads)
         } ?: return recentThreadsResource
+    }
+
+    fun getDaysAgo(message: Message): Int {
+        val millisecondsBetw = abs(message.date.time - Date().time)
+        val diff = TimeUnit.DAYS.convert(millisecondsBetw, TimeUnit.MILLISECONDS)
+        return diff.toInt()
     }
 }

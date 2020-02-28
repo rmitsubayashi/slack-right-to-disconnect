@@ -16,7 +16,7 @@ class PostInteractor(
         val postResource = slackMessageRepository.post(Message(formattedMessage, recipient!!, threadID, Date()))
         postResource.data?.let {
             if (shouldSaveMessage()) {
-                slackMessageRepository.saveRecentThread(Message(formattedMessage, recipient!!, it, Date()))
+                slackMessageRepository.saveRecentThread(Message(messageInputInteractor.getRawInput(), recipient!!, it, Date()))
             }
         }
         return if (postResource.error != null) {

@@ -4,6 +4,7 @@ import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.error.ValidationError
 import com.github.rmitsubayashi.domain.interactor.PostInteractor
+import com.github.rmitsubayashi.domain.interactor.SelectRecentThreadInteractor
 import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.model.Recipient
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +15,8 @@ import kotlin.coroutines.CoroutineContext
 
 class PostPresenter(
     private val view: PostContract.View,
-    private val postInteractor: PostInteractor
+    private val postInteractor: PostInteractor,
+    private val selectRecentThreadInteractor: SelectRecentThreadInteractor
 ) : PostContract.Presenter {
     private val job: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -32,7 +34,8 @@ class PostPresenter(
         postInteractor.setRecipient(recipient)
         postInteractor.setThreadID(thread?.threadID)
         if (thread != null) {
-            view.showRecentThreadInfo(thread, 1)
+            val diff = selectRecentThreadInteractor.getDaysAgo(thread)
+            view.showRecentThreadInfo(thread, diff)
         } else {
             view.showRecipientInfo(recipient)
         }

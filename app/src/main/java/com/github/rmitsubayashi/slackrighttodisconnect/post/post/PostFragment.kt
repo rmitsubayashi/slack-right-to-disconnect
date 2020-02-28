@@ -136,8 +136,12 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun showRecentThreadInfo(message: Message, daysAgo: Int) {
-        val plural = resources.getQuantityString(R.plurals.label__post__recent_thread_info_days_ago, daysAgo)
-        val text = getString(R.string.label__post__recent_thread_info, message.recipient.toSlackDisplayName(), plural)
+        val daysAgoString = when (daysAgo) {
+            0 -> getString(R.string.label__post__recent_thread_info_days_ago_today)
+            1 -> getString(R.string.label__post__recent_thread_info_days_ago_yesterday)
+            else -> getString(R.string.label__post__recent_thread_info_days_ago_plural, daysAgo)
+        }
+        val text = getString(R.string.label__post__recent_thread_info, message.recipient.toSlackDisplayName(), daysAgoString)
         stub__post__info.apply {
             layoutResource = R.layout.view__post__recent_thread_info
             inflate()

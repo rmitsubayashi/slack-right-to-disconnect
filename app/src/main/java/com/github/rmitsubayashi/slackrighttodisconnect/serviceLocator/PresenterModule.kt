@@ -17,7 +17,7 @@ import org.koin.dsl.module
 
 val presenterModule = module {
     factory<PostContract.Presenter> { (fragment: PostFragment) ->
-        PostPresenter(fragment, get())
+        PostPresenter(fragment, get(), get())
     }
 
     factory<SelectTypeContract.Presenter> { (fragment: SelectTypeFragment) ->
