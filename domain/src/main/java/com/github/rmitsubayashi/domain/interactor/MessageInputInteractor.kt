@@ -45,7 +45,7 @@ class MessageInputInteractor(
     suspend fun searchMention(keyword: String): List<String> {
         val usersResource = slackTeamRepository.getUsers()
         val users = usersResource.data ?: return emptyList()
-        val userStrings = users.map { it.displayName }
-        return userStrings.filter { it.startsWith(keyword) }
+        val filteredUsers = users.filter { it.displayName.startsWith(keyword) || it.slackName.startsWith(keyword) }
+        return filteredUsers.map { it.displayName }
     }
 }

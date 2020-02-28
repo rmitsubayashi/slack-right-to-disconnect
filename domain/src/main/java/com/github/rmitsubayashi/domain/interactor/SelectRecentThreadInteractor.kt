@@ -23,7 +23,8 @@ class SelectRecentThreadInteractor(
             if (it.size > removeOldThreads.size) {
                 slackMessageRepository.updateRecentThreads(removeOldThreads)
             }
-            return Resource.success(removeOldThreads)
+            val sorted = removeOldThreads.sortedByDescending { newThreads -> newThreads.date }
+            return Resource.success(sorted)
         } ?: return recentThreadsResource
     }
 
