@@ -1,7 +1,6 @@
 package com.github.rmitsubayashi.slackrighttodisconnect
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -31,17 +30,9 @@ class MainActivity: AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         // after navigating, ↑ is overridden by the navigation controller..
         val navController = findNavController(R.id.nav_host__main)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.settingsFragment -> {toolbar__main.title = getString(R.string.label__menu__settings) }
-                else -> {toolbar__main.title = ""}
-            }
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            toolbar__main.title = ""
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu__app_bar, menu)
-        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

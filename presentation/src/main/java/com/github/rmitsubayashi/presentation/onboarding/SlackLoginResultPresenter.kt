@@ -23,6 +23,7 @@ class SlackLoginResultPresenter(
     }
 
     override fun clickFinish() {
+        view.showAppbar()
         view.navigateToSelectType()
     }
 

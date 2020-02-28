@@ -9,6 +9,7 @@ interface SlackLoginResultContract {
         fun showLoading(loading: Boolean)
         fun showSuccess()
         fun hideAppbar()
+        fun showAppbar()
     }
 
     interface Presenter: BasePresenter {

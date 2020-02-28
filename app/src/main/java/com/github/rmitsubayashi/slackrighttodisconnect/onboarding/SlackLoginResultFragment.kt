@@ -58,4 +58,8 @@ class SlackLoginResultFragment: Fragment(), SlackLoginResultContract.View {
     override fun hideAppbar() {
         (activity as AppCompatActivity).supportActionBar?.hide()
     }
+
+    override fun showAppbar() {
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
 }
