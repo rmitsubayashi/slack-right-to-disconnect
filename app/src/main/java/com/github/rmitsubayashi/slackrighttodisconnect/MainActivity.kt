@@ -1,7 +1,9 @@
 package com.github.rmitsubayashi.slackrighttodisconnect
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,6 +25,7 @@ class MainActivity: AppCompatActivity() {
         val appBarConfig = AppBarConfiguration(navController.graph)
         toolbar__main.setupWithNavController(navController, appBarConfig)
         hideAppBarTitle()
+        hideKeyboardOnNavigation()
     }
 
     private fun hideAppBarTitle() {
@@ -32,6 +35,16 @@ class MainActivity: AppCompatActivity() {
         val navController = findNavController(R.id.nav_host__main)
         navController.addOnDestinationChangedListener { _, _, _ ->
             toolbar__main.title = ""
+        }
+    }
+
+    private fun hideKeyboardOnNavigation() {
+        val navController = findNavController(R.id.nav_host__main)
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            val inputMethodManger = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (inputMethodManger.isActive) {
+                inputMethodManger.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            }
         }
     }
 
