@@ -44,7 +44,7 @@ val presenterModule = module {
         PostSuccessPresenter(fragment, get())
     }
 
-    factory<BenefitsContract.Presenter> {(fragment: BenefitsFragment) ->
+    factory<BenefitsContract.Presenter> { (fragment: BenefitsFragment) ->
         BenefitsPresenter(fragment, get())
     }
 

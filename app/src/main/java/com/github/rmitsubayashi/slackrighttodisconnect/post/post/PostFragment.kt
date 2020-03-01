@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.model.Recipient
-import com.github.rmitsubayashi.domain.model.RecipientType
 import com.github.rmitsubayashi.presentation.post.PostContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
@@ -30,7 +29,7 @@ import org.koin.core.parameter.parametersOf
 class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
     private val postPresenter: PostContract.Presenter by inject { parametersOf(this@PostFragment) }
     private val args: PostFragmentArgs by navArgs()
-    private val bucket = "slack-people"
+    private val suggestionBucketID = "slack-users"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,8 +37,8 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment__post, container, false)
-        view.post_send_button.setOnClickListener { postPresenter.postToSlack() }
-        view.post_message_edittext.addMentionWatcher(
+        view.button__post__send.setOnClickListener { postPresenter.postToSlack() }
+        view.edittext__post.addMentionWatcher(
             object : MentionsEditText.MentionWatcher {
                 override fun onMentionAdded(
                     mention: Mentionable,
@@ -78,7 +77,7 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
                 }
             }
         )
-        view.post_message_edittext.addTextChangedListener(
+        view.edittext__post.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable) {
                     postPresenter.updateMessage(s.toString())
@@ -96,15 +95,16 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
                 }
             }
         )
+        //can't organize this into an apply {} because of a weird infinite loop bug..
+        view.edittext__post.setQueryTokenReceiver(this)
+        view.edittext__post.displayTextCounter(false)
+        view.edittext__post.setEditTextShouldWrapContent(true)
+        view.edittext__post.setHint(getString(R.string.hint__post__message))
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postPresenter.setRecipient(args.recipient, args.message)
-        post_message_edittext.setQueryTokenReceiver(this)
-        post_message_edittext.displayTextCounter(false)
-        post_message_edittext.setEditTextShouldWrapContent(true)
-        post_message_edittext.setHint(getString(R.string.hint__post__message))
     }
 
     override fun navigateToPostSuccess() {
@@ -115,12 +115,12 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
         findNavController().navigate(action)
     }
 
-    override fun showPostSending() {
-
+    override fun showPostSending(sending: Boolean) {
+        progressbar__post.visibility = if (sending) { View.VISIBLE } else { View.GONE }
     }
 
     override fun onQueryReceived(queryToken: QueryToken): MutableList<String> {
-        val mutableList = mutableListOf(bucket)
+        val mutableList = mutableListOf(suggestionBucketID)
         postPresenter.searchMentions(queryToken.tokenString, queryToken.keywords)
         return mutableList
     }
@@ -132,7 +132,7 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
             )
         }
         val suggestionResult = SuggestionsResult(QueryToken(token), suggestibles)
-        post_message_edittext.onReceiveSuggestionsResult(suggestionResult, bucket)
+        edittext__post.onReceiveSuggestionsResult(suggestionResult, suggestionBucketID)
     }
 
     override fun showRecentThreadInfo(message: Message, daysAgo: Int) {

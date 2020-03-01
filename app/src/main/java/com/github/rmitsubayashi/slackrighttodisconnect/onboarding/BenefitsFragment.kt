@@ -30,30 +30,18 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment__benefits, container, false)
-        pagerAdapter = BenefitsAdapter(getPagerItems())
-        view.pager__benefits.adapter = pagerAdapter
-        addDots(view)
-        view.pager__benefits.currentItem = 0
-        dots[0].setImageDrawable(context?.getDrawable(R.drawable.dot_active))
-        view.pager__benefits.registerOnPageChangeCallback(
-            object: ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    for (i in dots) {
-                        i.setImageDrawable(context?.getDrawable(R.drawable.dot_inactive))
-                    }
-                    dots[position].setImageDrawable(context?.getDrawable(R.drawable.dot_active))
-                    button__benefits__get_started.visibility = if (position == pagerAdapter.itemCount - 1) {
-                        View.VISIBLE
-                    } else {
-                        View.INVISIBLE
-                    }
-                }
-            }
-        )
+        setPagerAdapter(view)
+        initDots(view)
         view.button__benefits__get_started.setOnClickListener {
             benefitsPresenter.clickNext()
         }
         return view
+    }
+
+    private fun setPagerAdapter(view: View) {
+        pagerAdapter = BenefitsAdapter(getPagerItems())
+        view.pager__benefits.adapter = pagerAdapter
+        view.pager__benefits.currentItem = 0
     }
 
     private fun getPagerItems(): List<BenefitItem> =
@@ -75,6 +63,27 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
             )
         )
 
+    private fun initDots(view: View) {
+        addDots(view)
+        setInitialActiveDot()
+        view.pager__benefits.registerOnPageChangeCallback(
+            object: ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(selectedPosition: Int) {
+                    for (dot in dots) {
+                        dot.setImageDrawable(context?.getDrawable(R.drawable.dot_inactive))
+                    }
+                    dots[selectedPosition].setImageDrawable(context?.getDrawable(R.drawable.dot_active))
+                    val canContinueOnboarding = selectedPosition == pagerAdapter.itemCount - 1
+                    button__benefits__get_started.visibility = if (canContinueOnboarding) {
+                        View.VISIBLE
+                    } else {
+                        View.INVISIBLE
+                    }
+                }
+            }
+        )
+    }
+
     private fun addDots(parent: View) {
         val tempDots = mutableListOf<ImageView>()
         for (i in 0 until pagerAdapter.itemCount) {
@@ -89,6 +98,10 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
             parent.dots__benefits.addView(imageView, params)
         }
         dots = tempDots
+    }
+
+    private fun setInitialActiveDot() {
+        dots[0].setImageDrawable(context?.getDrawable(R.drawable.dot_active))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

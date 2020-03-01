@@ -33,6 +33,7 @@ class SlackLoginResultFragment: Fragment(), SlackLoginResultContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         slackLoginResultPresenter.start()
         val uri = activity?.intent?.data
+        // slack api response
         val code = uri?.getQueryParameter("code")
         val state = uri?.getQueryParameter("state")
         slackLoginResultPresenter.receiveLoginResult(code, state)

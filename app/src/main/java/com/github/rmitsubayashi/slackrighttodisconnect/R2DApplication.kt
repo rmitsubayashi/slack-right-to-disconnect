@@ -7,9 +7,14 @@ import com.github.rmitsubayashi.slackrighttodisconnect.serviceLocator.presenterM
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
+@Suppress("unused")
 class R2DApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+        initServiceLocator()
+    }
+
+    private fun initServiceLocator() {
         startKoin {
             androidContext(this@R2DApplication)
             modules(listOf(repositoryModule, presenterModule, interactorModule))

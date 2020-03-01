@@ -63,10 +63,11 @@ class PostPresenter(
     }
 
     override fun postToSlack() {
-        view.showPostSending()
+        view.showPostSending(true)
         launch {
             val postResource = postInteractor.post()
             withContext(Dispatchers.Main) {
+                view.showPostSending(false)
                 when (postResource.error) {
                     null -> view.navigateToPostSuccess()
                     SlackError.RESTRICTED_CHANNEL -> view.showRestrictedChannel()

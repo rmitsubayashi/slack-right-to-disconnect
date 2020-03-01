@@ -8,7 +8,7 @@ import com.github.rmitsubayashi.presentation.BaseView
 
 interface PostContract {
     interface View: BaseView {
-        fun showPostSending()
+        fun showPostSending(sending: Boolean)
         fun showNoNetwork()
         fun showRestrictedChannel()
         fun showInvalidContent()
