@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button__post_success__bookmark">ブックマークする</string>
+    <string name="button__post_success__bookmarked">ブックマーク済</string>
+    <string name="button__post_success__go_back">戻る</string>
+    <!--Slackにポストできた時に出てくるメッセージ-->
+    <string name="label__post_success__posted">送信しました!</string>
+</resources>

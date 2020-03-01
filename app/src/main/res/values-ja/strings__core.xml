@@ -1,0 +1,7 @@
+<resources>
+    <string name="label__app__name">R2DC</string>
+    <string name="error__core__general">エラーが起こりました</string>
+    <string name="error__core__no_network">ネットに接続してください</string>
+    <!--設定ボタンの隠れた文言-->
+    <string name="label__menu__settings">設定</string>
+</resources>

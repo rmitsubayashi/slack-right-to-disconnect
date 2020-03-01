@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label__select_type__title">誰に送りますか?</string>
+    <string name="button__select_type__user">ユーザー</string>
+    <string name="button__select_type__channel">チャンネル</string>
+    <string name="button__select_type__recent_thread">自分のスレッド</string>
+    <string name="label__select_type__bookmarks">ブックマーク</string>
+    <string name="label__select_type__no_bookmarks">空です..\nブックマークを追加すると投稿が楽になりますよ！</string>
+    <string name="label__select_type__remove_bookmark">削除</string>
+</resources>

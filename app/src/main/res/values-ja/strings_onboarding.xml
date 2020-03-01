@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label__onboarding__unplug_title">Unplug</string>
+    <string name="label__onboarding__unplug_description">プライベートではSlackをOFFにしましょう</string>
+    <string name="label__onboarding__receive_title">Block</string>
+    <string name="label__onboarding__receive_description">メッセージは流れてきませんが</string>
+    <string name="label__onboarding__send_title">Send</string>
+    <string name="label__onboarding__send_description">自分からは送れます</string>
+    <string name="button__onboarding__get_started">Slackにサインインする</string>
+    <string name="label__onboarding__success">ログインしました!</string>
+    <string name="button__onboarding__send_now">早速メッセージを送る</string>
+</resources>

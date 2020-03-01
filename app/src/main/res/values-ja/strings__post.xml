@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Slackにポストしようとして、インプットに不備があった時に出てくるメッセージ-->
+    <string name="error__post__invalid_input">投稿内容に不備がありました</string>
+    <!--Slackにポストする用のボタンの文言-->
+    <string name="button__post__post">送信</string>
+    <string name="error__post__slack_restricted_channel">チャンネルに投稿する権限がありません</string>
+    <string name="label__post__title">何を投稿しますか?</string>
+    <string name="hint__post__message">ここに入力してください</string>
+    <string name="label__post__recipient_info">%sに送信します</string>
+    <string name="label__post__recent_thread_info_days_ago_plural">%d日前</string>
+    <string name="label__post__recent_thread_info_days_ago_today">今日</string>
+    <string name="label__post__recent_thread_info_days_ago_yesterday">機能</string>
+    <string name="label__post__recent_thread_info">%sに送信した%sのスレッドに返信します</string>
+</resources>

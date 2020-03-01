@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label__select_channel__title">どのチャンネルに投稿しますか?</string>
+    <string name="label__select_user__title">どのユーザーに送りますか?（複数可）</string>
+    <string name="label__select_thread__title">どのスレッドに返信しますか?</string>
+    <string name="button__select__select">選択する</string>
+    <string name="error__select_user__slack_too_many_users">Slackワークスペースにユーザーが多すぎます</string>
+    <string name="error__select_channel__slack_too_many_channels">Slackワークスペースにチャンネルが多すぎます</string>
+    <string name="error__select_user__slack_too_many_selected_users">選択可能なユーザー数の上限を達しました</string>
+    <string name="label__select_thread__date_format">M月d日 H:mm</string>
+    <string name="label__select_thread__no_thread">スレッドがありません\n(1週間以上前のスレッドは表示されません)</string>
+</resources>
