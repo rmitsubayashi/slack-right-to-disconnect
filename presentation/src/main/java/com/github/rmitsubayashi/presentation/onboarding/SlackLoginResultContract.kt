@@ -10,10 +10,11 @@ interface SlackLoginResultContract {
         fun showSuccess()
         fun hideAppbar()
         fun showAppbar()
+        fun navigateToRetry()
     }
 
     interface Presenter: BasePresenter {
         fun clickFinish()
-        fun receiveLoginResult(code: String?, state: String?)
+        fun receiveLoginResult(code: String?, state: String?, error: String?)
     }
 }

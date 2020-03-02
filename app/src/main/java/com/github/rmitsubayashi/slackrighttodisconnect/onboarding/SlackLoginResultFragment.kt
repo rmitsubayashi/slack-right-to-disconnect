@@ -36,11 +36,16 @@ class SlackLoginResultFragment: Fragment(), SlackLoginResultContract.View {
         // slack api response
         val code = uri?.getQueryParameter("code")
         val state = uri?.getQueryParameter("state")
-        slackLoginResultPresenter.receiveLoginResult(code, state)
+        val error = uri?.getQueryParameter("error")
+        slackLoginResultPresenter.receiveLoginResult(code, state, error)
     }
 
     override fun navigateToSelectType() {
         findNavController().navigate(R.id.action_slackTokenSuccessFragment_to_selectPostRecipientTypeFragment)
+    }
+
+    override fun navigateToRetry() {
+        findNavController().navigate(R.id.action_slackTokenSuccessFragment_to_loginRetryFragment)
     }
 
     override fun showGeneralError() {

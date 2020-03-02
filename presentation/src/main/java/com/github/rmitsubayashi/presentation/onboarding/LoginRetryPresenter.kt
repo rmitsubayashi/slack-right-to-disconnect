@@ -5,10 +5,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
-class BenefitsPresenter(
-    private val view: BenefitsContract.View,
-    private val authenticationInteractor: AuthenticationInteractor
-): BenefitsContract.Presenter {
+class LoginRetryPresenter(
+    val view: LoginRetryContract.View,
+    val authenticationInteractor: AuthenticationInteractor
+): LoginRetryContract.Presenter {
     private val job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
@@ -21,7 +21,7 @@ class BenefitsPresenter(
 
     }
 
-    override fun clickNext() {
+    override fun clickRetry() {
         val clientID = view.getSlackClientID()
         val url = authenticationInteractor.getSlackLoginURL(clientID)
         view.openURL(url)

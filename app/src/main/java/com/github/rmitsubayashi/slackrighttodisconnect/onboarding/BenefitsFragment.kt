@@ -122,6 +122,8 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
         }
     }
 
+    override fun getSlackClientID(): String = com.github.rmitsubayashi.data.BuildConfig.SLACK_CLIENT_ID
+
     override fun showGeneralError() {
         context?.showToast(R.string.error__core__general)
     }

@@ -27,7 +27,12 @@ class SlackLoginResultPresenter(
         view.navigateToSelectType()
     }
 
-    override fun receiveLoginResult(code: String?, state: String?) {
+    override fun receiveLoginResult(code: String?, state: String?, error: String?) {
+        if (error == "invalid_scope_requested") {
+            view.navigateToRetry()
+            return
+        }
+
         if (code == null || state == null) {
             view.showGeneralError()
             return

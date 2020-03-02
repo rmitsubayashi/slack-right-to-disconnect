@@ -5,6 +5,7 @@ import com.github.rmitsubayashi.presentation.post.*
 import com.github.rmitsubayashi.presentation.settings.SettingsContract
 import com.github.rmitsubayashi.presentation.settings.SettingsPresenter
 import com.github.rmitsubayashi.slackrighttodisconnect.onboarding.BenefitsFragment
+import com.github.rmitsubayashi.slackrighttodisconnect.onboarding.LoginRetryFragment
 import com.github.rmitsubayashi.slackrighttodisconnect.onboarding.SlackLoginResultFragment
 import com.github.rmitsubayashi.slackrighttodisconnect.post.post.PostFragment
 import com.github.rmitsubayashi.slackrighttodisconnect.post.postSuccess.PostSuccessFragment
@@ -50,5 +51,9 @@ val presenterModule = module {
 
     factory<SlackLoginResultContract.Presenter> { (fragment: SlackLoginResultFragment) ->
         SlackLoginResultPresenter(fragment, get())
+    }
+
+    factory<LoginRetryContract.Presenter> { (fragment: LoginRetryFragment) ->
+        LoginRetryPresenter(fragment, get())
     }
 }

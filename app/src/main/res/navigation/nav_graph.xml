@@ -133,5 +133,12 @@
             android:id="@+id/deepLink"
             android:autoVerify="true"
             app:uri="https://slack-right-to-disconnect.com/authenticate?code={code}&amp;state={state}" />
+        <action
+            android:id="@+id/action_slackTokenSuccessFragment_to_loginRetryFragment"
+            app:destination="@id/loginRetryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/loginRetryFragment"
+        android:name="com.github.rmitsubayashi.slackrighttodisconnect.onboarding.LoginRetryFragment"
+        android:label="LoginRetryFragment" />
 </navigation>

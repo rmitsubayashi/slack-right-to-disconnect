@@ -9,4 +9,6 @@
     <string name="button__onboarding__get_started">Slackにサインインする</string>
     <string name="label__onboarding__success">ログインしました!</string>
     <string name="button__onboarding__send_now">早速メッセージを送る</string>
+    <string name="label__login_retry">申し訳ございません、もう一度試してください。\n二回目は成功するはずです！</string>
+    <string name="button__login_retry">リトライ</string>
 </resources>
