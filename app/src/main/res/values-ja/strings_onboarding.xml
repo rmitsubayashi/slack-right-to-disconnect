@@ -7,6 +7,9 @@
     <string name="label__onboarding__send_title">Send</string>
     <string name="label__onboarding__send_description">自分からは送れます</string>
     <string name="button__onboarding__get_started">Slackにサインインする</string>
+    <string name="label__onboarding__fail_authentication_title">重要です!</string>
+    <string name="label__onboarding__fail_authentication_warning">初めてログインすると失敗することがあります。\n2回目は成功するはずなので、お手数ですがもう一度ログインお願いします！</string>
+    <string name="button__onboarding__fail_authentication_confirm">ログインする</string>
     <string name="label__onboarding__success">ログインしました!</string>
     <string name="button__onboarding__send_now">早速メッセージを送る</string>
     <string name="label__login_retry">申し訳ございません、もう一度試してください。\n二回目は成功するはずです！</string>
