@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.github.rmitsubayashi.domain.logging.OnboardingLogs
 import com.github.rmitsubayashi.presentation.onboarding.BenefitsContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
@@ -24,6 +25,12 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
     private lateinit var pagerAdapter: BenefitsAdapter
     private lateinit var dots: List<ImageView>
     private val benefitsPresenter: BenefitsContract.Presenter by inject{ parametersOf(this@BenefitsFragment) }
+    private val onboardingLogs: OnboardingLogs by inject()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        onboardingLogs.openApp()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +45,9 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
                 .setTitle(R.string.label__onboarding__fail_authentication_title)
                 .setMessage(R.string.label__onboarding__fail_authentication_warning)
                 .setPositiveButton(R.string.button__onboarding__fail_authentication_confirm) {
-                    _,_ -> benefitsPresenter.clickNext()
+                    _,_ ->
+                    onboardingLogs.startSignIn()
+                    benefitsPresenter.clickNext()
                 }
                 .show()
         }

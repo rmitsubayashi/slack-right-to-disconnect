@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.github.rmitsubayashi.domain.logging.PostLogs
 import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.presentation.post.PostContract
@@ -30,6 +31,7 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
     private val postPresenter: PostContract.Presenter by inject { parametersOf(this@PostFragment) }
     private val args: PostFragmentArgs by navArgs()
     private val suggestionBucketID = "slack-users"
+    private val postLogs: PostLogs by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -108,6 +110,7 @@ class PostFragment : Fragment(), PostContract.View, QueryTokenReceiver {
     }
 
     override fun navigateToPostSuccess() {
+        postLogs.postMessage()
         val action =
             PostFragmentDirections.actionPostFragmentToPostSuccessFragment(
                 args.recipient, args.message?.threadID

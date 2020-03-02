@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.github.rmitsubayashi.domain.logging.OnboardingLogs
 import com.github.rmitsubayashi.presentation.onboarding.SlackLoginResultContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
@@ -17,6 +18,7 @@ import org.koin.core.parameter.parametersOf
 
 class SlackLoginResultFragment: Fragment(), SlackLoginResultContract.View {
     private val slackLoginResultPresenter: SlackLoginResultContract.Presenter by inject{ parametersOf(this@SlackLoginResultFragment) }
+    private val onboardingLogs: OnboardingLogs by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +59,7 @@ class SlackLoginResultFragment: Fragment(), SlackLoginResultContract.View {
     }
 
     override fun showSuccess() {
+        onboardingLogs.completeSignIn()
         button__slack_login_success.visibility = View.VISIBLE
         label__slack_login_success.visibility = View.VISIBLE
     }
