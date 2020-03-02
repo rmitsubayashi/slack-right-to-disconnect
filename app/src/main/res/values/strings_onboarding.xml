@@ -7,6 +7,9 @@
     <string name="label__onboarding__send_title">Send</string>
     <string name="label__onboarding__send_description">But you can still send that urgent message\nif you must</string>
     <string name="button__onboarding__get_started">Sign in to Slack</string>
+    <string name="label__onboarding__fail_authentication_title">Please read!</string>
+    <string name="label__onboarding__fail_authentication_warning">The first attempt at sign in will most likely fail.\nPlease try a second time. It should work then!!</string>
+    <string name="button__onboarding__fail_authentication_confirm">Got it!</string>
     <string name="label__onboarding__success">Successfully logged in!</string>
     <string name="button__onboarding__send_now">Send a message now</string>
     <string name="label__login_retry">Please try again!\nIt should work the second attempt ;)</string>

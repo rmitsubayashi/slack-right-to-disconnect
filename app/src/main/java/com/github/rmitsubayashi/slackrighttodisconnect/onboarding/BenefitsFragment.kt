@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -33,7 +34,13 @@ class BenefitsFragment : Fragment(), BenefitsContract.View {
         setPagerAdapter(view)
         initDots(view)
         view.button__benefits__get_started.setOnClickListener {
-            benefitsPresenter.clickNext()
+            AlertDialog.Builder(it.context)
+                .setTitle(R.string.label__onboarding__fail_authentication_title)
+                .setMessage(R.string.label__onboarding__fail_authentication_warning)
+                .setPositiveButton(R.string.button__onboarding__fail_authentication_confirm) {
+                    _,_ -> benefitsPresenter.clickNext()
+                }
+                .show()
         }
         return view
     }
