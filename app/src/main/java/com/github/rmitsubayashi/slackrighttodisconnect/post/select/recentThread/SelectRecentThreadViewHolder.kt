@@ -3,8 +3,6 @@ package com.github.rmitsubayashi.slackrighttodisconnect.post.select.recentThread
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.github.rmitsubayashi.domain.model.Message
-import com.github.rmitsubayashi.domain.model.Recipient
-import com.github.rmitsubayashi.domain.model.RecipientType
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import kotlinx.android.synthetic.main.row__select__thread.view.*
 import java.text.SimpleDateFormat

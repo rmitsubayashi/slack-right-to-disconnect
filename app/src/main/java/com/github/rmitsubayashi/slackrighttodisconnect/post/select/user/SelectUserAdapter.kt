@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.slackrighttodisconnect.R
-import com.github.rmitsubayashi.slackrighttodisconnect.post.select.*
+import com.github.rmitsubayashi.slackrighttodisconnect.post.select.HeaderViewHolder
 
 class SelectUserAdapter (private val listener: SelectUserRowClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

@@ -2,8 +2,6 @@ package com.github.rmitsubayashi.slackrighttodisconnect.post.select
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.github.rmitsubayashi.domain.model.RecipientType
-import com.github.rmitsubayashi.slackrighttodisconnect.R
 import kotlinx.android.synthetic.main.row__select__header.view.*
 
 class HeaderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

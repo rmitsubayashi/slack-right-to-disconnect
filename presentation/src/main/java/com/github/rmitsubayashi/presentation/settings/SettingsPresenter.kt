@@ -1,7 +1,7 @@
 package com.github.rmitsubayashi.presentation.settings
 
 import com.github.rmitsubayashi.domain.interactor.SettingsInteractor
-import com.github.rmitsubayashi.domain.model.*
+import com.github.rmitsubayashi.domain.model.SlackToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

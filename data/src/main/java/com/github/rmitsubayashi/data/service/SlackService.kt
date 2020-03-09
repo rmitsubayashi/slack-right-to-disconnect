@@ -1,7 +1,7 @@
 package com.github.rmitsubayashi.data.service
 
-import com.github.rmitsubayashi.data.service.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.service.model.request.PostRequest
+import com.github.rmitsubayashi.data.service.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.service.model.request.UserGroupRequest
 import com.github.rmitsubayashi.data.service.model.response.*
 import com.github.rmitsubayashi.domain.model.SlackToken

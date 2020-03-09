@@ -1,8 +1,8 @@
 package com.github.rmitsubayashi.data.repository
 
+import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.service.model.request.SlackAuthToken
 import com.github.rmitsubayashi.data.service.model.request.UserGroupRequest
-import com.github.rmitsubayashi.data.service.SlackService
 import com.github.rmitsubayashi.data.service.model.response.UsersResponse
 import com.github.rmitsubayashi.data.util.ConnectionManager
 import com.github.rmitsubayashi.domain.Resource
@@ -11,8 +11,8 @@ import com.github.rmitsubayashi.domain.error.NetworkError
 import com.github.rmitsubayashi.domain.error.SlackError
 import com.github.rmitsubayashi.domain.model.Recipient
 import com.github.rmitsubayashi.domain.model.RecipientType
-import com.github.rmitsubayashi.domain.repository.SlackTeamRepository
 import com.github.rmitsubayashi.domain.repository.SlackAuthenticationRepository
+import com.github.rmitsubayashi.domain.repository.SlackTeamRepository
 
 class SlackTeamDataRepository(
     private val slackService: SlackService,

@@ -2,7 +2,6 @@ package com.github.rmitsubayashi.presentation.post
 
 import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.model.Recipient
-import com.github.rmitsubayashi.domain.model.RecipientType
 import com.github.rmitsubayashi.presentation.BasePresenter
 import com.github.rmitsubayashi.presentation.BaseView
 

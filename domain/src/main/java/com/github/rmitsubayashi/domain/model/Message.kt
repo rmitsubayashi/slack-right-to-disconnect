@@ -1,7 +1,7 @@
 package com.github.rmitsubayashi.domain.model
 
 import java.io.Serializable
-import java.util.Date
+import java.util.*
 
 data class Message (
     val message: String,

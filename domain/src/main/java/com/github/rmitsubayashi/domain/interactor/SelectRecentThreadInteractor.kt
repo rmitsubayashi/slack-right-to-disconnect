@@ -3,7 +3,7 @@ package com.github.rmitsubayashi.domain.interactor
 import com.github.rmitsubayashi.domain.Resource
 import com.github.rmitsubayashi.domain.model.Message
 import com.github.rmitsubayashi.domain.repository.SlackMessageRepository
-import java.util.Date
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 

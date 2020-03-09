@@ -17,7 +17,6 @@ import com.github.rmitsubayashi.domain.model.RecipientType
 import com.github.rmitsubayashi.domain.model.SlackToken
 import com.github.rmitsubayashi.domain.model.SlackTokenInfo
 import com.github.rmitsubayashi.domain.repository.SlackAuthenticationRepository
-import com.github.rmitsubayashi.domain.repository.SlackTeamRepository
 
 class SlackAuthenticationDataRepository(
     private val secureSharedPreferences: SharedPreferences,

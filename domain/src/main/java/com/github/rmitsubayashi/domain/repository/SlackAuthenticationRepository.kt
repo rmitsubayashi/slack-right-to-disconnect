@@ -1,7 +1,6 @@
 package com.github.rmitsubayashi.domain.repository
 
 import com.github.rmitsubayashi.domain.Resource
-import com.github.rmitsubayashi.domain.model.SlackToken
 import com.github.rmitsubayashi.domain.model.SlackTokenInfo
 
 interface SlackAuthenticationRepository {
