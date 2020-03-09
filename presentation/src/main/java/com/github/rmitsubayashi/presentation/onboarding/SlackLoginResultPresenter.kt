@@ -33,6 +33,8 @@ class SlackLoginResultPresenter(
             return
         }
 
+        error?.let { view.logSlackRequestError(it) }
+
         if (code == null || state == null) {
             view.showGeneralError()
             return

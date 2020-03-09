@@ -11,6 +11,7 @@ import com.github.rmitsubayashi.domain.logging.OnboardingLogs
 import com.github.rmitsubayashi.presentation.onboarding.SlackLoginResultContract
 import com.github.rmitsubayashi.slackrighttodisconnect.R
 import com.github.rmitsubayashi.slackrighttodisconnect.util.showToast
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment__slack_login_result.*
 import kotlinx.android.synthetic.main.fragment__slack_login_result.view.*
 import org.koin.android.ext.android.inject
@@ -70,5 +71,9 @@ class SlackLoginResultFragment: Fragment(), SlackLoginResultContract.View {
 
     override fun showAppbar() {
         (activity as AppCompatActivity).supportActionBar?.show()
+    }
+
+    override fun logSlackRequestError(error: String) {
+        FirebaseCrashlytics.getInstance().log("Slack login error: $error")
     }
 }

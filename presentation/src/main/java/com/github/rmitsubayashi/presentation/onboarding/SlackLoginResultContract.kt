@@ -11,6 +11,7 @@ interface SlackLoginResultContract {
         fun hideAppbar()
         fun showAppbar()
         fun navigateToRetry()
+        fun logSlackRequestError(error: String)
     }
 
     interface Presenter: BasePresenter {
